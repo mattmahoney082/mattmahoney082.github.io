@@ -1,7 +1,7 @@
 // Keeps Horarium's own page and code so it opens without the internet.
 // Only this site's files are cached; Google sign-in and Drive always go to
 // the network, and the rooms keep their records in IndexedDB themselves.
-const CACHE = 'horarium-v1';
+const CACHE = 'horarium-v2';
 self.addEventListener('install', () => self.skipWaiting());
 self.addEventListener('activate', (e) => e.waitUntil(self.clients.claim()));
 self.addEventListener('fetch', (e) => {
