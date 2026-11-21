@@ -1,0 +1,1 @@
+import{j as t}from"./client-DdRh5PVO.js";import r from"./index-C32YsQBi.js";import"./brain-trail-tbeq1SFR.js";import"./preload-helper-C1FmrZbK.js";import"./class-pass-DqZ2Tgnp.js";/* empty css              */function a(o){return t.jsx(r,{...o,mode:"lab"})}export{a as default};
