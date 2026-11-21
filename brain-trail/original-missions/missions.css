@@ -1,0 +1,42 @@
+/* Extend the original classroom palette; keep teacher controls outside the word-free mathematical scene. */
+.math-viewport{width:100%;max-width:1060px;overflow-x:auto;overscroll-behavior-x:contain;padding:.3rem;scrollbar-color:var(--purple) var(--soft)}
+.math-diagram{display:block;width:100%;height:auto;max-height:500px;overflow:visible}
+.symbolic .visual{min-height:300px;width:100%;padding:0;overflow:visible}
+.symbolic .prompt-card{grid-template-columns:1fr auto;padding:.15rem .75rem;min-height:65px;background:#FFF9EF}
+.symbolic .prompt-card>.number{display:none}
+.symbolic .prompt{font-size:2.6rem;color:var(--navy);min-height:50px;line-height:1.2}
+.symbolic .answer{min-height:70px;font-size:2.5rem}
+.symbolic .answer:not(.masked){padding-right:.5rem}
+.symbolic .answer-cover{font-size:2rem;line-height:1}
+.symbolic .answer-cover:before{display:none}
+.symbolic .board-mascot,.symbolic .confetti{display:none}
+.pour-button{position:absolute;left:calc(50% - 34px);bottom:8px;width:68px;height:62px;border:3px solid var(--navy);border-radius:16px;background:var(--yellow);font-size:2.5rem;box-shadow:0 5px 0 #BFAA66}
+.count-in{animation:count-reveal .25s ease-out both}
+@keyframes count-reveal{from{opacity:.12}to{opacity:1}}
+.build-in{animation:build-reveal .65s ease-out both;transform-box:fill-box;transform-origin:bottom}
+@keyframes build-reveal{from{opacity:.2;transform:scaleY(.1)}to{opacity:1;transform:scaleY(1)}}
+.lift-away{animation:remove-top .8s ease-out both}
+@keyframes remove-top{from{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-45px)}}
+.shape-return{animation:return-shape .8s ease-in-out both;transform-origin:0 0}
+@keyframes return-shape{from{transform:rotate(var(--turn))}to{transform:rotate(0deg)}}
+.solid-lift{animation:solid-rise .7s ease-out both}
+@keyframes solid-rise{from{transform:translateY(0)}to{transform:translateY(-16px)}}
+.slide-part{animation:slide-missing .7s ease-out both}
+@keyframes slide-missing{from{opacity:.3;transform:translateX(var(--shift))}to{opacity:1;transform:translateX(0)}}
+.align-in{animation:align-reveal .65s ease-out both}
+@keyframes align-reveal{from{opacity:.35}to{opacity:1}}
+.balance-tip{animation:tip-beam .9s ease-in-out both;transform-origin:0 0}
+@keyframes tip-beam{from{transform:rotate(0deg)}to{transform:rotate(var(--tip))}}
+.weigh-level{animation:level-beam 2s ease-out both;transform-origin:450px 310px}
+@keyframes level-beam{from{transform:rotate(-12deg)}to{transform:rotate(0deg)}}
+.pour-cube{animation:pour-stream .55s ease-in both}
+@keyframes pour-stream{0%{opacity:1;transform:translate(var(--sx),var(--sy))}90%{opacity:1;transform:translate(0,0)}100%{opacity:0;transform:translate(0,0)}}
+@media(max-width:1000px){.game-actions{flex-wrap:wrap}.compact-range{display:flex}}
+@media(max-width:720px){.game-toolbar{grid-template-columns:auto minmax(0,1fr)}.game-actions{gap:.5rem}.symbolic .math-viewport.dense .math-diagram{min-width:640px;max-height:none}.symbolic .visual{min-height:230px}.symbolic .prompt-card{grid-template-columns:1fr}.symbolic .prompt-badge{display:none}.symbolic .answer{font-size:2rem}.math-diagram{min-height:220px}.game-heading strong{white-space:normal;overflow:visible}.game-actions .guide-button{min-height:46px}.symbolic .controls{gap:.6rem}}
+@media(prefers-reduced-motion:reduce){.math-diagram *{animation:none!important;transition:none!important}.lift-away,.pour-cube{display:none!important}.solid-lift{transform:translateY(-16px)}.shape-return{transform:rotate(0deg)}}
+.slide-to-edge{animation:slide-to-edge .65s ease-in-out both}
+@keyframes slide-to-edge{from{transform:translateX(var(--shift))}to{transform:translateX(0)}}
+/* Keep the full teacher-operated board in view on classroom laptops and projectors. */
+@media(min-width:721px){.play-board.symbolic{min-height:0;grid-template-rows:auto auto minmax(160px,1fr) auto auto;gap:.35rem;padding:.6rem}.symbolic .visual{min-height:160px}.symbolic .math-diagram{max-height:min(40vh,370px)}.symbolic .prompt-card{min-height:50px}.symbolic .prompt{min-height:40px;font-size:2rem}.symbolic .answer{min-height:56px;font-size:2rem}.symbolic .control{min-height:48px}}
+
+.tap-dot{opacity:0;animation:tap-appear .01s forwards;animation-delay:var(--tap-delay)}@keyframes tap-appear{to{opacity:1}}#audioControls{padding:12px;text-align:right}#audioControls[hidden]{display:none}

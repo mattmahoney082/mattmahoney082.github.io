@@ -1,0 +1,1196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#A32424">
+  <meta name="description" content="A dated trail of teacher-led, whole-class maths games for the RISE classroom.">
+  <title>RISE Maths Game Trail</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23A32424'/%3E%3Ccircle cx='20' cy='22' r='7' fill='%23fff'/%3E%3Ccircle cx='44' cy='22' r='7' fill='%23E8622A'/%3E%3Cpath d='M18 43h28' stroke='%23fff' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+  <style>
+    :root{--math:#A32424;--orange:#E8622A;--purple:#6B3FA0;--navy:#102A56;--paper:#FFF9EF;--white:#fff;--green:#2E7D45;--yellow:#FFD66B;--blue:#2670B8;--line:#C9D3E3;--soft:#EFF4FB;--shadow:0 14px 0 rgba(16,42,86,.10)}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;min-height:100vh;background:var(--paper);color:var(--navy);font-family:Arial,"Helvetica Neue",sans-serif;font-size:16px;font-weight:600}
+    button,select{font:inherit;color:inherit}
+    button{cursor:pointer}
+    button:disabled{cursor:not-allowed;opacity:.42}
+    button:focus-visible,select:focus-visible{outline:5px solid var(--yellow);outline-offset:3px}
+    [hidden]{display:none!important}
+    .topbar{min-height:64px;padding:.55rem clamp(1rem,3vw,2.5rem);display:flex;align-items:center;justify-content:space-between;gap:1rem;background:var(--math);color:#fff;border-bottom:6px solid var(--orange)}
+    .brand{display:flex;align-items:center;gap:.75rem;font-size:clamp(1.1rem,2.4vw,1.55rem);font-weight:900}
+    .brand-mark{display:grid;grid-template-columns:repeat(2,14px);gap:3px;transform:rotate(-4deg)}
+    .brand-mark i{display:block;width:14px;height:14px;border-radius:4px;background:#fff}.brand-mark i:nth-child(2),.brand-mark i:nth-child(3){background:var(--yellow)}
+    .key-help{font-size:.88rem;font-weight:900}
+    main{width:min(1500px,100%);margin:auto;padding:clamp(.8rem,2vw,1.6rem)}
+    .eyebrow{display:inline-flex;align-items:center;gap:.45rem;color:var(--math);font-size:.82rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase}
+    .eyebrow:before{content:"";width:24px;height:8px;border-radius:99px;background:var(--orange)}
+    h1{margin:.25rem 0 .3rem;color:var(--purple);font-size:clamp(2.1rem,5vw,4.4rem);line-height:.95;letter-spacing:-.045em}
+    .library-top{display:grid;grid-template-columns:1.5fr auto;gap:1rem;align-items:end;margin-bottom:1rem}
+    .library-top p{margin:.35rem 0 0;font-size:1.05rem;font-weight:800}
+    .range-wrap{background:#fff;border:3px solid var(--navy);border-radius:18px;padding:.55rem;box-shadow:5px 5px 0 var(--yellow)}
+    .range-label{display:block;margin:0 0 .35rem .2rem;font-size:.78rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase}
+    .range-buttons{display:flex;gap:.35rem;flex-wrap:wrap}
+    .range-btn{min-width:62px;min-height:46px;border:2px solid var(--navy);border-radius:12px;background:#fff;font-weight:900}
+    .range-btn[aria-pressed="true"]{background:var(--navy);color:#fff;box-shadow:inset 0 0 0 3px #fff}
+    .date-panel{background:#fff;border:4px solid var(--navy);border-radius:24px;padding:.8rem;box-shadow:var(--shadow);position:relative;overflow:hidden}
+    .date-panel:after{content:"";position:absolute;right:-65px;top:-80px;width:230px;height:230px;border:28px solid rgba(232,98,42,.1);border-radius:50%;pointer-events:none}
+    .date-tools{display:grid;grid-template-columns:auto 1fr auto;gap:.7rem;align-items:center;margin-bottom:.7rem;position:relative;z-index:1}
+    .jump-button,.track-arrow,.secondary,.guide-button,.back-button{min-height:48px;border:3px solid var(--navy);border-radius:14px;background:#fff;font-weight:900;padding:.5rem .85rem}
+    .jump-button:hover,.track-arrow:hover,.secondary:hover,.guide-button:hover,.back-button:hover{background:var(--soft)}
+    .jump-buttons{display:flex;gap:.45rem}
+    .select-wrap{display:flex;align-items:center;justify-content:center;gap:.55rem;font-weight:900}
+    .select-wrap select{min-height:48px;max-width:360px;width:100%;border:3px solid var(--navy);border-radius:14px;background:#fff;padding:.45rem 2.4rem .45rem .75rem;font-weight:900}
+    .date-track-wrap{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:.55rem;align-items:stretch}
+    .track-arrow{width:50px;padding:0;font-size:1.55rem;background:var(--navy);color:#fff}
+    .date-track{display:flex;gap:.65rem;overflow-x:auto;padding:.25rem .2rem .75rem;scrollbar-color:var(--orange) #E6EAF0;scrollbar-width:auto;scroll-snap-type:x mandatory}
+    .day-button{scroll-snap-align:center;flex:0 0 172px;min-height:102px;border:3px solid var(--line);border-radius:17px;background:#fff;padding:.65rem;text-align:left;display:flex;flex-direction:column;justify-content:space-between;position:relative}
+    .day-button:after{content:"";position:absolute;left:50%;bottom:-11px;width:16px;height:16px;border-radius:50%;transform:translateX(-50%);background:#fff;border:3px solid var(--math)}
+    .day-button .day{font-size:.78rem;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--math)}
+    .day-button strong{font-size:1.05rem;line-height:1.05}
+    .day-button small{font-size:.78rem;font-weight:900;color:#58677E}
+    .day-button.past{background:#F3F5F8;color:#59677C}.day-button.past .day{color:#59677C}
+    .day-button.today{border-color:var(--green);box-shadow:inset 0 0 0 3px #fff,0 0 0 3px var(--green)}
+    .day-button.selected{background:var(--orange);color:#fff;border-color:var(--navy);box-shadow:5px 5px 0 var(--navy);transform:translateY(-2px)}
+    .day-button.selected .day,.day-button.selected small{color:#fff}.day-button.selected:after{background:var(--yellow);border-color:var(--navy)}
+    .track-line{height:5px;background:var(--math);margin:-.48rem 3.5rem .65rem;border-radius:99px;position:relative}
+    .track-line:after{content:"";position:absolute;right:-4px;top:-7px;border-left:14px solid var(--math);border-top:9px solid transparent;border-bottom:9px solid transparent}
+    .spotlight{display:grid;grid-template-columns:minmax(0,1.55fr) minmax(280px,.72fr);gap:1rem;margin-top:1rem}
+    .mission-card{background:#fff;border:4px solid var(--navy);border-radius:26px;overflow:hidden;box-shadow:8px 8px 0 #DDE4F0}
+    .mission-band{display:flex;align-items:center;justify-content:space-between;gap:.8rem;background:var(--purple);color:#fff;padding:.7rem 1rem;font-weight:900}
+    .status-pill{display:inline-flex;align-items:center;border-radius:999px;background:var(--yellow);color:var(--navy);padding:.3rem .65rem;font-size:.8rem;letter-spacing:.05em;text-transform:uppercase}
+    .mission-body{padding:clamp(1rem,2.2vw,1.6rem);display:grid;grid-template-columns:minmax(0,1.35fr) minmax(230px,.65fr);gap:1rem;align-items:center}
+    .full-date{display:block;color:var(--math);font-size:1.05rem;font-weight:900}
+    .mission-body h2{margin:.25rem 0 .45rem;color:var(--purple);font-size:clamp(2.15rem,4.2vw,4rem);line-height:.95;letter-spacing:-.04em}
+    .mission-summary{margin:.5rem 0 1rem;font-size:clamp(1.05rem,1.7vw,1.3rem);line-height:1.38;font-weight:800;max-width:60ch}
+    .detail-row{display:flex;gap:.55rem;flex-wrap:wrap;margin:.8rem 0}
+    .detail-chip{border:2px solid var(--navy);border-radius:999px;padding:.35rem .65rem;background:var(--soft);font-size:.86rem;font-weight:900}
+    .play-button{min-height:58px;width:min(360px,100%);border:0;border-radius:16px;background:var(--orange);color:#fff;font-size:1.15rem;font-weight:900;box-shadow:0 6px 0 #A83B15}
+    .play-button:active{transform:translateY(3px);box-shadow:0 3px 0 #A83B15}
+    .mission-visual{min-height:250px;display:grid;place-items:center;position:relative;border:3px dashed var(--purple);border-radius:22px;background:radial-gradient(circle at 25% 20%,#fff 0 3px,transparent 4px),#F5F0FB;background-size:34px 34px;padding:.5rem}
+    .mascot{width:min(250px,90%);height:auto;border:4px solid var(--navy);border-radius:50%;background:#FFF8E8;box-shadow:0 10px 0 rgba(16,42,86,.12)}
+    .mission-visual .speech{position:absolute;right:8px;top:8px;max-width:150px;border:3px solid var(--navy);border-radius:16px 16px 4px 16px;background:#fff;padding:.55rem;font-size:.85rem;font-weight:900;text-align:center;transform:rotate(2deg)}
+    .side-stack{display:grid;gap:1rem}
+    .mini-card{background:#fff;border:3px solid var(--navy);border-radius:20px;padding:1rem;box-shadow:5px 5px 0 var(--yellow)}
+    .mini-card h3{margin:0 0 .45rem;color:var(--purple);font-size:1.15rem}
+    .mini-card p{margin:0;line-height:1.42;font-weight:800}
+    .day-nav{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+    .secondary{background:var(--navy);color:#fff}
+    .game-screen{display:none}
+    .game-screen.active{display:block}
+    .game-toolbar{display:grid;grid-template-columns:auto 1fr auto;gap:.7rem;align-items:center;margin-bottom:.7rem}
+    .game-heading{text-align:center;min-width:0}.game-heading span{display:block;color:var(--math);font-size:.82rem;font-weight:900;letter-spacing:.05em;text-transform:uppercase}.game-heading strong{display:block;font-size:clamp(1.15rem,2.5vw,1.75rem);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    .game-actions{display:flex;align-items:center;gap:.5rem}.guide-button{background:#fff}.guide-button:before{content:"★ ";color:var(--orange)}
+    .compact-range{display:flex;gap:.3rem}.compact-range .range-btn{min-width:50px;min-height:46px;font-size:.82rem;padding:.3rem}
+    .play-board{min-height:calc(100vh - 155px);background:#fff;border:4px solid var(--navy);border-radius:26px;box-shadow:var(--shadow);padding:clamp(.8rem,1.7vw,1.4rem);display:grid;grid-template-rows:auto auto minmax(260px,1fr) auto auto;gap:.65rem;position:relative;overflow:hidden}
+    .play-board:before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(107,63,160,.035) 1px,transparent 1px),linear-gradient(rgba(107,63,160,.035) 1px,transparent 1px);background-size:32px 32px;pointer-events:none}
+    .round-trail{display:flex;align-items:center;justify-content:center;gap:.45rem;position:relative;z-index:1}
+    .round-trail:before{content:"";position:absolute;width:min(360px,70%);height:5px;background:var(--line);z-index:-1}
+    .trail-dot{width:24px;height:24px;border:4px solid var(--navy);border-radius:50%;background:#fff}.trail-dot.done{background:var(--yellow)}.trail-dot.current{background:var(--orange);transform:scale(1.25)}
+    .round-label{margin-left:.55rem;border-radius:999px;background:var(--navy);color:#fff;padding:.32rem .65rem;font-weight:900;white-space:nowrap}
+    .prompt-card{display:grid;grid-template-columns:auto 1fr auto;gap:.8rem;align-items:center;border:4px solid var(--math);border-radius:20px;background:#FFF4F0;padding:.65rem 1rem;position:relative;z-index:1}
+    .prompt-card .number{width:54px;height:54px;border-radius:50%;display:grid;place-items:center;background:var(--math);color:#fff;font-size:1.45rem;font-weight:900}
+    .prompt{margin:0;color:var(--math);font-size:clamp(1.35rem,3vw,2.5rem);line-height:1.02;font-weight:900;text-align:center}
+    .prompt-badge{border:3px solid var(--purple);border-radius:13px;background:#fff;color:var(--purple);padding:.38rem .55rem;font-size:.84rem;font-weight:900;text-transform:uppercase}
+    .visual{min-height:260px;display:grid;place-items:center;padding:.5rem;position:relative;z-index:1;overflow:hidden}
+    .answer{min-height:76px;border:4px dashed var(--math);border-radius:18px;background:#FFF5F2;display:grid;place-items:center;padding:.55rem;text-align:center;color:var(--math);font-size:clamp(1.45rem,3vw,2.7rem);line-height:1.05;font-weight:900;position:relative;z-index:2}.answer:not(.masked){padding-right:160px}
+    .answer.masked .answer-text{display:none}.answer:not(.masked) .answer-cover{display:none}.answer-cover{display:flex;align-items:center;gap:.6rem;color:var(--purple);font-size:clamp(1.05rem,2vw,1.35rem)}
+    .answer-cover:before{content:"?";width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--purple);color:#fff;font-size:1.5rem}
+    .controls{display:grid;grid-template-columns:.9fr 1fr 1.15fr;gap:.7rem;position:relative;z-index:2}
+    .control{min-height:58px;border:3px solid var(--navy);border-radius:16px;background:#fff;font-size:1.05rem;font-weight:900}
+    .control.primary{background:var(--orange);border-color:var(--orange);color:#fff;box-shadow:0 5px 0 #A83B15}.control.reveal{background:var(--purple);border-color:var(--purple);color:#fff;box-shadow:0 5px 0 #45266E}.control.previous{background:#fff;color:var(--navy);box-shadow:0 5px 0 #C9D3E3}
+    .control:active{transform:translateY(3px)}
+    .board-mascot{position:absolute;right:-34px;bottom:92px;width:170px;height:auto;border:4px solid var(--navy);border-radius:50%;background:#FFF8E8;box-shadow:0 8px 0 rgba(16,42,86,.15);transform:rotate(-8deg) translateY(55%);opacity:0;transition:transform .35s ease,opacity .25s ease;z-index:3;pointer-events:none}
+    .play-board.celebrate .board-mascot{opacity:1;transform:rotate(-8deg) translateY(0)}
+    .confetti{position:absolute;inset:0;pointer-events:none;z-index:4;overflow:hidden}.confetti i{position:absolute;top:-8%;left:var(--x);width:12px;height:24px;border-radius:3px;background:var(--c);transform:rotate(var(--r));opacity:0}.play-board.celebrate .confetti i{animation:fall .85s ease-out both}
+    @keyframes fall{0%{opacity:1;transform:translateY(-20px) rotate(var(--r))}100%{opacity:0;transform:translateY(520px) rotate(calc(var(--r) + 220deg))}}
+    dialog{width:min(720px,calc(100% - 2rem));max-height:88vh;border:4px solid var(--navy);border-radius:24px;padding:0;background:var(--paper);color:var(--navy);box-shadow:14px 14px 0 rgba(16,42,86,.24)}dialog::backdrop{background:rgba(16,42,86,.72)}
+    .guide-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;background:var(--purple);color:#fff;padding:.8rem 1rem}.guide-head h2{margin:0;font-size:1.45rem}.close-guide{width:48px;height:48px;border:3px solid #fff;border-radius:50%;background:transparent;color:#fff;font-size:1.4rem;font-weight:900}
+    .guide-body{padding:1.1rem}.guide-section{background:#fff;border:3px solid var(--navy);border-radius:18px;padding:.9rem 1rem;margin-bottom:.8rem}.guide-section h3{margin:0 0 .4rem;color:var(--purple)}.guide-section p{margin:.25rem 0;line-height:1.45;font-weight:800}.guide-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem}.guide-step{border:3px solid var(--line);border-radius:15px;padding:.7rem;font-weight:800}.guide-step b{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:#fff;margin-bottom:.45rem}
+    .plan-note{border:3px dashed var(--orange);border-radius:14px;background:#FFF5EC;padding:.7rem;font-weight:900}.copy-button{min-height:48px;width:100%;margin-top:.6rem;border:0;border-radius:13px;background:var(--orange);color:#fff;font-weight:900}
+    .part-whole{width:min(700px,100%);display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;align-items:center;position:relative;padding-top:6.8rem}.whole{position:absolute;top:0;left:50%;transform:translateX(-50%);min-width:160px}.number-box{border:5px solid var(--navy);border-radius:22px;background:#fff;display:grid;place-items:center;min-height:125px;font-size:clamp(3.5rem,8vw,6.6rem);font-weight:900;box-shadow:7px 7px 0 var(--yellow)}.unknown-whole{border-style:dashed;border-color:var(--purple);color:var(--purple);background:#F5F0FB;box-shadow:7px 7px 0 #D8C8EF}.part{border-color:var(--orange);background:#FFF2EA}.plus{position:absolute;left:50%;bottom:32px;transform:translateX(-50%);font-size:2.7rem;font-weight:900;color:var(--purple);background:#fff;border:3px solid var(--purple);border-radius:50%;width:58px;height:58px;display:grid;place-items:center;z-index:2}
+    .sequence{display:flex;justify-content:center;align-items:center;gap:clamp(.35rem,1.2vw,.85rem);flex-wrap:wrap;width:100%}.seq-card{width:clamp(64px,9vw,104px);aspect-ratio:1;border:4px solid var(--navy);border-radius:18px;display:grid;place-items:center;background:#fff;font-size:clamp(2.2rem,5.5vw,4.6rem);font-weight:900;box-shadow:5px 5px 0 #E1E7F1}.seq-card.missing{border-color:var(--orange);color:var(--orange);background:#FFF2EA;border-style:dashed}.arrow{font-size:clamp(1.5rem,3.5vw,3rem);font-weight:900;color:var(--green)}
+    .cube-row{display:flex;gap:.48rem;justify-content:center;flex-wrap:wrap;max-width:860px}.cube{width:clamp(40px,5.5vw,68px);aspect-ratio:1;border:4px solid var(--navy);border-radius:12px;background:var(--orange);box-shadow:inset -7px -7px 0 rgba(163,36,36,.25)}.empty-hand{width:min(520px,92%);min-height:230px;border:5px dashed var(--math);border-radius:34px;background:#FFF5F2;display:grid;place-items:center;box-shadow:8px 8px 0 var(--yellow)}.empty-hand svg{width:min(320px,76%);height:auto}.empty-hand .hand-shape{fill:#FFD8B6;stroke:var(--navy);stroke-width:8;stroke-linecap:round;stroke-linejoin:round}.empty-hand .hand-line{fill:none;stroke:var(--orange);stroke-width:7;stroke-linecap:round}
+    .svg-board{width:min(850px,100%);height:auto;max-height:300px;overflow:visible}.compare,.arrangements{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:.9rem;width:min(900px,100%)}.case,.arrangement{min-height:235px;border:5px solid var(--navy);border-radius:22px;background:#F7FAFF;padding:1rem;display:flex;align-content:center;justify-content:center;align-items:center;flex-wrap:wrap;gap:.6rem;position:relative}.case-label{position:absolute;left:50%;top:-18px;transform:translateX(-50%);background:var(--navy);color:#fff;border-radius:999px;padding:.35rem .8rem;font-weight:900;white-space:nowrap}.artifact{width:clamp(32px,4.6vw,55px);aspect-ratio:1;background:var(--orange);border:4px solid var(--navy);transform:rotate(45deg);border-radius:8px}.versus,.same-arrow{font-size:clamp(2rem,4vw,3.5rem);font-weight:900;color:var(--purple)}.same-arrow{color:var(--green)}
+    .token-grid{display:flex;flex-wrap:wrap;align-content:center;justify-content:center;gap:.5rem;max-width:320px}.token{width:clamp(28px,4.2vw,50px);aspect-ratio:1;border:4px solid var(--navy);border-radius:50%;background:var(--yellow)}.ten-frame{display:grid;grid-template-columns:repeat(5,clamp(42px,5.8vw,70px));border:4px solid var(--navy)}.ten-cell{aspect-ratio:1;border:2px solid var(--navy);display:grid;place-items:center;background:#fff}.ten-dot{width:72%;aspect-ratio:1;border-radius:50%;background:var(--orange);border:3px solid var(--navy)}
+    .change-story{width:min(900px,100%);display:grid;gap:.8rem}.story-line{font-size:clamp(1.25rem,2.7vw,2.1rem);font-weight:900;text-align:center;color:var(--purple)}.party-row{display:flex;justify-content:center;gap:.4rem;flex-wrap:wrap;border:4px solid var(--navy);border-radius:22px;padding:1rem;background:#F7FAFF;min-height:145px;align-items:center}.party-token{width:clamp(35px,5vw,60px);aspect-ratio:1;background:var(--yellow);border:4px solid var(--navy);clip-path:polygon(50% 0,61% 34%,98% 35%,68% 56%,79% 92%,50% 70%,21% 92%,32% 56%,2% 35%,39% 34%)}.party-token.leaving{opacity:.28}.claimed{position:absolute;right:8px;bottom:8px;background:#fff;border:3px solid var(--math);border-radius:12px;padding:.25rem .55rem;font-size:.92rem;font-weight:900;color:var(--math)}
+    .object-field{width:min(860px,100%);min-height:220px;border:5px solid var(--green);border-radius:28px;background:linear-gradient(#DDF4FF 0 56%,#DDF3D9 56%);padding:1rem;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;gap:clamp(.25rem,.9vw,.65rem);position:relative;overflow:hidden}.object-field:after{content:"";position:absolute;left:0;right:0;bottom:0;height:18px;background:repeating-linear-gradient(100deg,#2E7D45 0 4px,transparent 4px 14px);opacity:.35}.butterfly{width:clamp(44px,6.2vw,78px);height:auto;object-fit:contain;filter:drop-shadow(0 4px 1px rgba(16,42,86,.15));position:relative;z-index:1}.counter-object{font-size:clamp(2.5rem,6vw,4.7rem);line-height:1;filter:drop-shadow(0 4px 1px rgba(16,42,86,.15));position:relative;z-index:1}.butterfly.leaving,.counter-object.leaving{opacity:.28;transform:translateY(-18px) rotate(12deg)}
+    .mystery-butterfly{width:clamp(110px,18vw,165px)}.object-column{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.05rem}.object-column .butterfly{width:clamp(34px,4vw,48px)}.object-column .counter-object{font-size:clamp(2rem,4vw,3.2rem)}
+    .two-gardens{width:min(920px,100%);display:grid;grid-template-columns:1fr auto 1fr;gap:.8rem;align-items:center}.garden{min-height:215px;border:5px solid var(--green);border-radius:24px;background:#EFF9E9;padding:1.2rem .7rem .7rem;display:flex;align-items:center;align-content:center;justify-content:center;flex-wrap:wrap;gap:.35rem;position:relative}.garden.water{border-color:var(--blue);background:#E3F4FF}.garden-label{position:absolute;top:-18px;left:50%;transform:translateX(-50%);border:3px solid var(--navy);border-radius:999px;background:#fff;padding:.3rem .75rem;font-size:.85rem;font-weight:900;white-space:nowrap}
+    .picture-pair{display:grid;grid-template-columns:1fr auto 1fr;gap:1rem;align-items:center;width:min(850px,100%)}.picture-card{min-height:230px;border:5px solid var(--navy);border-radius:24px;background:#F7FAFF;display:grid;place-items:center;padding:1rem}.picture-shape{width:135px;height:135px;border:6px solid var(--navy);background:var(--orange);box-shadow:7px 7px 0 var(--yellow)}.picture-shape.circle{border-radius:50%}.picture-shape.square{border-radius:18px}.picture-shape.triangle{clip-path:polygon(50% 0,100% 100%,0 100%);border:0;box-shadow:none;filter:drop-shadow(7px 7px 0 var(--yellow))}.picture-shape.purple{background:var(--purple)}.picture-shape.green{background:var(--green)}.picture-shape.small{width:86px;height:86px}.picture-shape.turn{transform:rotate(45deg)}
+    .rule-scene{width:min(880px,100%);display:grid;grid-template-columns:1.35fr .65fr;gap:1rem;align-items:stretch}.rule-examples,.mystery-card{border:5px solid var(--navy);border-radius:24px;background:#F7FAFF;min-height:230px;padding:1rem;display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap;position:relative}.rule-title{position:absolute;top:-18px;left:50%;transform:translateX(-50%);background:var(--navy);color:#fff;border-radius:999px;padding:.35rem .8rem;font-size:.85rem;white-space:nowrap}.mystery-card{border-style:dashed;border-color:var(--orange);background:#FFF5EC}.rule-card{position:absolute;top:-22px;left:50%;transform:translateX(-50%);background:var(--yellow);border:4px solid var(--navy);border-radius:14px;padding:.45rem .9rem;font-size:1.05rem;white-space:nowrap}.object-icon{font-size:clamp(4.5rem,11vw,8rem);line-height:1}.object-icon.small{font-size:4rem}.object-icon.big{font-size:7rem}
+    .number-homes{width:min(920px,100%);display:grid;grid-template-columns:1.2fr .8fr;gap:1rem;align-items:center}.homes{display:grid;grid-template-columns:repeat(3,1fr);gap:.65rem}.home{min-height:150px;border:5px solid var(--navy);border-radius:18px 18px 28px 28px;background:#fff;display:grid;place-items:center;font-size:clamp(2.8rem,6vw,5.4rem);font-weight:900;box-shadow:6px 6px 0 var(--yellow);position:relative}.home:before{content:"";position:absolute;top:-43px;border-left:64px solid transparent;border-right:64px solid transparent;border-bottom:44px solid var(--math);z-index:-1}.home:first-child{color:var(--math)}.home:nth-child(2){color:var(--purple)}.home:nth-child(3){color:var(--green)}
+    @media(max-width:1000px){.date-tools{grid-template-columns:1fr 1fr}.select-wrap{grid-column:1/-1;grid-row:2}.spotlight{grid-template-columns:1fr}.side-stack{grid-template-columns:1fr 1fr}.mission-body{grid-template-columns:1fr minmax(210px,.55fr)}.compact-range{display:none}}
+    @media(max-width:720px){.library-top{grid-template-columns:1fr}.date-tools{grid-template-columns:1fr}.jump-buttons{justify-content:center}.select-wrap{flex-direction:column;align-items:stretch}.select-wrap label{text-align:center}.mission-body{grid-template-columns:1fr}.mission-visual{min-height:220px}.mission-visual .mascot{width:200px}.side-stack{grid-template-columns:1fr}.game-toolbar{grid-template-columns:auto 1fr}.game-actions{grid-column:1/-1;justify-content:center}.prompt-card{grid-template-columns:auto 1fr}.prompt-badge{display:none}.guide-steps{grid-template-columns:1fr}.play-board{min-height:auto}.key-help{display:none}}
+    @media(max-width:720px){.two-gardens,.picture-pair,.rule-scene,.number-homes{grid-template-columns:1fr}.homes{margin-top:2.3rem}.two-gardens .plus,.picture-pair .versus{position:static;transform:none;margin:auto}.garden,.picture-card,.rule-examples,.mystery-card{min-height:155px}.picture-shape{width:100px;height:100px}}
+    @media(max-width:520px){main{padding:.65rem}.topbar{padding:.55rem .75rem}.day-button{flex-basis:150px}.date-track-wrap{grid-template-columns:44px minmax(0,1fr) 44px}.track-arrow{width:44px}.mission-band{align-items:flex-start;flex-direction:column}.game-heading strong{font-size:1rem}.prompt-card .number{width:44px;height:44px}.controls{grid-template-columns:1fr}.compare,.arrangements{grid-template-columns:1fr}.versus,.same-arrow{text-align:center;transform:rotate(90deg)}.case,.arrangement{min-height:160px}.board-mascot{width:108px;bottom:214px}.answer:not(.masked){padding-right:96px}.part-whole{padding-top:5.2rem}.number-box{min-height:94px}.whole{min-width:125px}.plus{bottom:18px}.jump-button{flex:1;padding:.4rem}.homes{gap:.35rem}.home{min-height:100px}.home:before{top:-29px;border-left-width:42px;border-right-width:42px;border-bottom-width:30px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.board-mascot{transition:none}.play-board.celebrate .confetti i{animation:none;display:none}}
+  </style>
+</head>
+<body>
+  <header class="topbar"><div class="brand"><span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span> RISE Maths Game Trail</div><div class="key-help">Space = next · ← = previous round · R = reveal · Esc = trail</div></header>
+  <main>
+    <section id="library">
+      <div class="library-top">
+        <div><span class="eyebrow">Whole-class maths adventure</span><h1>Pick a day. Start the mission.</h1><p id="todayLine"></p></div>
+        <div class="range-wrap"><span class="range-label">Number size</span><div class="range-buttons" data-range-group="library"><button class="range-btn" data-max="3" aria-pressed="false">0–3</button><button class="range-btn" data-max="5" aria-pressed="true">0–5</button><button class="range-btn" data-max="10" aria-pressed="false">0–10</button><button class="range-btn" data-max="20" aria-pressed="false">0–20</button></div></div>
+      </div>
+      <section class="date-panel" aria-label="Choose a game date">
+        <div class="date-tools">
+          <div class="jump-buttons"><button class="jump-button" id="pastJump">← Past games</button><button class="jump-button" id="futureJump">Coming up →</button></div>
+          <div class="select-wrap"><label for="dateSelect">Jump to a game date</label><select id="dateSelect"></select></div>
+          <button class="jump-button" id="nearestJump">Nearest to today</button>
+        </div>
+        <div class="date-track-wrap"><button class="track-arrow" id="trackPrev" aria-label="Previous game date">←</button><div class="date-track" id="dateTrack"></div><button class="track-arrow" id="trackNext" aria-label="Next game date">→</button></div><div class="track-line" aria-hidden="true"></div>
+      </section>
+      <section class="spotlight">
+        <article class="mission-card"><div class="mission-band"><span id="missionNumber">Mission 1 of 39</span><span class="status-pill" id="statusPill"></span></div><div class="mission-body"><div><span class="full-date" id="fullDate"></span><h2 id="spotlightName"></h2><p class="mission-summary" id="spotlightSummary"></p><div class="detail-row"><span class="detail-chip" id="spotlightFocus"></span><span class="detail-chip" id="spotlightSource"></span></div><button class="play-button" id="playSelected">Play this game →</button></div><div class="mission-visual"><img class="mascot" src="rise-mascot.png" alt="A friendly seated Minotaur mascot"><div class="speech" id="mascotSpeech"></div></div></div></article>
+        <div class="side-stack"><article class="mini-card"><h3>What students do</h3><p id="studentMove"></p></article><article class="mini-card"><h3>Teacher move</h3><p>Show one challenge, let everyone answer in their own way, then reveal and check together.</p></article><div class="day-nav"><button class="secondary" id="dayPrev">← Previous day</button><button class="secondary" id="dayNext">Next day →</button></div></div>
+      </section>
+    </section>
+    <section id="game" class="game-screen" aria-live="polite">
+      <div class="game-toolbar"><button class="back-button" id="back">← Date trail</button><div class="game-heading"><span id="gameDate"></span><strong id="gameName"></strong></div><div class="game-actions"><div class="compact-range" data-range-group="game"><button class="range-btn" data-max="3" aria-pressed="false">0–3</button><button class="range-btn" data-max="5" aria-pressed="true">0–5</button><button class="range-btn" data-max="10" aria-pressed="false">0–10</button><button class="range-btn" data-max="20" aria-pressed="false">0–20</button></div><button class="guide-button" id="guideButton">Teacher guide</button></div></div>
+      <div id="audioControls" hidden><label>Tap volume <input id="tapVolume" type="range" min="0" max="1" step="0.1" value="0.6"></label> <button id="muteTaps">Mute</button></div><div class="play-board" id="playBoard"><div class="confetti" id="confetti" aria-hidden="true"></div><img class="board-mascot" src="rise-mascot.png" alt="" aria-hidden="true"><div class="round-trail" id="roundTrail"></div><div class="prompt-card"><span class="number" aria-hidden="true">?</span><p class="prompt" id="prompt"></p><span class="prompt-badge" id="promptBadge"></span></div><div class="visual" id="visual"></div><div class="answer masked" id="answer"><span class="answer-cover">Everyone answers—then reveal</span><span class="answer-text" id="answerText"></span></div><div class="controls"><button class="control previous" id="previousRound" disabled>← Previous round</button><button class="control reveal" id="reveal">Reveal together</button><button class="control primary" id="next">Next round →</button></div></div>
+    </section>
+  </main>
+  <dialog id="guideDialog"><div class="guide-head"><h2>Teacher guide</h2><button class="close-guide" id="closeGuide" aria-label="Close teacher guide">×</button></div><div class="guide-body"><div class="guide-section"><h3>Grows from today’s teaching</h3><p id="grows"></p></div><div class="guide-section"><h3>Three moves</h3><div class="guide-steps" id="guideSteps"></div></div><div class="guide-section"><h3>Students answer with</h3><p id="materials"></p></div><div class="guide-section"><h3>Lesson-plan line for Claude</h3><div class="plan-note" id="planNote"></div><button class="copy-button" id="copyPlan">Copy lesson-plan line</button></div></div></dialog>
+  <link rel="stylesheet" href="missions.css">
+  <script>
+/* Unit 3 and Unit 4 teacher-led missions. Mathematical diagrams are deliberately word-free. */
+(function(root){
+"use strict";
+const metadata=[
+  {
+    "unit": 3,
+    "id": "one-more-stair",
+    "iso": "2026-10-13",
+    "date": "Tue 13 Oct 2026",
+    "source": "Bluebonnet Kindergarten Math Module 1, Lessons 30–31",
+    "preferred": 10,
+    "focus": "one more is the next number",
+    "name": "One More Stair",
+    "summary": "Watch the stairs grow and show how many are on the next step.",
+    "grows": "This grows out of Baby Bear’s stairs, where the room built cube stairs that go up by one and said “3. One more is 4” at every step.",
+    "steps": [
+      "Look at the step on the board and count it.",
+      "Show the next step — one more — with cubes, fingers or a number card.",
+      "Tap Reveal and say it together: “4. One more is 5.”"
+    ],
+    "materials": "Linking cubes, fingers, number cards 1 to 10, or a device"
+  },
+  {
+    "unit": 3,
+    "id": "which-towers-are-hiding",
+    "iso": "2026-10-15",
+    "date": "Thu 15 Oct 2026",
+    "source": "Bluebonnet Kindergarten Math Module 1, Lessons 32–33",
+    "preferred": 10,
+    "focus": "one more, one less",
+    "name": "Which Towers Are Hiding?",
+    "summary": "Some towers in the stairs are hiding — show which numbers are missing.",
+    "grows": "This grows out of the hidden towers, where the room closed its eyes while towers were taken out of the 1-to-10 stairs and worked out which were gone, then took cubes off a ten one at a time.",
+    "steps": [
+      "Look at the stairs and find the gap.",
+      "Show the missing number with a tower, fingers, a number card or by pointing.",
+      "Tap Reveal, then say the numbers one more and one less than it."
+    ],
+    "materials": "Linking cube towers 1 to 10, number cards 1 to 10, fingers, or a device"
+  },
+  {
+    "unit": 3,
+    "id": "down-the-stairs",
+    "iso": "2026-10-19",
+    "date": "Mon 19 Oct 2026",
+    "source": "Bluebonnet Kindergarten Math Module 1, Lessons 34–35",
+    "preferred": 10,
+    "focus": "one less is the step below",
+    "name": "Down the Stairs",
+    "summary": "See the step and show the one below it — one less.",
+    "grows": "This grows out of Baby Bear going down the stairs, where the room took one cube at a time off a stair of ten and said “10. One less is 9” at every step.",
+    "steps": [
+      "Look at the stair on the board and count it.",
+      "Show the stair below it — one less — with cubes, fingers or a number card.",
+      "Tap Reveal and say it together: “6. One less is 5.”"
+    ],
+    "materials": "Linking cube stairs, fingers, number cards 0 to 10, or a device"
+  },
+  {
+    "unit": 3,
+    "id": "before-and-after",
+    "iso": "2026-10-21",
+    "date": "Wed 21 Oct 2026",
+    "source": "Teacher-created review of Bluebonnet Kindergarten Math Module 1, Topics E–H",
+    "preferred": 10,
+    "focus": "the number before and the number after",
+    "name": "Before and After",
+    "summary": "Look at the tower and show the number just before it or just after it.",
+    "grows": "This grows out of the one more, one less echo, where the room held up a card and said “I have 5. One more is 6” and “5. One less is 4.”",
+    "steps": [
+      "Look at the tower and the arrow — up means one more, down means one less.",
+      "Show the number just after or just before it with cubes, fingers or a number card.",
+      "Tap Reveal and say it together: “7. One more is 8.”"
+    ],
+    "materials": "Linking cubes, number cards 0 to 10, fingers, or a device"
+  },
+  {
+    "unit": 3,
+    "id": "triangle-hunt",
+    "iso": "2026-10-23",
+    "date": "Fri 23 Oct 2026",
+    "source": "Bluebonnet Kindergarten Math Module 2, Lessons 1–2",
+    "preferred": 5,
+    "focus": "three straight sides, three corners, closed",
+    "name": "Triangle Hunt",
+    "summary": "Find every triangle in the picture and show how many.",
+    "grows": "This grows out of the Triangle and Not a Triangle graph, where the room counted straight sides and corners and checked each shape was closed before it went in a column.",
+    "steps": [
+      "Look at every shape in the picture and find the triangles.",
+      "Show how many triangles with fingers, a number card or by pointing.",
+      "Tap Reveal, watch each triangle light up, and count them together."
+    ],
+    "materials": "Fingers, number cards 0 to 10, a whiteboard to draw a triangle, or a device"
+  },
+  {
+    "unit": 3,
+    "id": "rectangle-and-circle-hunt",
+    "iso": "2026-10-27",
+    "date": "Tue 27 Oct 2026",
+    "source": "Bluebonnet Kindergarten Math Module 2, Lessons 3–4",
+    "preferred": 5,
+    "focus": "square corners, or no corners at all",
+    "name": "Rectangle and Circle Hunt",
+    "summary": "Find the rectangles, or the circles, and show how many.",
+    "grows": "This grows out of the Rectangle and Circle picture graphs, where the room sorted shapes by four straight sides and square corners, then by round, closed and no corners.",
+    "steps": [
+      "Look at the small shape at the top: today we hunt rectangles, or circles.",
+      "Show how many are in the picture with fingers, a number card or by pointing.",
+      "Tap Reveal, watch each one light up, and count them together."
+    ],
+    "materials": "Fingers, number cards 0 to 10, a whiteboard to draw the shape, or a device"
+  },
+  {
+    "unit": 3,
+    "id": "how-many-faces",
+    "iso": "2026-10-29",
+    "date": "Thu 29 Oct 2026",
+    "source": "Bluebonnet Kindergarten Math Module 2, Lessons 5–6",
+    "preferred": 10,
+    "focus": "a face is a flat part you can trace",
+    "name": "How Many Faces?",
+    "summary": "Look at the solid and show how many flat faces it has.",
+    "grows": "This grows out of Face or No Face, where the room touched and counted the flat faces of a cone, a cylinder and a cube, and found that a sphere has none.",
+    "steps": [
+      "Look at the solid on the board and find its flat faces.",
+      "Show how many faces with fingers, a number card, or by holding up the same solid.",
+      "Tap Reveal, watch each face light up, and count them together."
+    ],
+    "materials": "A ball, a cube, a capped marker, a Play-Doh cone, fingers, number cards 0 to 10, or a device"
+  },
+  {
+    "unit": 3,
+    "id": "flat-or-solid",
+    "iso": "2026-11-02",
+    "date": "Mon 2 Nov 2026",
+    "source": "Bluebonnet Kindergarten Math Module 2, Lessons 7–8",
+    "preferred": 5,
+    "focus": "flat lies down, solid stands up",
+    "name": "Flat or Solid?",
+    "summary": "Look at the table and show how many things are solid.",
+    "grows": "This grows out of Bird and Ant, where the room looked across the desks and saw that the solids stood up while the flat card and the drawings disappeared, then sorted flat from solid.",
+    "steps": [
+      "Look at everything on the table, whichever way it is turned.",
+      "Show how many are solid with fingers, a number card, or by holding up the matching solid.",
+      "Tap Reveal, watch each solid stand up, and count them together."
+    ],
+    "materials": "A ball, a cube, a capped marker, a Play-Doh cone, a flat card, fingers, number cards 0 to 10, or a device"
+  },
+  {
+    "unit": 3,
+    "id": "still-the-same-shape",
+    "iso": "2026-11-04",
+    "date": "Wed 4 Nov 2026",
+    "source": "Teacher-created review of Bluebonnet Kindergarten Math Module 2, Topics A–C",
+    "preferred": 5,
+    "focus": "turn it or flip it, it is still the same shape",
+    "name": "Still the Same Shape",
+    "summary": "Find every shape that matches the one at the top, however it is turned.",
+    "grows": "This grows out of the Triangle, Rectangle and Circle graph and Guess My Rule, where triangles pointing down, squares turned sideways and cones upside down kept their names.",
+    "steps": [
+      "Look at the shape at the top.",
+      "Show how many shapes below are the same shape, however they are turned.",
+      "Tap Reveal, watch each one turn back to match, and count them together."
+    ],
+    "materials": "A ball, a cube, a capped marker, a Play-Doh cone, fingers, number cards 0 to 10, or a device"
+  },
+  {
+    "unit": 3,
+    "id": "picture-graph-count",
+    "iso": "2026-11-06",
+    "date": "Fri 6 Nov 2026",
+    "source": "Teacher-created: our four weeks of observations",
+    "preferred": 5,
+    "focus": "count each column, then compare",
+    "name": "Picture Graph Count",
+    "summary": "Count the column the arrow shows — then find the column with more.",
+    "grows": "This grows out of our journal graph and our Did It Change? towers, where the room coloured one box for each page and each observation, then compared the columns.",
+    "steps": [
+      "Look at the column the arrow points to.",
+      "Show how many boxes are in it with fingers, a number card or cubes.",
+      "Tap Reveal, count the boxes together, and point to the column with more."
+    ],
+    "materials": "Linking cubes, fingers, number cards 0 to 10, or a device"
+  },
+  {
+    "unit": 4,
+    "id": "line-up-the-ends",
+    "iso": "2026-11-10",
+    "date": "Tue 10 Nov 2026",
+    "source": "Bluebonnet Kindergarten Math Module 3, Lessons 1–2",
+    "preferred": 5,
+    "focus": "line up the ends",
+    "name": "Line Up the Ends",
+    "summary": "Line up the ends, then show which stick is longer.",
+    "grows": "This grows out of the Magic Show and Longer Than My Strip, where the room lined up cube sticks and paper strips at the edge of a desk before deciding which was longer.",
+    "steps": [
+      "Look at the two sticks, even if their ends do not line up.",
+      "Point to the one you think is really longer, and show how many cubes longer with fingers or cubes.",
+      "Tap Reveal, watch the ends slide into line, and count the difference together."
+    ],
+    "materials": "Two linking-cube sticks, a strip of paper, fingers, number cards 0 to 10, or a device"
+  },
+  {
+    "unit": 4,
+    "id": "longer-than-five",
+    "iso": "2026-11-12",
+    "date": "Thu 12 Nov 2026",
+    "source": "Bluebonnet Kindergarten Math Module 3, Lessons 3–4",
+    "preferred": 10,
+    "focus": "five is the stick to beat",
+    "name": "Longer Than Five?",
+    "summary": "Hold up your 5-stick. Is the stick on the board longer or shorter?",
+    "grows": "This grows out of Number Stairs and the 5-Stick, where every stick on the table was held against a 5-stick and sorted as longer than or shorter than it.",
+    "steps": [
+      "Hold up your own 5-stick and look at the stick beside the 5-stick on the board.",
+      "Show longer or shorter, and how many cubes the stick has, with cubes, fingers or a number card.",
+      "Tap Reveal and count the stick together, cube by cube."
+    ],
+    "materials": "Linking cubes, a 5-stick, fingers, number cards 0 to 10, or a device"
+  },
+  {
+    "unit": 4,
+    "id": "same-as-the-gray-stick",
+    "iso": "2026-11-16",
+    "date": "Mon 16 Nov 2026",
+    "source": "Bluebonnet Kindergarten Math Module 3, Lessons 5–7",
+    "preferred": 5,
+    "focus": "together, the same length",
+    "name": "Same as the Gray Stick",
+    "summary": "Show how many cubes make the stick the same length as the gray stick.",
+    "grows": "This grows out of the riddle of the 5-stick, where two short sticks laid end to end under the 5-stick were together the same length as it.",
+    "steps": [
+      "Look at the gray stick and the coloured part under it.",
+      "Show how many more cubes the other part needs, with cubes, fingers, a number card or by pointing.",
+      "Tap Reveal, watch the missing part slide in, and count its cubes together."
+    ],
+    "materials": "Linking cubes, fingers, number cards 0 to 10, or a device"
+  },
+  {
+    "unit": 4,
+    "id": "tip-the-balance",
+    "iso": "2026-11-18",
+    "date": "Wed 18 Nov 2026",
+    "source": "Bluebonnet Kindergarten Math Module 3, Lessons 8–9",
+    "preferred": 3,
+    "focus": "the heavier side goes down",
+    "name": "Tip the Balance",
+    "summary": "Show which side will go down, then reveal the balance tipping.",
+    "grows": "This grows out of the ruler balance, where the room guessed first and then watched the heavier side go down, even when it was the smaller thing.",
+    "steps": [
+      "Look at the two things on the balance.",
+      "Point, tip a hand or say which side will go down, or say they will stay level.",
+      "Tap Reveal and watch the balance tip, or stay level."
+    ],
+    "materials": "A ruler balance, two things from the tray, hands to tip, or a device"
+  },
+  {
+    "unit": 4,
+    "id": "as-heavy-as",
+    "iso": "2026-11-20",
+    "date": "Fri 20 Nov 2026",
+    "source": "Bluebonnet Kindergarten Math Module 3, Lessons 10–12",
+    "preferred": 10,
+    "focus": "count the units until it balances, then switch the units",
+    "name": "As Heavy As",
+    "summary": "Count how many units make the balance level, then switch the units and count again.",
+    "grows": "This grows out of the ruler balance, where chips and then cubes were added one at a time beside a pencil and a marker until the ruler lay level.",
+    "steps": [
+      "Look at the thing on the balance and the small picture that says what to add.",
+      "Show how many cubes or chips will make it level, with fingers, cubes, a number card or by pointing.",
+      "Tap Reveal, watch them drop in one at a time, and count together until it is level."
+    ],
+    "materials": "A ruler balance, linking cubes, bingo chips, fingers, number cards 0 to 20, or a device"
+  },
+  {
+    "unit": 4,
+    "id": "pour-and-count",
+    "iso": "2026-12-01",
+    "date": "Tue 1 Dec 2026",
+    "source": "Bluebonnet Kindergarten Math Module 3, Lessons 13–14",
+    "preferred": 10,
+    "focus": "pour it anywhere, the amount stays the same",
+    "name": "Pour and Count",
+    "summary": "Count the cubes, watch them pour into a new container, and show how many are there now.",
+    "grows": "This grows out of the drawer of cubes poured into the tall tumbler, where it only went partway up but filled the drawer again when poured back.",
+    "steps": [
+      "Count the cubes in the first container together.",
+      "Watch them pour into the new container, then show how many are there now, with cubes, fingers, a number card or by pointing.",
+      "Tap Reveal and count them in the new container together."
+    ],
+    "materials": "Loose linking cubes, two containers, fingers, number cards 0 to 20, or a device"
+  },
+  {
+    "unit": 4,
+    "id": "longer-heavier-holds-more",
+    "iso": "2026-12-03",
+    "date": "Thu 3 Dec 2026",
+    "source": "Bluebonnet Kindergarten Math Module 3, Mid-Module Assessment (Topics A–D)",
+    "preferred": 10,
+    "focus": "say what we compare, then compare",
+    "name": "Longer, Heavier, Holds More",
+    "summary": "See what this round compares, then show the longer, the heavier, or the one that holds more.",
+    "grows": "This grows out of the review, where the room lined up pencils, compared cube sticks, held a book and a ball, and poured a drawer into the tumbler.",
+    "steps": [
+      "Look at the small picture that says what we compare: a ruler, a hand-scale or a cup.",
+      "Point to the longer, the heavier, or the one that holds more, or show that they are the same.",
+      "Tap Reveal and watch the two slide together, the balance tip, or the cubes pour."
+    ],
+    "materials": "Linking cubes, two things from the tray, a container, fingers, number cards 0 to 20, or a device"
+  },
+  {
+    "unit": 4,
+    "id": "enough-for-everyone",
+    "iso": "2026-12-07",
+    "date": "Mon 7 Dec 2026",
+    "source": "Bluebonnet Kindergarten Math Module 3, Lessons 15–16",
+    "preferred": 5,
+    "focus": "one for each, then look",
+    "name": "Enough for Everyone?",
+    "summary": "Match one to one and show how many more we need.",
+    "grows": "This grows out of Set the Table, where one board, one marker, one tub and one pouch went to each person and the room found enough, not enough or too many.",
+    "steps": [
+      "Look at the friends and the things.",
+      "Show how many more things we need so everyone has one.",
+      "Tap Reveal, watch the lines match, and count the ones left without."
+    ],
+    "materials": "Linking cubes, Play-Doh tubs, fingers, number cards 0 to 10, or a device"
+  },
+  {
+    "unit": 4,
+    "id": "line-them-up",
+    "iso": "2026-12-09",
+    "date": "Wed 9 Dec 2026",
+    "source": "Bluebonnet Kindergarten Math Module 3, Lessons 17–18",
+    "preferred": 5,
+    "focus": "match one to one, then look for the leftovers",
+    "name": "Line Them Up",
+    "summary": "Match the two rows and show how many are left over.",
+    "grows": "This grows out of Fewer Than, where the chips and the cubes were matched one to one, one cube put back at a time, until fewer became the same.",
+    "steps": [
+      "Look at the two rows.",
+      "Show how many are left over when you match them one to one.",
+      "Tap Reveal, watch the pairs join, and point to the row with fewer."
+    ],
+    "materials": "Linking cubes, bingo chips, fingers, number cards 0 to 10, or a device"
+  },
+  {
+    "unit": 4,
+    "id": "taller-tower",
+    "iso": "2026-12-11",
+    "date": "Fri 11 Dec 2026",
+    "source": "Teacher-created: Flying Machine groups",
+    "preferred": 5,
+    "focus": "line them up, then compare",
+    "name": "Taller Tower",
+    "summary": "Count each tower, then show how many more the taller one has.",
+    "grows": "This grows out of sorting the class’s Flying Machine versions into push, pull and wind, building a cube tower for each group, and comparing the towers.",
+    "steps": [
+      "Look at the two towers.",
+      "Show how many more cubes the taller tower has.",
+      "Tap Reveal, watch the towers line up, and count the extra."
+    ],
+    "materials": "Linking cubes, fingers, number cards 0 to 10, or a device"
+  }
+];
+const C={navy:'#102A56',blue:'#2670B8',red:'#A32424',orange:'#E8622A',purple:'#6B3FA0',yellow:'#FFD66B',green:'#2E7D45',gray:'#9CA9BA',pale:'#EFF4FB'};
+const arr=(n,fn)=>Array.from({length:Math.max(0,n)},(_,i)=>fn(i)).join('');
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const text=(x,y,t,size=30,color=C.navy,extra='')=>`<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="middle" font-size="${size}" fill="${color}" font-family="Arial,sans-serif" font-weight="800" ${extra}>${esc(t)}</text>`;
+const line=(x1,y1,x2,y2,color=C.navy,extra='')=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${color}" ${extra.includes('stroke-width')?'':'stroke-width="3"'} ${extra}/>`;
+const step=(i,extra=0)=>`class="count-in" style="animation-delay:${extra+i*.14}s"`;
+const cube=(x,y,s,color=C.blue,extra='')=>`<rect x="${x}" y="${y}" width="${s}" height="${s}" rx="${Math.min(3,s/8)}" fill="${color}" stroke="${C.navy}" stroke-width="${s<20?1.2:2}" ${extra}/>`;
+const tower=(n,x,y,s,color=C.blue,extra='',split=true)=>arr(n,i=>cube(x,y-(i+1)*s,s,!split||i<5?color:C.orange,extra));
+const stick=(n,x,y,s,color=C.blue,numbered=false,delay=0,split=true)=>arr(n,i=>`<g ${numbered?step(i,delay):''}>${cube(x+i*s,y,s,!split||i<5?color:C.orange)}${numbered?text(x+(i+.5)*s,y+s/2,i+1,s*.5,'#fff'):''}</g>`);
+const svg=(body,label,dense=false,height=440)=>`<div class="math-viewport${dense?' dense':''}"><svg class="math-diagram" viewBox="0 0 900 ${height}" role="img" aria-label="${esc(label)}"><defs><radialGradient id="sphere-shade" cx="30%" cy="25%"><stop offset="0" stop-color="#E1F2FF"/><stop offset="1" stop-color="${C.blue}"/></radialGradient></defs>${body}</svg></div>`;
+const mark=(x,y,n,i=0)=>`<g ${step(i)}><circle cx="${x}" cy="${y}" r="17" fill="${C.yellow}" stroke="${C.navy}" stroke-width="2"/>${text(x,y,n,22)}</g>`;
+const answer=(data,body,after,symbol='?',label='Maths challenge',more={})=>({data,symbol,prompt:label,answer:String(data.answer),visual:svg(body,label,data.max>10),revealedVisual:svg(after,label+' revealed',data.max>10),...more});
+const shapes=['triangle','rectangle','circle','cube','sphere','cylinder','cone'];
+function flatShape(type,color=C.blue,variant=0){
+ const attrs=`fill="${color}" stroke="${C.navy}" stroke-width="3" stroke-linejoin="round"`;
+ switch(type){
+ case 'triangle':return `<polygon points="${variant%2?'-33,23 28,29 15,-29':'-30,27 30,27 0,-29'}" ${attrs}/>`;
+ case 'rectangle':return `<rect x="${variant%2?-20:-36}" y="-22" width="${variant%2?40:72}" height="44" ${attrs}/>`;
+ case 'square':return `<rect x="-25" y="-25" width="50" height="50" ${attrs}/>`;
+ case 'circle':return `<circle r="28" ${attrs}/>`;
+ case 'oval':return `<ellipse rx="37" ry="20" ${attrs}/>`;
+ case 'open':return `<path d="M-30 25L0-29 30 25H-18" fill="none" stroke="${color}" stroke-width="6" stroke-linejoin="round"/>`;
+ case 'slice':return `<path d="M0-30L33 24Q0 49-33 24Z" ${attrs}/>`;
+ case 'half':return `<path d="M-33 15A33 33 0 0 1 33 15Z" ${attrs}/>`;
+ case 'slant':return `<polygon points="-20,-25 38,-25 20,25 -38,25" ${attrs}/>`;
+ case 'hexagon':return `<polygon points="-30,0 -15,-26 15,-26 30,0 15,26 -15,26" ${attrs}/>`;
+ default:return '';
+ }
+}
+function solidShape(type,reveal=false,start=0,scale=1){
+ let faces=[],base='';
+ if(type==='sphere')base=`<circle r="33" fill="url(#sphere-shade)" stroke="${C.navy}" stroke-width="2"/>`;
+ if(type==='cube'||type==='box'){
+ const stretch=type==='box'?1.35:1;
+ const polys=['-30,-15 4,-34 38,-14 4,5','-30,-15 4,5 4,42 -30,22','4,5 38,-14 38,23 4,42','-30,-15 4,-34 4,3 -30,22','4,-34 38,-14 38,23 4,3','-30,22 4,3 38,23 4,42'];
+ base=`<g transform="scale(${stretch} 1)">${polys.slice(0,3).map((p,i)=>`<polygon points="${p}" fill="${['#8DC7EC','#2670B8','#5194C9'][i]}" fill-opacity=".72" stroke="${C.navy}" stroke-width="2"/>`).join('')}${polys.slice(3).map(p=>`<polygon points="${p}" fill="none" stroke="${C.navy}" stroke-opacity=".45" stroke-width="2" stroke-dasharray="3 4"/>`).join('')}</g>`;
+ faces=polys.map((p,i)=>`<polygon points="${p}" transform="scale(${stretch} 1)" fill="${C.yellow}" fill-opacity=".36" stroke="${C.red}" stroke-width="4" ${i>2?'stroke-dasharray="4 3"':''}/>`);
+ }else if(type==='cylinder'){
+ base=`<path d="M-30-25V25A30 13 0 0 0 30 25V-25" fill="#8DC7EC" stroke="${C.navy}" stroke-width="2"/><ellipse cy="-25" rx="30" ry="13" fill="#DAF0FF" stroke="${C.navy}" stroke-width="2"/><ellipse cy="25" rx="30" ry="13" fill="none" stroke="${C.navy}" stroke-width="2" stroke-dasharray="3 4"/>`;
+ faces=[`<ellipse cy="-25" rx="30" ry="13" fill="${C.yellow}" stroke="${C.red}" stroke-width="4"/>`,`<ellipse cy="25" rx="30" ry="13" fill="${C.yellow}" fill-opacity=".6" stroke="${C.red}" stroke-width="4" stroke-dasharray="4 3"/>`];
+ }else if(type==='cone'){
+ base=`<path d="M0-38L33 27Q0 47-33 27Z" fill="#8DC7EC" stroke="${C.navy}" stroke-width="2"/><ellipse cy="27" rx="33" ry="11" fill="none" stroke="${C.navy}" stroke-width="2" stroke-dasharray="3 4"/>`;
+ faces=[`<ellipse cy="27" rx="33" ry="11" fill="${C.yellow}" fill-opacity=".6" stroke="${C.red}" stroke-width="4" stroke-dasharray="4 3"/>`];
+ }
+ // A separate trace of each flat face keeps hidden-face counting unambiguous.
+ const faceTraces=reveal?faces.map((f,i)=>`<g ${step(start+i)}>${f}</g>`).join(''):'';
+ return `<g transform="scale(${scale})">${base}${faceTraces}</g>`;
+}
+const faceCount=t=>({sphere:0,cone:1,cylinder:2,cube:6,box:6}[t]||0);
+const geometry=(t,v=0)=>shapes.indexOf(t)>2||t==='box'?solidShape(t):flatShape(t,[C.blue,C.orange,C.purple][v%3],v);
+function stairChallenge(id,max,r){
+ const n=[0,Math.max(0,max-1),1,Math.floor(max/2),Math.max(0,max-2),0][r%6];
+ if(id==='before-and-after'){
+ const dir=r%2===0?1:-1,from=dir>0?n:Math.max(1,n),to=from+dir,s=Math.min(40,310/max);
+ const b=tower(from,275,375,s)+text(275+s/2,405,from)+text(450,65,dir>0?'↑':'↓',70);
+ const a=b+`<g class="build-in">${tower(to,560,375,s,C.purple)}</g>`+text(560+s/2,405,to);
+ return answer({max,kind:id,from,to,dir,answer:to},b,a,dir>0?'↑':'↓','Show the number before or after');
+ }
+ if(id==='which-towers-are-hiding'){
+ const count=Math.min(1+r%3,max),start=r%6===5?0:Math.min(max-count+1,1+(r%2)),missing=Array.from({length:count},(_,i)=>start+i),s=Math.min(36,315/max),dx=800/(max+1);
+ const draw=reveal=>arr(max+1,i=>{const x=50+i*dx,is=missing.includes(i);return (!is||reveal?`<g ${is?step(i-start):''}>${tower(i,x,370,s,is?C.purple:C.blue)}${text(x+s/2,403,i,26)}</g>`:text(x+s/2,403,'?',28))+(!is?'':`<rect x="${x-3}" y="38" width="${s+6}" height="344" rx="6" fill="none" stroke="${C.purple}" stroke-width="2" stroke-dasharray="5 5"/>`)});
+ const neighbours=missing.map(v=>`${v>0?v-1+' ← ':''}${v}${v<max?' → '+(v+1):''}`).join('   ·   ');
+ return answer({max,kind:id,missing,neighbours,answer:missing.join(' · ')},draw(false),draw(true),'?','Show the hidden towers',{answer:neighbours,explanation:neighbours});
+ }
+ const down=id==='down-the-stairs',from=down?[1,max,Math.min(2,max),Math.max(1,Math.floor(max/2)),max,1][r%6]:n,to=from+(down?-1:1),s=Math.min(35,310/max),dx=800/(max+1);
+ const draw=reveal=>arr(max+1,j=>{const i=down?max-j:j,x=50+j*dx,highlight=i===from,covered=!down&&i===to&&!reveal;if(covered)return text(x+s/2,405,'?',28,C.purple);const count=down&&reveal&&highlight?to:i;let part=`<g opacity="${highlight||(!down&&i===to&&reveal)?1:.24}">${tower(count,x,370,s,highlight?C.purple:C.blue)}${text(x+s/2,405,count,26)}</g>`;if(down&&reveal&&highlight)part+=`<g class="lift-away">${cube(x,370-from*s,s,C.purple)}</g>`;if(!down&&reveal&&i===to)part=`<g class="build-in">${part}</g>`;return part;});
+ return answer({max,kind:id,from,to,answer:to},draw(false),draw(true),down?'↓':'↑',down?'Show one less':'Show one more');
+}
+function huntChallenge(id,max,r){
+ const target=id==='triangle-hunt'?'triangle':id==='rectangle-and-circle-hunt'?(r%2?'circle':'rectangle'):shapes[r%7];
+ const n=[Math.min(3,max),0,max,Math.min(2,max),Math.max(1,max-1),1][r%6];
+ const distractors=id==='triangle-hunt'?['circle','square','rectangle','hexagon','open','slice']:id==='rectangle-and-circle-hunt'?['triangle','hexagon','oval','half','slant']:target==='triangle'?['open','slice','circle','cube']:target==='circle'?['oval','half','triangle','sphere']:target==='rectangle'?['slant','triangle','circle','cube']:['triangle','oval',target==='cone'?'cylinder':'cone','rectangle'].filter(t=>t!==target);
+ let items=Array.from({length:n},(_,i)=>({type:target==='rectangle'&&i%3===1?'square':target,match:true,v:i}));
+ items=items.concat(distractors.map((type,i)=>({type,match:false,v:n+i}))).sort((a,b)=>((a.v*7+r*3)%31)-((b.v*7+r*3)%31));
+ const cols=max>10?7:5,rows=Math.ceil(items.length/cols),dx=800/cols,dy=Math.min(100,345/rows),sc=Math.min(1,dy/85),cue=`<g transform="translate(450 45) scale(.65)">${geometry(target)}</g>`;
+ const draw=reveal=>cue+items.map((o,i)=>{const x=50+dx/2+(i%cols)*dx,y=115+Math.floor(i/cols)*dy,angle=[0,90,180,35,-65][o.v%5],size=sc*[1,.78,.92][o.v%3],index=items.slice(0,i+1).filter(x=>x.match).length;return `<g transform="translate(${x} ${y})"><g ${reveal&&o.match?`class="shape-return" style="--turn:${angle}deg;animation-delay:${(index-1)*.14}s"`:`transform="rotate(${angle})"`}><g transform="scale(${id==='still-the-same-shape'&&i%2?-size:size} ${size})">${reveal&&o.match&&id==='still-the-same-shape'&&i%2?`<animateTransform attributeName="transform" type="scale" from="${-size} ${size}" to="${size} ${size}" dur=".6s" fill="freeze"/>`:''}${geometry(o.type,o.v)}</g></g>${reveal&&o.match?`<g ${step(index-1)}><rect x="-51" y="-45" width="102" height="91" rx="14" fill="none" stroke="${C.red}" stroke-width="4"/>${mark(39,-35,index)}</g>`:''}</g>`}).join('');
+ return answer({max,kind:id,target,n,items,answer:n},draw(false),draw(true),'?','Find the matching shapes');
+}
+function facesChallenge(max,r){
+ const configs=max===3?[['sphere'],['cone'],['cylinder'],['sphere'],['cylinder'],['cone']]:max===5?[['sphere'],['cone','cylinder'],['cylinder','cylinder'],['cone'],['sphere','cylinder'],['cone','cone']]:max===10?[['sphere'],['cube'],['cube','cylinder'],['cone','cube'],['cylinder','cylinder'],['cube','cone']]:[['sphere','sphere'],['cube','box'],['cube','cube','box'],['cone','cylinder','box'],['box','cylinder'],['cube','box','cone']];
+ const types=configs[r%6],total=types.reduce((n,t)=>n+faceCount(t),0),dx=780/types.length;let offset=0;
+ const before=types.map((t,i)=>`<g transform="translate(${60+dx*(i+.5)} 175)">${solidShape(t,false,0,1.8)}</g>`).join('');
+ const after=types.map((t,i)=>{const count=faceCount(t),x=60+dx*(i+.5),result=`<g transform="translate(${x} 175)">${solidShape(t,true,offset,1.8)}</g>`+arr(count,j=>{const cx=x+(j-(count-1)/2)*29;return `<g ${step(offset+j)}>${t==='cube'||t==='box'?cube(cx-11,300,22,C.yellow):`<ellipse cx="${cx}" cy="311" rx="12" ry="9" fill="${C.yellow}" stroke="${C.navy}" stroke-width="2"/>`}${text(cx,345,offset+j+1,23)}</g>`})+(count===0?text(x,330,0,32):'');offset+=count;return result}).join('');
+ return answer({max,kind:'how-many-faces',types,total,answer:total},before,after,'?','Count the flat faces, including hidden faces');
+}
+function flatSolidChallenge(max,r){
+ const n=[Math.min(3,max),0,max,1,Math.min(2,max),Math.max(1,max-1)][r%6],types=['sphere','cube','cylinder','cone','cube','cone'];
+ const items=Array.from({length:n},(_,i)=>({type:types[i%6],solid:true,v:i})).concat([{type:'rectangle',solid:false,v:1},{type:'triangle',solid:false,v:3},{type:'circle',solid:false,v:4}]);
+ const cols=max>10?7:5,rows=Math.ceil(items.length/cols),dy=Math.min(110,330/rows),sc=Math.min(1,dy/95);
+ const draw=reveal=>`<rect x="25" y="45" width="850" height="370" rx="30" fill="#F6F1E7" stroke="${C.gray}" stroke-width="3"/>`+items.map((o,i)=>{const x=75+(i%cols)*(750/(cols-1)),y=115+Math.floor(i/cols)*dy;return `<g transform="translate(${x} ${y})">${o.solid?`<ellipse cy="41" rx="36" ry="9" fill="${C.navy}" opacity=".14"/>`:''}<g ${reveal&&o.solid?step(i):''}><g ${reveal&&o.solid?'class="solid-lift"':''}><g transform="rotate(${[0,45,180,-30][o.v%4]}) scale(${sc} ${o.solid?sc:sc*.42})">${geometry(o.type,o.v)}</g></g>${reveal&&o.solid?mark(35,-25,i+1):''}</g></g>`}).join('');
+ return answer({max,kind:'flat-or-solid',n,items,answer:n},draw(false),draw(true),'?','Show how many things are solid');
+}
+function graphChallenge(max,r){
+ const compare=r%6>=4,counts=r%6===5?[max,max]:r%6===1?[0,Math.min(2,max),1]:r%6===4?[Math.max(0,max-2),max]:[Math.min(max,2+r%3),Math.max(0,max-1),r%2?1:0],picked=r%counts.length,biggest=Math.max(...counts),winners=counts.map((v,i)=>v===biggest?i:-1).filter(i=>i>=0),s=Math.min(42,290/max),dx=760/counts.length,icons=r%2?['🍃','🍂','🌼']:['☀️','☂️','❄️'];
+ const draw=reveal=>text(450,32,compare?'↑ ↑':'',45)+counts.map((n,j)=>{const x=70+(j+.5)*dx-s/2;return `${!compare&&j===picked?text(x+s/2,65,'↓',46):''}`+arr(n,i=>`<g ${reveal?step(i):''}>${cube(x,365-(i+1)*s,s,reveal?C.blue:'#fff')}${reveal?text(x+s/2,365-(i+.5)*s,i+1,s*.62,reveal?'#fff':C.navy):''}</g>`)+text(x+s/2,408,icons[j],37)+(reveal&&compare&&winners.includes(j)?`<rect x="${x-12}" y="${365-n*s-10}" width="${s+24}" height="${n*s+20}" rx="8" fill="none" stroke="${C.red}" stroke-width="5"/>`:'')+(reveal&&!compare&&j===picked&&n===0?text(x+s/2,338,0,32):'')}).join('')+line(40,370,860,370);
+ return answer({max,kind:'picture-graph-count',compare,counts,picked,winners,answer:compare?(winners.length>1?'=':'↑'):counts[picked]},draw(false),draw(true),compare?'↑ ↑':'↓','Count a column or point to the column with more');
+}
+function lengthChallenge(id,max,r){
+ let a,b,known,answerN;if(id==='line-up-the-ends'){const diff=[Math.min(2,max),0,max,1,Math.max(1,max-1),0][r%6],base=2+(r%3);a=base+(r%2?0:diff);b=base+(r%2?diff:0);answerN=diff;}else if(id==='longer-than-five'){a=5;b=[Math.min(3,max),0,max,Math.min(5,max),1,Math.min(5,max)][r%6];answerN=b;}else{a=[max,Math.min(2,max),max,0,max,Math.min(3,max)][r%6];known=[Math.max(0,a-1),a,0,0,Math.floor(a/2),a][r%6];b=a;answerN=a-known;}
+ const diff=Math.abs(a-b),misaligned=id==='line-up-the-ends'&&r%3!==2,limit=Math.max(a,b,5)+(misaligned?diff+2:0),s=Math.min(55,700/limit),origin=90,offset=(diff+2)*s,shiftA=misaligned&&a<=b?offset:0,shiftB=misaligned&&a>b?offset:0;
+ const moving=(content,shift,reveal)=>reveal?`<g class="slide-to-edge" style="--shift:${shift}px">${content}</g>`:`<g transform="translate(${shift} 0)">${content}</g>`;
+ const draw=reveal=>{
+ let body=line(origin-4,80,origin-4,360,C.gray,'stroke-dasharray="7 5"')+moving(stick(a,origin,130,s,id==='same-as-the-gray-stick'?C.gray:C.blue,false,0,id!=='same-as-the-gray-stick'),shiftA,reveal);
+ if(id==='same-as-the-gray-stick')body+=stick(known,origin,260,s,C.blue,false,0,false)+(reveal?`<g class="slide-part" style="--shift:100px">${arr(a-known,i=>`<g ${step(i,.6)}>${cube(origin+(known+i)*s,260,s,C.orange)}${text(origin+(known+i+.5)*s,260+s/2,i+1,s*.55,'#fff')}</g>`)}</g>`:text(origin+(known+.7)*s,260+s/2,'?',40,C.purple));
+ else {body+=moving(stick(b,origin,260,s,C.blue,reveal&&id==='longer-than-five'),shiftB,reveal);if(reveal&&id==='line-up-the-ends'){const longer=Math.max(a,b),shorter=Math.min(a,b),y=a>=b?130:260;body+=arr(longer-shorter,i=>`<g ${step(i,.7)}><rect x="${origin+(shorter+i)*s}" y="${y}" width="${s}" height="${s}" fill="${C.yellow}" stroke="${C.red}" stroke-width="3"/>${text(origin+(shorter+i+.5)*s,y+s/2,i+1,s*.55)}</g>`);} }
+ if(reveal)body+=text(815,220,id==='longer-than-five'?(b===5?'=':b>5?'↑':'↓'):a===b&&id==='line-up-the-ends'?'=':'',60);
+ return body;
+ };
+ return answer({max,kind:id,a,b,known,difference:diff,answer:answerN},draw(false),draw(true),id==='longer-than-five'?'5':'↔',id==='same-as-the-gray-stick'?'Show the missing length':'Compare the lengths');
+}
+const pairs=[{left:'🎈',right:'🪨',leftSize:83,rightSize:48,tilt:-1},{left:'📕',right:'🪶',leftSize:58,rightSize:77,tilt:1},{left:'🧱',right:'🧱',leftSize:60,rightSize:60,tilt:0},{left:'📦',right:'🪨',leftSize:88,rightSize:47,tilt:-1},{left:'🧦',right:'👟',leftSize:60,rightSize:65,tilt:-1},{left:'🟠',right:'🟠',leftSize:60,rightSize:60,tilt:0}];
+function balance(pair,reveal,x=450,y=270,scale=1){
+ const a=reveal?-pair.tilt*12:0;
+ return `<g transform="translate(${x} ${y}) scale(${scale})"><path d="M0-15L-35 100H35Z" fill="${C.gray}" stroke="${C.navy}" stroke-width="4"/><g ${reveal?'class="balance-tip"':''} style="--tip:${a}deg" transform="rotate(${a})">${line(-185,0,185,0,C.navy,'stroke-width="9"')}${line(-170,-8,-170,-50)}${line(170,-8,170,-50)}${line(-225,-50,-115,-50)}${line(115,-50,225,-50)}${text(-170,-100,pair.left,pair.leftSize||64)}${text(170,-100,pair.right,pair.rightSize||64)}</g>${reveal&&pair.tilt===0?text(0,-45,'=',42):''}</g>`;
+}
+function balanceChallenge(max,r){
+ const count=max===20?3:max===10?2:1,selected=Array.from({length:count},(_,i)=>pairs[(r+i)%pairs.length]),scale=count===1?1.35:count===2?.83:.59;
+ const draw=reveal=>selected.map((p,i)=>balance(p,reveal,(i+.5)*900/count,270,scale)).join('');
+ return answer({max,kind:'tip-the-balance',pairs:selected,count,answer:selected.map(p=>p.tilt===0?'=':p.tilt>0?'←':'→').join('   ')},draw(false),draw(true),'⚖','Point to the heavier side, or show the same');
+}
+function heavyChallenge(max,r){
+ const k=Math.floor(r/2)%3,unit=r%2?'chip':'cube',objects=['✏️','🖍️','🍎'],base=Math.min(Math.floor(max/2),[1,2,Math.floor(max/2)][k]),n=base*(unit==='chip'?2:1),object=objects[k];
+ const units=(reveal)=>arr(n,i=>{const x=590+(i%5)*27,y=237-Math.floor(i/5)*27;return `<g opacity="${reveal?0:1}">${reveal?`<set attributeName="opacity" to="1" begin="${i*.32}s" fill="freeze"/><animateTransform attributeName="transform" type="translate" from="0 -85" to="0 0" begin="${i*.32}s" dur=".3s" fill="freeze"/>`:''}${unit==='cube'?cube(x,y,23,C.red):`<circle cx="${x+12}" cy="${y+12}" r="11" fill="${C.red}" stroke="${C.navy}" stroke-width="2"/>`}${reveal?text(x+12,y+12,i+1,14,'#fff'):''}</g>`});
+ const cue=unit==='cube'?cube(433,20,34,C.red):`<circle cx="450" cy="37" r="18" fill="${C.red}" stroke="${C.navy}" stroke-width="3"/>`;
+ const body=cue+balance({left:object,right:'',tilt:1},true,450,310,1)+text(620,205,'?',45,C.purple);
+ const after=cue+`<path d="M450 295L415 410H485Z" fill="${C.gray}" stroke="${C.navy}" stroke-width="4"/><g class="weigh-level" style="animation-duration:${Math.max(.4,n*.32)}s">${line(265,310,635,310,C.navy,'stroke-width="9"')}${line(280,302,280,260)}${line(620,302,620,260)}${line(225,260,335,260)}${line(565,260,695,260)}${text(280,210,object,64)}${units(true)}</g>`;
+ return answer({max,kind:'as-heavy-as',object,unit,unitWeight:unit==='cube'?2:1,weight:base*2,n,answer:n},body,after,'⚖','Estimate and count the units until the balance is level');
+}
+const vessels=[{w:110,h:245},{w:230,h:115},{w:310,h:75},{w:170,h:180}];
+function vessel(x,y,type,extra=''){
+ const {w,h}=vessels[type%4];return `<path d="M${x-w/2} ${y-h}V${y}H${x+w/2}V${y-h}" fill="#F4FAFF" fill-opacity=".8" stroke="${C.navy}" stroke-width="5" stroke-linejoin="round" ${extra}/>`;
+}
+function cubePile(n,x,y,type,reveal=false,offset=0){const {w,h}=vessels[type%4],cols=Math.max(1,Math.floor((w-18)/27)),size=Math.min(24,(h-15)/Math.ceil(Math.max(1,n)/cols));return arr(n,i=>{const cx=x-w/2+12+(i%cols)*27,cy=y-8-(Math.floor(i/cols)+1)*(size+3);return `<g ${reveal?step(i+offset):''}>${cube(cx,cy,size,C.blue)}${reveal?text(cx+size/2,cy+size/2,i+offset+1,size*.58,'#fff'):''}</g>`})}
+function pourChallenge(max,r){
+ const n=[max,0,Math.min(3,max),max,Math.min(2,max),max][r%6],spill=r%3===2?Math.min(n,Math.max(1,Math.floor(n/3))):0,inside=n-spill,from=r%4,to=(from+1)%4;
+ const cols=Math.min(7,Math.max(1,inside)),smallWidth=cols*27+18,smallHeight=Math.ceil(Math.max(1,inside)/cols)*27+16;
+ const receiver=spill?`<path d="M${640-smallWidth/2} ${360-smallHeight}V360H${640+smallWidth/2}V${360-smallHeight}" fill="#F4FAFF" stroke="${C.navy}" stroke-width="5"/>`:vessel(640,360,to);
+ const received=(reveal)=>spill?arr(inside,i=>{const x=640-smallWidth/2+9+(i%cols)*27,y=352-(Math.floor(i/cols)+1)*27;return `<g ${reveal?step(i):''}>${cube(x,y,24,C.blue)}${reveal?text(x+12,y+12,i+1,14,'#fff'):''}</g>`}):cubePile(inside,640,360,to,reveal);
+ const empty=vessel(230,360,from)+receiver,before=empty+cubePile(n,230,360,from)+text(230,65,n,45)+text(450,180,'↷',65),landing=empty+received(false)+arr(spill,i=>cube(803+(i%3)*25,360-Math.floor(i/3)*25,22,C.blue));
+ const after=empty+received(true)+arr(spill,i=>`<g ${step(inside+i)}>${cube(803+(i%3)*25,360-Math.floor(i/3)*25,22,C.blue)}${text(814+(i%3)*25,371-Math.floor(i/3)*25,inside+i+1,13,'#fff')}</g>`)+text(450,60,spill?`${inside} + ${spill} = ${n}`:`${n} = ${n}`,40);
+ const stream=arr(n,i=>`<g class="pour-cube" style="--sx:${-410+(i%3)*25}px;--sy:${-130-Math.floor(i/3)*10}px;animation-delay:${i*.06}s">${cube(625,300,22,C.blue)}</g>`);
+ return answer({max,kind:'pour-and-count',n,inside,spill,from,to,answer:n},before,after,'↷','Count, pour, and show how many',{preparedVisual:svg(landing+stream,'Cubes poured into a different container',max>10),prepareLabel:'Pour the cubes'});
+}
+function comparisonChallenge(max,r){
+ const kind=['length','weight','capacity'][r%3],equal=Math.floor(r/3)%2===1;
+ if(kind==='weight'){
+ const p=equal?pairs[2]:pairs[0],b=balance(p,false),a=balance(p,true);
+ return answer({max,kind:'longer-heavier-holds-more',comparison:kind,equal,answer:equal?'=':'→'},b,a,'⚖','Point to the heavier object');
+ }
+ if(kind==='length'){
+ const a=max,b=equal?max:Math.max(0,max-2),s=Math.min(55,700/(max+3)),start=85;
+ const draw=reveal=>line(start,95,start,365,C.gray,'stroke-dasharray="7 5"')+stick(a,start,150,s)+(reveal?`<g class="slide-to-edge" style="--shift:${s*3}px">${stick(b,start,280,s,C.purple)}</g>`:stick(b,start+s*3,280,s,C.purple))+(reveal?arr(a-b,i=>`<g ${step(i,.4)}><rect x="${start+(b+i)*s}" y="150" width="${s}" height="${s}" fill="${C.yellow}" stroke="${C.red}" stroke-width="3"/>${max>=10?text(start+(b+i+.5)*s,150+s/2,i+1,s*.55):''}</g>`):'');
+ return answer({max,kind:'longer-heavier-holds-more',comparison:kind,equal,a,b,answer:equal?'=':max>=10?a-b:'↑'},draw(false),draw(true),'📏','Point to the longer stick');
+ }
+ const reverse=!equal&&Math.floor(r/6)%2===1,a=equal?4:reverse?4:6,b=equal?4:reverse?6:4,inside=Math.min(a,b),spill=Math.max(0,a-b),destinationCols=b===6?3:4;
+ const container=(x,count,cols)=>{const rows=Math.ceil(count/cols),w=cols*35+18,h=rows*35+18;return `<path d="M${x-w/2} ${360-h}V360H${x+w/2}V${360-h}" fill="#F4FAFF" stroke="${C.navy}" stroke-width="5"/>`};
+ const cubes=(x,count,cols)=>arr(count,i=>cube(x-(cols*35+18)/2+9+(i%cols)*35,351-(Math.floor(i/cols)+1)*35,32,C.blue));
+ const before=container(240,a,2)+cubes(240,a,2)+container(660,b,destinationCols),after=container(240,a,2)+container(660,b,destinationCols)+cubes(660,inside,destinationCols)+arr(spill,i=>cube(805+i*37,329,32,C.blue))+text(450,80,equal?'=':a>b?'←':'→',55);
+ return answer({max,kind:'longer-heavier-holds-more',comparison:kind,equal,capacityA:a,capacityB:b,inside,spill,answer:equal?'=':a>b?'←':'→'},before,after+arr(a,i=>`<g class="pour-cube" style="--sx:-420px;--sy:-160px;animation-delay:${i*.08}s">${cube(645,320,32,C.blue)}</g>`),'🥛','Point to the container that holds more');
+}
+const friends=['🧒🏽','👧🏻','🧑🏾‍🦽','👦🏿','👧🏼','🧒🏻','👦🏽','👧🏾'];
+function matchingChallenge(id,max,r){
+ let a,b;if(id==='enough-for-everyone'){
+ const cap=max===3?4:max;const pairs=[[cap,cap-1],[Math.min(2,cap),Math.min(2,cap)],[Math.min(2,cap),Math.min(2,cap)+1],[0,0],[cap,Math.max(max===3?1:0,cap-max)],[1,0]];[a,b]=pairs[r%6];
+ }else{[a,b]=[[max,Math.max(0,max-2)],[0,0],[Math.max(0,max-1),max],[Math.min(2,max),1],[1,max],[max,max]][r%6]}
+ const need=Math.max(0,a-b),diff=Math.abs(a-b),fewer=id==='line-them-up'&&r%6>=4,slots=Math.max(1,a,b),dx=Math.min(110,790/slots),start=450-(slots-1)*dx/2,size=Math.min(64,dx*.85),objects=['🥛','🎩','🪑'];
+ const icon=(i,row)=>id==='enough-for-everyone'?(row===0?friends[i%friends.length]:objects[r%3]):r%2?(row===0?'🟦':'🔴'):(row===0?'⭐':'☀️');
+ const draw=reveal=>arr(Math.min(a,b),i=>reveal?line(start+i*dx,165,start+i*dx,280,C.gray,`${step(i)} stroke-width="4"`):'')+arr(a,i=>`<g>${text(start+i*dx,120,icon(i,0),size)}${reveal&&i>=b?`<rect x="${start+i*dx-size*.6}" y="${120-size*.6}" width="${size*1.2}" height="${size*1.2}" rx="12" fill="none" stroke="${C.red}" stroke-width="4" ${step(i)}/>`:''}</g>`)+arr(b,i=>`<g>${text(start+i*dx,325,icon(i,1),size)}${reveal&&i>=a?`<rect x="${start+i*dx-size*.6}" y="${325-size*.6}" width="${size*1.2}" height="${size*1.2}" rx="12" fill="none" stroke="${C.orange}" stroke-width="4" ${step(i)}/>`:''}</g>`)+(reveal&&fewer?text(450,225,a===b?'=':a<b?'↑':'↓',48):'');
+ return answer({max,kind:id,a,b,need,diff,fewer,answer:id==='enough-for-everyone'?need:fewer?(a===b?'=':a<b?'↑':'↓'):diff},draw(false),draw(true),fewer?'↓ ↓':'↕',id==='enough-for-everyone'?'Show how many more things are needed':'Match the rows and look for leftovers');
+}
+function tallerChallenge(max,r){
+ const [a,b]=[[max,Math.max(0,max-2)],[0,0],[Math.min(1,max),max],[max,max],[0,max],[max,Math.max(0,max-1)]][r%6],s=Math.min(48,320/max),floor=360;
+ const draw=reveal=>{const lx=reveal?450-s-6:230,rx=reveal?456:670;return line(125,floor,780,floor,C.gray)+`<g ${reveal?'class="slide-to-edge" style="--shift:'+(230-lx)+'px"':''}>${tower(a,lx,floor,s,C.blue,'',false)}${text(lx+s/2,410,['→','←','💨'][r%3],30,C.blue)}</g><g ${reveal?'class="slide-to-edge" style="--shift:'+(670-rx)+'px"':''}>${tower(b,rx,floor,s,C.red,'',false)}${text(rx+s/2,410,['←','💨','→'][r%3],30,C.red)}</g>`+(reveal?arr(Math.abs(a-b),i=>{const x=a>b?lx:rx,y=floor-(Math.min(a,b)+i+1)*s;return `<g ${step(i)}><rect x="${x}" y="${y}" width="${s}" height="${s}" fill="${C.yellow}" stroke="${C.navy}" stroke-width="3"/>${text(x+s/2,y+s/2,i+1,s*.6)}</g>`}):'');};
+ return answer({max,kind:'taller-tower',a,b,answer:Math.abs(a-b)},draw(false),draw(true),'↑ ↑','Show how many more cubes the taller tower has');
+}
+function exhibitionChallenge(id,max,r){
+ if(id==='exhibition-systems-check'){
+  const result=comparisonChallenge(max,r);result.data.kind=id;
+  result.prompt='Review the design comparisons: '+result.prompt.toLowerCase();
+  return result;
+ }
+ if(r%6>=4){
+  const result=huntChallenge(r%6===4?'triangle-hunt':'rectangle-and-circle-hunt',max,r);result.data.kind=id;
+  result.prompt='Find the shapes used in Cycle Wheels and Flying Machines';return result;
+ }
+ const mode=r%6,n=mode===0?0:mode===1?max:mode===2?Math.max(0,max-1):Math.min(max,2),to=mode===2?n+1:mode===3?n-1:n;
+ const display=(count,scatter,reveal)=>{
+  const cols=max>10?7:5,dx=740/cols,dy=70;
+  return `<rect x="55" y="80" width="790" height="325" rx="20" fill="${C.pale}" stroke="${C.navy}" stroke-width="5"/>`+arr(count,i=>{
+   const order=scatter?count-1-i:i,x=105+(order%cols)*dx+(scatter?12*(i%2):0),y=130+Math.floor(order/cols)*dy+(scatter?18*(i%2):0);
+   return `<g ${reveal?step(i):''}><g transform="translate(${x} ${y}) scale(.65)">${flatShape(i%2?'square':'triangle',i%2?C.purple:C.blue,i)}</g>${reveal?mark(x+28,y-20,i+1,i):''}</g>`;
+  })+(count===0?text(450,245,0,65):'');
+ };
+ // The first two rounds rearrange the same set; the next two add or remove one.
+ const before=display(n,false,false),after=display(to,mode<2,true);
+ return answer({max,kind:id,mode,from:n,to,answer:to},before,after,mode===2?'↑':mode===3?'↓':'↷',mode===2?'Show one more display piece':mode===3?'Show one less display piece':'Count the display pieces; rearranging keeps the count');
+}
+function build(id,max,round){
+ if(![3,5,10,20].includes(max))throw Error('Unsupported number size');
+ const r=Math.max(0,round-1);let result;
+ if(['exhibition-display-detectives','exhibition-systems-check'].includes(id))result=exhibitionChallenge(id,max,r);
+ else if(['one-more-stair','which-towers-are-hiding','down-the-stairs','before-and-after'].includes(id))result=stairChallenge(id,max,r);
+ else if(['triangle-hunt','rectangle-and-circle-hunt','still-the-same-shape'].includes(id))result=huntChallenge(id,max,r);
+ else if(id==='how-many-faces')result=facesChallenge(max,r);
+ else if(id==='flat-or-solid')result=flatSolidChallenge(max,r);
+ else if(id==='picture-graph-count')result=graphChallenge(max,r);
+ else if(['line-up-the-ends','longer-than-five','same-as-the-gray-stick'].includes(id))result=lengthChallenge(id,max,r);
+ else if(id==='tip-the-balance')result=balanceChallenge(max,r);
+ else if(id==='as-heavy-as')result=heavyChallenge(max,r);
+ else if(id==='pour-and-count')result=pourChallenge(max,r);
+ else if(id==='longer-heavier-holds-more')result=comparisonChallenge(max,r);
+ else if(['enough-for-everyone','line-them-up'].includes(id))result=matchingChallenge(id,max,r);
+ else if(id==='taller-tower')result=tallerChallenge(max,r);
+ else return null;
+ result.symbolic=true;return result;
+}
+root.RiseMissions={metadata,build};
+})(typeof window==='undefined'?globalThis:window);
+
+</script>
+  <script>
+/* Dated missions checked against lesson plans and weekly prompts. */
+(function(root){
+"use strict";
+const metadata=[{"unit": 5, "id": "longer-stick-more-cubes", "iso": "2027-01-07", "date": "Thu 7 Jan 2027", "source": "Bluebonnet Kindergarten Math Module 3, Lessons 19–20", "preferred": 5, "focus": "longer means more", "name": "Longer Stick, More Cubes", "summary": "Two sticks start together — show how many cubes are in the longer one.", "grows": "This grows out of Roll, Build, Compare, where partners rolled a die, built a stick for each roll, compared their lengths and then compared the cubes as sets.", "steps": ["Look at the two sticks, lined up at one end.", "Show how many cubes are in the longer stick, with cubes, fingers or a number card.", "Tap Reveal and watch both sticks count up and the extra cubes light."], "materials": "Linking cubes, a die, fingers, number cards 0 to 10, or a device"}, {"unit": 5, "id": "same-then-one-more", "iso": "2027-01-11", "date": "Mon 11 Jan 2027", "source": "Bluebonnet Kindergarten Math Module 3, Lessons 21–22", "preferred": 5, "focus": "match one to one, then one more", "name": "Same, Then One More", "summary": "Make a set the same as this one — then a set with one more.", "grows": "This grows out of Match My Set and One More Than My Set, where partners built a chip set to match a cube set and then a chip set with one more.", "steps": ["Look at the set and show how many make the same set.", "Tap Reveal and watch each thing get a partner.", "Now show one more, then tap Reveal and watch the extra one light up."], "materials": "Linking cubes and bingo chips, a die, fingers, number cards 0 to 10, or a device"}, {"unit": 5, "id": "one-less-worm", "iso": "2027-01-13", "date": "Wed 13 Jan 2027", "source": "Bluebonnet Kindergarten Math Module 3, Lessons 23–24", "preferred": 5, "focus": "one fewer, then check", "name": "One Less Worm", "summary": "Every bird but one gets a worm — show how many worms.", "grows": "This grows out of The Birds Are Back and One Fewer Than My Set, where students drew one fewer worm than birds and built chip sets with one fewer.", "steps": ["Look at the birds in the row.", "Show how many worms make one fewer, with cubes, fingers or a number card.", "Tap Reveal and watch each worm go to a bird, and one bird wait without."], "materials": "Linking cubes and bingo chips, a die, fingers, number cards 0 to 10, or a device"}, {"unit": 5, "id": "pair-them-up", "iso": "2027-01-15", "date": "Fri 15 Jan 2027", "source": "Bluebonnet Kindergarten Math Module 3, Lessons 25–26", "preferred": 5, "focus": "match, then say more and less", "name": "Pair Them Up", "summary": "Two messy sets — line them up, pair them up, and find the leftovers.", "grows": "This grows out of Line Them Up and Which Is Less?, where the room redrew scattered shapes in rows and columns and matched them with lines to see which had more.", "steps": ["Look at the two scattered sets.", "Show how many are in the set with more, with cubes, fingers or a number card.", "Tap Reveal and watch the sets line up, pair up, and light the leftovers."], "materials": "Linking cubes and bingo chips, fingers, number cards 0 to 10, or a device"}, {"unit": 5, "id": "count-the-taps", "iso": "2027-01-20", "date": "Wed 20 Jan 2027", "source": "Bluebonnet Kindergarten Math Module 3, Lessons 27–28", "preferred": 5, "focus": "picture it, then compare", "name": "Count the Taps", "summary": "Listen to two sets of taps — which set had more?", "grows": "This grows out of Listen and Compare, where the room closed their eyes, counted two sets of taps on the table, and said which number was greater.", "steps": ["Listen to the first set of taps, then the second.", "Show the number in the set that had more, with cubes, fingers or a number card.", "Tap Reveal and watch the dots line up and the extra ones light."], "materials": "Linking cubes, fingers, number cards 0 to 10, or a device"}, {"unit": 5, "id": "more-less-same", "iso": "2027-01-22", "date": "Fri 22 Jan 2027", "source": "Bluebonnet Kindergarten Math Module 3, End-of-Module Assessment Task (Topics E–G)", "preferred": 10, "focus": "the whole topic, mixed", "name": "More, Less, Same", "summary": "Every round asks one of the month’s questions — more, less, same, one more, one less.", "grows": "This grows out of the End-of-Module Assessment Task, where students had just answered the module’s comparing questions box by box on paper.", "steps": ["Look at the two sets or numbers and the question sign.", "Show your answer with cubes, fingers or a number card.", "Tap Reveal and watch the sets line up and the answer light."], "materials": "Linking cubes and bingo chips, fingers, number cards 0 to 10, or a device"}, {"unit": 5, "id": "two-paths-home", "iso": "2027-01-26", "date": "Tue 26 Jan 2027", "source": "Bluebonnet Kindergarten Math Module 4, Lessons 1–2", "preferred": 5, "focus": "two parts make the whole", "name": "Two Paths Home", "summary": "The stick breaks in two — one part goes home, show the part that is hiding.", "grows": "This grows out of the Party Game and Leaving the Party, where students walked the two paths of a floor number bond and broke a 5-stick into two parts, one down each path.", "steps": ["Look at the whole stick at the top of the number bond, and watch one part slide down its path.", "Show the hidden part with cubes, fingers or a number card.", "Tap Reveal, watch the other part slide down, then watch both go back up into the whole."], "materials": "A 5-stick of linking cubes, fingers, number cards 0 to 10, or a device"}, {"unit": 5, "id": "numbers-for-pictures", "iso": "2027-01-28", "date": "Thu 28 Jan 2027", "source": "Bluebonnet Kindergarten Math Module 4, Lessons 3–4", "preferred": 5, "focus": "the whole goes where the paths meet", "name": "Numbers for Pictures", "summary": "Count the squares in one circle and show the number that can take their place.", "grows": "This grows out of Squirrels in the Park and Five Apples, where the room drew squares in a number bond and then erased them and wrote the numerals instead, whole and parts.", "steps": ["Look at the squares in the circle that is lit.", "Show how many with cubes, fingers or a number card.", "Tap Reveal and watch the squares turn into the number, then do the next circle."], "materials": "Linking cubes, a whiteboard number bond, fingers, number cards 0 to 10, or a device"}, {"unit": 5, "id": "snap-find-the-other-part", "iso": "2027-02-01", "date": "Mon 1 Feb 2027", "source": "Bluebonnet Kindergarten Math Module 4, Lessons 5–6", "preferred": 5, "focus": "find the hidden part", "name": "Snap! Find the Other Part", "summary": "The stick snaps — one part hides. Show the part that is hiding.", "grows": "This grows out of Snap and A Bond With No Story, where students broke a 5-stick behind their backs, showed one part, and found the other, then told stories for a bond.", "steps": ["Look at the whole stick, then watch it snap and one part hide.", "Show the hidden part with cubes, fingers or a number card.", "Tap Reveal to lift the screen and see the number bond."], "materials": "A 5-stick of linking cubes, fingers, number cards 0 to 10, or a device"}, {"unit": 5, "id": "every-way-to-seven", "iso": "2027-02-03", "date": "Wed 3 Feb 2027", "source": "Bluebonnet Kindergarten Math Module 4, Lessons 7–8", "preferred": 10, "focus": "every way to break 7", "name": "Every Way to Seven", "summary": "The same 7 breaks a new way every round — show one part and grow the list.", "grows": "This grows out of The Squirrel’s Nuts and Sets of Shapes, where the room broke a 6-stick every way and sorted 7 pattern blocks into two sets again and again.", "steps": ["Look at the whole number and watch the stick split a new way.", "Show one of the parts with cubes, fingers or a number card.", "Tap Reveal to fill the bond and add it to the list of ways."], "materials": "A 7-stick of linking cubes, pattern blocks, fingers, number cards 0 to 10, or a device"}, {"unit": 5, "id": "which-row-has-more", "iso": "2027-02-05", "date": "Fri 5 Feb 2027", "source": "Teacher-created on Kindergarten Math Modules 3 and 4", "preferred": 10, "focus": "read the graph", "name": "Which Row Has More?", "summary": "Look at the picture graph — point to the row with more, and show how many more.", "grows": "This grows out of our medallion towers, where every Hero Medallion became a cube in a red, blue or yellow tower and the towers became rows on our picture graph.", "steps": ["Look at the rows of coloured squares on the graph.", "Point to the colour with more, and show how many more with cubes, fingers or a number card.", "Tap Reveal and count the extra squares together."], "materials": "Linking cubes in three colours, fingers, number cards 0 to 10, or a device"}, {"unit": 6, "id": "whats-behind-my-back", "iso": "2027-02-09", "date": "Tue 9 Feb 2027", "source": "Bluebonnet Kindergarten Math Module 4, Lessons 9–10", "preferred": 10, "focus": "the parts make the whole", "name": "What's Behind My Back?", "summary": "You see the whole and one part of the stick. Show the part behind its back.", "grows": "This grows out of Snap! and One Cube at a Time, where the room broke a 6-, 7- and 8-stick behind their backs, showed one part and said the other, then moved one cube at a time to find every pair.", "steps": ["Read the whole and count the part of the stick you can see.", "Show the hidden part with cubes, fingers or a number card.", "Tap Reveal to bring the hidden part out and fill the number bond."], "materials": "An 8-cube stick, fingers, number cards 0 to 10, or a device"}, {"unit": 6, "id": "full-five-then-more", "iso": "2027-02-11", "date": "Thu 11 Feb 2027", "source": "Bluebonnet Kindergarten Math Module 4, Lessons 11–12", "preferred": 10, "focus": "five and some more", "name": "Full Five, Then More", "summary": "The top row is full. Count on to find how many in all.", "grows": "This grows out of Five and Some More, where the room filled the top row of five boxes first, put the extra cubes in the row below and counted on from 5.", "steps": ["Look at the full top row and say \"five.\"", "Count on along the bottom row, then show how many in all with cubes, fingers or a number card.", "Tap Reveal to count on from 5 together and see the number bond."], "materials": "Eight linking cubes, two rows of five boxes drawn on a whiteboard, fingers, number cards 0 to 10, or a device"}, {"unit": 6, "id": "ducks-on-the-shore", "iso": "2027-02-16", "date": "Tue 16 Feb 2027", "source": "Bluebonnet Kindergarten Math Module 4, Lessons 13–15", "preferred": 10, "focus": "two parts, one number sentence", "name": "Ducks on the Shore", "summary": "The ducks land on the shore and in the water. Show both parts and the whole.", "grows": "This grows out of the ducks poured over the Long Wooden Block, where the room counted the shore and the water and wrote the number sentence both ways.", "steps": ["Count the ducks on the shore and the ducks in the water.", "Show the two parts and the whole with cubes, fingers or number cards.", "Tap Reveal to count each side and see the number sentence written two ways."], "materials": "Eight linking cubes, fingers, number cards 0 to 10, or a device"}, {"unit": 6, "id": "mystery-box", "iso": "2027-02-18", "date": "Thu 18 Feb 2027", "source": "Bluebonnet Kindergarten Math Module 4, Lessons 16–18", "preferred": 10, "focus": "box the unknown", "name": "Mystery Box", "summary": "Some are there, and some more come. What goes in the mystery box?", "grows": "This grows out of Kittens in the Yard, where the room pictured the story, drew it, wrote 5 + 2 = □ and found what goes in the box.", "steps": ["Watch the first group, then the ones that come to join them.", "Show what goes in the mystery box with cubes, fingers or a number card.", "Tap Reveal to count them all and open the box."], "materials": "Eight linking cubes, fingers, number cards 0 to 10, or a device"}, {"unit": 6, "id": "how-many-are-left", "iso": "2027-02-22", "date": "Mon 22 Feb 2027", "source": "Bluebonnet Kindergarten Math Module 4, Lessons 19–21", "preferred": 5, "focus": "cross out, then count what is left", "name": "How Many Are Left?", "summary": "Some go away. Show how many are left.", "grows": "This grows out of Five Sparkly Fireworks, the cubes taken off the table and the frogs that swam, where the room crossed out the ones that went away and counted the rest.", "steps": ["Count the group on the board.", "Watch some go away, then show how many are left with cubes, fingers or a number card.", "Tap Reveal and count what is left together."], "materials": "Five linking cubes, fingers, number cards 0 to 10, or a device"}, {"unit": 6, "id": "break-the-stick", "iso": "2027-02-24", "date": "Wed 24 Feb 2027", "source": "Bluebonnet Kindergarten Math Module 4, Lessons 22–24", "preferred": 10, "focus": "the whole is two parts", "name": "Break the Stick", "summary": "Part of the stick breaks off. How many are left?", "grows": "This grows out of Snap and Break It Off, where the room broke, hid and crossed off part of a 6-, 7- and 8-stick and wrote the number bond each time.", "steps": ["Look at the whole stick and say how many cubes.", "Watch part of it break off, then show how many are left with cubes, fingers or a number card.", "Tap Reveal to put the stick back together and see the number bond."], "materials": "A 6-, 7- or 8-cube stick, fingers, number cards 0 to 10, or a device"}, {"unit": 6, "id": "find-the-hidden-part", "iso": "2027-02-26", "date": "Fri 26 Feb 2027", "source": "Bluebonnet Kindergarten Math Module 4, Mid-Module Assessment Task (Topics A–D)", "preferred": 10, "focus": "find the missing part", "name": "Find the Hidden Part", "summary": "You see the whole and one part. Show the hidden part.", "grows": "This grows out of the week's number bonds, the sticks broken and hidden on Monday and Wednesday, and the bonds on the Mid-Module task.", "steps": ["Read the whole in the circle and count the part you can see.", "Show the hidden part with cubes, fingers or a number card.", "Tap Reveal to lift the card and check the number bond."], "materials": "Eight linking cubes, fingers, number cards 0 to 10, or a device"}, {"unit": 6, "id": "nine-bears-two-places", "iso": "2027-03-02", "date": "Tue 2 Mar 2027", "source": "Bluebonnet Kindergarten Math Module 4, Lessons 25–26", "preferred": 10, "focus": "nine is many pairs", "name": "Nine Bears, Two Places", "summary": "Some bears are outside. How many are in the cave?", "grows": "This grows out of Nine Bears and Lee's Blocks, where the room split nine bears between the forest and the cave and broke a 9-stick one cube at a time.", "steps": ["Count the bears outside the cave.", "Show how many are hiding inside with cubes, fingers or a number card.", "Tap Reveal to open the cave and see the number bond."], "materials": "Nine linking cubes in two colours, fingers, number cards 0 to 10, or a device"}, {"unit": 6, "id": "count-the-vote", "iso": "2027-03-04", "date": "Thu 4 Mar 2027", "source": "Teacher-created (Module 4 strands; Lesson 20 Application Problem graph)", "preferred": 10, "focus": "more, fewer, how many in all", "name": "Count the Vote", "summary": "Look at the graph. Which side has more? How many more?", "grows": "This grows out of Our Tally and Make It a Picture Graph, where the room drew one picture for each vote and built the vote as two cube towers.", "steps": ["Look at the two columns and point to the taller one.", "Show how many more, or how many in all, with cubes, fingers or a number card.", "Tap Reveal to match the pictures up and count together."], "materials": "Ten linking cubes, fingers, number cards 0 to 10, or a device"}, {"unit": 7, "id": "ants-leave-the-picnic", "iso": "2027-03-23", "date": "Tue 23 Mar 2027", "source": "Bluebonnet Kindergarten Math Module 4, Lessons 27–28", "preferred": 10, "focus": "ten keeps its parts", "name": "Ants Leave the Picnic", "summary": "Some ants crawl off the blanket. How many are still on it?", "grows": "This grows out of Ants at the Picnic, where ten cube ants left a whiteboard blanket one at a time and the room drew each new bond.", "steps": ["Look at the ants on the blanket and the ones crawling away.", "Show how many are still on the blanket with cubes, fingers or a number card.", "Tap Reveal to see the number bond, with 10 as the whole."], "materials": "A linking-cube 10-stick, a whiteboard, fingers, number cards 0 to 10, or a device"}, {"unit": 7, "id": "parts-first-whole-first", "iso": "2027-03-25", "date": "Thu 25 Mar 2027", "source": "Bluebonnet Kindergarten Math Module 4, Lessons 29–30", "preferred": 10, "focus": "the whole can go first", "name": "Parts First, Whole First", "summary": "Two kinds of dots. Show the parts, then the whole.", "grows": "This grows out of Nine the 5-Group Way, where one drawing gave 9 = 5 + 4 and 5 + 4 = 9.", "steps": ["Look at the 5-group drawing and its two kinds of dots.", "Show the two parts and the whole with cubes, fingers or number cards.", "Tap Reveal to see the number sentence written both ways round."], "materials": "Linking cubes in two colours, a whiteboard, fingers, number cards 0 to 10, or a device"}, {"unit": 7, "id": "bears-in-the-forest", "iso": "2027-03-31", "date": "Wed 31 Mar 2027", "source": "Bluebonnet Kindergarten Math Module 4, Lessons 31–32", "preferred": 10, "focus": "part plus part makes the whole", "name": "Bears in the Forest", "summary": "Some bears, then more bears. How many in all?", "grows": "This grows out of Six Bears and Three More, where cube bears were joined by more and the room counted on to the total.", "steps": ["Look at the bears in the forest and the ones arriving.", "Show how many bears in all with cubes, fingers or a number card.", "Tap Reveal to count on together and see the number sentence."], "materials": "Linking cubes, a whiteboard, fingers, number cards 0 to 10, or a device"}, {"unit": 7, "id": "sleepy-bears", "iso": "2027-04-02", "date": "Fri 2 Apr 2027", "source": "Bluebonnet Kindergarten Math Module 4, Lessons 33–34", "preferred": 10, "focus": "whole take away part", "name": "Sleepy Bears", "summary": "Some bears go to sleep in the cave. How many are still awake?", "grows": "This grows out of Break It, Cross It Out, Hide It, where bears went under a paper cave and the room counted the ones still awake.", "steps": ["Look at all the bears, then watch some walk into the cave.", "Show how many are still awake with cubes, fingers or a number card.", "Tap Reveal to lift the cave and see the subtraction sentence."], "materials": "Linking cubes, a sheet of paper folded into a cave, fingers, number cards 0 to 10, or a device"}, {"unit": 7, "id": "ripe-peaches", "iso": "2027-04-06", "date": "Tue 6 Apr 2027", "source": "Bluebonnet Kindergarten Math Module 4, Lessons 35–36", "preferred": 10, "focus": "cross off the part that goes away", "name": "Ripe Peaches", "summary": "Some peaches are still green. How many are ready?", "grows": "This grows out of Melanie’s Peaches and Chris’s Cars, where the unripe peaches were circled and crossed off a 5-group drawing.", "steps": ["Look at the peaches and find the green ones.", "Show how many are ripe with cubes, fingers or a number card.", "Tap Reveal to cross off the green ones and see the subtraction sentence."], "materials": "Linking cubes, a whiteboard, fingers, number cards 0 to 10, or a device"}, {"unit": 7, "id": "frogs-hop-back", "iso": "2027-04-08", "date": "Thu 8 Apr 2027", "source": "Bluebonnet Kindergarten Math Module 4, Lessons 37–38", "preferred": 10, "focus": "adding and taking away the same number undo each other", "name": "Frogs Hop Back", "summary": "Frogs hop on, then the same frogs hop off. How many now?", "grows": "This grows out of Pigeons and Pinecones, where 5 pigeons came and the same 5 flew away, and the room landed back where it started.", "steps": ["Look at the frogs on the log.", "Show how many after more hop on, then after the same frogs hop off, with cubes, fingers or a number card.", "Tap Reveal to see both number sentences."], "materials": "Linking cubes, a number path 1 to 10, fingers, number cards 0 to 10, or a device"}, {"unit": 7, "id": "ten-needs-a-partner", "iso": "2027-04-12", "date": "Mon 12 Apr 2027", "source": "Bluebonnet Kindergarten Math Module 4, Lessons 39–40", "preferred": 10, "focus": "how many more make ten", "name": "Ten Needs a Partner", "summary": "Look at the frame. Show how many more make 10.", "grows": "This grows out of The Cat Needs 10 and Break the 10-Stick, where the room finished 5-group drawings to 10 and broke a 10-stick into two parts.", "steps": ["Look at the ten-frame and count the dots.", "Show how many more make 10 with cubes, fingers or a number card.", "Tap Reveal, watch the empty boxes fill, and say the number sentence together."], "materials": "A linking-cube 10-stick, ten-frame cards, fingers, number cards 0 to 10, or a device"}, {"unit": 7, "id": "ten-and-some-more", "iso": "2027-04-14", "date": "Wed 14 Apr 2027", "source": "Bluebonnet Kindergarten Math Module 5, Lessons 1–2", "preferred": 20, "focus": "ten ones and some more ones", "name": "Ten and Some More", "summary": "The ten is full. How many more ones?", "grows": "This grows out of Ten Ones and Some More, where handfuls filled a ten-frame and the extras waited beside it.", "steps": ["Look at the full ten-frame and the loose ones beside it.", "Show how many loose ones with cubes, fingers or a number card, and say “10 ones and ___ ones.”", "Tap Reveal and count the loose ones together, then say the teen number."], "materials": "Linking cubes, a ten-frame drawn on a whiteboard, fingers, number cards 0 to 20, or a device"}, {"unit": 7, "id": "say-it-the-ten-way", "iso": "2027-04-16", "date": "Fri 16 Apr 2027", "source": "Bluebonnet Kindergarten Math Module 5, Lessons 3–5", "preferred": 20, "focus": "ten and some ones, the Say Ten way", "name": "Say It the Ten Way", "summary": "Count the ten, then the ones. Say it the ten way.", "grows": "This grows out of The Say Ten Way and Build It the Say Ten Way, where ten was held still and ones were added one at a time and named.", "steps": ["Look at the ten-train and the loose cubes.", "Say or show the Say Ten name — ten 4 — with cubes, fingers, a number card or a device.", "Tap Reveal to ring the ten and count the ones together."], "materials": "A linking-cube train of 10, loose linking cubes, fingers, number cards 0 to 20, or a device"}, {"unit": 7, "id": "missing-part", "iso": "2027-04-21", "date": "Wed 21 Apr 2027", "source": "Bluebonnet Kindergarten Math Module 4, End-of-Module review (Topics E–H)", "preferred": 10, "focus": "the parts make the whole", "name": "Missing Part", "summary": "Look at the whole and one part. Show the missing part.", "grows": "This grows out of Ten in Two Parts, where the room broke 10-sticks and 9-sticks into two parts and drew them as number bonds.", "steps": ["Look at the whole and the part you can see.", "Show the missing part with cubes, fingers or a number card.", "Tap Reveal to fill the bond and say the number sentence together."], "materials": "A linking-cube 10-stick, fingers, number cards 0 to 10, or a device"}, {"unit": 7, "id": "which-week-has-more", "iso": "2027-04-23", "date": "Fri 23 Apr 2027", "source": "Teacher-created", "preferred": 20, "focus": "more, fewer or the same", "name": "Which Week Has More?", "summary": "Look at the two towers. Which has more, and how many more?", "grows": "This grows out of Cube Towers and Compare, where the class built one tower for each week’s patch count and counted the extra cubes on the taller one.", "steps": ["Look at the two towers standing side by side.", "Point to the taller one and show how many more cubes it has, or show that they are the same.", "Tap Reveal and count the extra cubes together."], "materials": "Linking cubes in two colours, fingers, number cards 0 to 20, or a device"}, {"unit": 8, "id": "slide-over-the-zero", "iso": "2027-04-27", "date": "Tue 27 Apr 2027", "source": "Bluebonnet Kindergarten Math Module 5, Lessons 6–7", "preferred": 10, "focus": "ten hides its zero", "name": "Slide Over the Zero", "summary": "Look at the ten and the ones. Show the number. Watch the ones card slide over the zero.", "grows": "This grows out of The Hiding Zero, where the room pushed a paper 8 over the zero of a paper 10 and read ten 8, eighteen.", "steps": ["Look at the ten-stick and the ones.", "Show the number with cubes, fingers or a number card.", "Tap Reveal to slide the ones card over the zero and count the ones together."], "materials": "Linking cubes in two colours, fingers, number cards 0 to 20, or a device"}, {"unit": 8, "id": "fill-one-frame-first", "iso": "2027-04-29", "date": "Thu 29 Apr 2027", "source": "Bluebonnet Kindergarten Math Module 5, Lessons 8–9", "preferred": 20, "focus": "fill ten first", "name": "Fill One Frame First", "summary": "Look at the pile. How many? Watch ten fill the first frame.", "grows": "This grows out of Fill Ten First, where the room drew teen numbers in two ten-frames and filled one frame before starting the next.", "steps": ["Look at the pile of dots.", "Show how many with cubes, fingers or a number card.", "Tap Reveal to fill the first frame, then the next, and say the number the Say Ten way."], "materials": "Linking cubes, fingers, number cards 0 to 20, or a device"}, {"unit": 8, "id": "one-more-one-less", "iso": "2027-05-03", "date": "Mon 3 May 2027", "source": "Bluebonnet Kindergarten Math Module 5, Lessons 10–12", "preferred": 20, "focus": "one more, one less", "name": "One More, One Less", "summary": "Watch one cube land on the tower or lift off. Show the new number.", "grows": "This grows out of One More and One Less, where the room put one cube on a tower or took one off and said the new number.", "steps": ["Look at the tower and its number.", "Watch one cube land or lift off. Show the new number with cubes, fingers or a number card.", "Tap Reveal to count the tower together."], "materials": "A linking-cube tower, fingers, number cards 0 to 20, or a device"}, {"unit": 8, "id": "same-count-new-shape", "iso": "2027-05-05", "date": "Wed 5 May 2027", "source": "Bluebonnet Kindergarten Math Module 5, Lessons 13–14", "preferred": 20, "focus": "same count, new shape", "name": "Same Count, New Shape", "summary": "Count the dots. Watch them change shape. How many now?", "grows": "This grows out of One Train, Many Shapes and Around the Plate, where the room broke a cube train into rows and moved cubes from a circle into a ten-frame.", "steps": ["Count the dots in the line and show how many.", "Watch the dots move into rows or a ring. Show how many now.", "Tap Reveal to count them together."], "materials": "Linking cubes, fingers, number cards 0 to 20, or a device"}, {"unit": 8, "id": "more-fewer-equal", "iso": "2027-05-07", "date": "Fri 7 May 2027", "source": "Bluebonnet Kindergarten Math Module 5, Lessons 15–16", "preferred": 20, "focus": "line them up to compare", "name": "More, Fewer, Equal", "summary": "Look at the two groups. Which has more? Or are they equal?", "grows": "This grows out of Are They Equal?, where the room laid two cube lines side by side to see which had more.", "steps": ["Look at the two groups of dots.", "Point to the group with more, or show that they are equal.", "Tap Reveal to pair the dots and see."], "materials": "Linking cubes in two colours, fingers, or a device"}, {"unit": 8, "id": "tens-up-the-stairs", "iso": "2027-05-11", "date": "Tue 11 May 2027", "source": "Bluebonnet Kindergarten Math Module 5, Lessons 17–18", "preferred": 10, "focus": "count by tens", "name": "Tens Up the Stairs", "summary": "Count the ten-frames by tens. How many in all?", "grows": "This grows out of Count the Sticks by Tens and Show Me Tens, where the room slid cube sticks of ten across the table counting 10, 20, 30 and back down.", "steps": ["Look at the ten-frames on the stairs.", "Count them by tens and show how many in all with cube sticks, fingers or a number card.", "Tap Reveal and count the stairs by tens together."], "materials": "Linking-cube sticks of ten, fingers, number cards 0 to 100, or a device"}, {"unit": 8, "id": "over-the-ten", "iso": "2027-05-13", "date": "Thu 13 May 2027", "source": "Bluebonnet Kindergarten Math Module 5, Lessons 19–20", "preferred": 10, "focus": "nine, then a new ten", "name": "Over the Ten", "summary": "One more, one less: what is the number now?", "grows": "This grows out of Count Across the Ten and Over the Ten, where one more cube went past the end of a stick into a new ten and one cube came back.", "steps": ["Look at the tens and ones on the board.", "Watch one cube come on or go off, and show the new number with cubes, fingers or a number card.", "Tap Reveal and see if a new ten lights up."], "materials": "Linking-cube sticks of ten, loose cubes, fingers, number cards 0 to 100, or a device"}, {"unit": 8, "id": "earn-it-or-gift-it", "iso": "2027-05-17", "date": "Mon 17 May 2027", "source": "Bluebonnet Kindergarten Math Module 5, Lessons 25–27", "preferred": 10, "focus": "earned plus given", "name": "Earn It or Gift It?", "summary": "Pennies you earned and pennies you were given: how many in all?", "grows": "This grows out of Shana’s Pennies and Income or Gift?, where the room joined pennies earned at a job and pennies given as a gift in one number bond.", "steps": ["Look at the pennies by the job and the pennies in the gift box.", "Show how many pennies in all with cubes, fingers or a number card.", "Tap Reveal and see the two parts join into one bond."], "materials": "Linking cubes as pennies, fingers, number cards 0 to 20, or a device"}, {"unit": 8, "id": "fits-the-budget", "iso": "2027-05-19", "date": "Wed 19 May 2027", "source": "Teacher-created (budget from the class plan; Module 5 Topic F and Module 4 number bonds)", "preferred": 10, "focus": "spend some, some left", "name": "Fits the Budget", "summary": "Pay the price. How many are left?", "grows": "This grows out of Pay for It, where cubes left the class cup to pay for each item the plan needed and the room counted what was left.", "steps": ["Look at the cubes in the cup and the price tag.", "Show how many cubes will be left after paying, with cubes, fingers or a number card.", "Tap Reveal and watch the price leave the cup."], "materials": "Ten linking cubes in a cup, fingers, number cards 0 to 20, or a device"}, {"unit": 8, "id": "taller-bean", "iso": "2027-05-21", "date": "Fri 21 May 2027", "source": "Teacher-created (our year in numbers: the class's bean plants)", "preferred": 10, "focus": "how many more", "name": "Taller Bean", "summary": "Which bean is taller, and by how many cubes?", "grows": "This grows out of Our Plants and Our Plant Graph, where every bean plant became a cube tower lined up on the table edge and a row on the class graph.", "steps": ["Look at the two bean plants and their cube sticks.", "Point to the taller one and show how many cubes more with cubes, fingers or a number card.", "Tap Reveal and count the extra cubes together."], "materials": "Linking-cube sticks, fingers, number cards 0 to 20, or a device"}];
+const C={ink:'#102A56',blue:'#2670B8',red:'#A32424',gold:'#FFD66B',green:'#2E7D45',purple:'#6B3FA0',gray:'#9CA9BA'};
+const each=(n,fn)=>Array.from({length:Math.max(0,n)},(_,i)=>fn(i)).join('');
+const txt=(x,y,s,z=32,c=C.ink)=>`<text x="${x}" y="${y}" text-anchor="middle" dominant-baseline="middle" font-family="Arial,sans-serif" font-size="${z}" font-weight="800" fill="${c}">${String(s).replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;")}</text>`;
+const line=(x,y,a,b,c=C.ink)=>`<path d="M${x} ${y}L${a} ${b}" fill="none" stroke="${c}" stroke-width="3"/>`;
+const box=(x,y,w,h,c='white',extra='')=>`<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="5" fill="${c}" stroke="${C.ink}" stroke-width="2" ${extra}/>`;
+const dot=(x,y,c=C.blue,r=13)=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" stroke="${C.ink}" stroke-width="2"/>`;
+const enter=(body,i=0)=>`<g class="count-in" style="animation-delay:${i*.14}s">${body}</g>`;
+const svg=b=>`<div class="math-viewport"><svg class="math-diagram" viewBox="0 0 900 480" role="img" aria-label="Mathematical picture; use the teacher guide for the question">${b}</svg></div>`;
+const nums=(max,r)=>[0,max,Math.floor(max/2),1,Math.max(0,max-1),Math.min(2,max)][r%6];
+const pair=(max,r)=>{let a=nums(max,r),b=nums(max,r+2);if(r%6===4)b=a;return [a,b]};
+const parts=(max,r,fixed)=>{let w=fixed??[max,Math.min(3,max),max,Math.max(0,max-1),max,0][r%6];let a=[0,w,Math.floor(w/2),Math.max(0,w-1),Math.min(1,w),0][r%6];return [w,a,w-a]};
+const circle=(x,y,r=61,c='white')=>`<circle cx="${x}" cy="${y}" r="${r}" fill="${c}" stroke="${C.ink}" stroke-width="3"/>`;
+function token(x,y,type='dot',c=C.blue){
+ if(type==='fruit')return dot(x-6,y,c,11)+dot(x+6,y,c,11)+line(x,y-9,x+3,y-23,C.green);
+ if(type==='flower')return each(5,i=>dot(x+12*Math.cos(i*6.283/5),y+12*Math.sin(i*6.283/5),C.purple,8))+dot(x,y,C.gold,6);
+ if(type==='shell')return `<path d="M${x} ${y+15}Q${x-27} ${y-12} ${x-15} ${y-17}Q${x} ${y-27} ${x+15} ${y-17}Q${x+27} ${y-12} ${x} ${y+15}Z" fill="${C.gold}" stroke="${C.ink}" stroke-width="2"/>`+line(x,y+10,x,y-18);
+ if(type==='butterfly')return dot(x-10,y-5,C.purple,12)+dot(x+10,y-5,C.purple,12)+dot(x-8,y+10,C.gold,8)+dot(x+8,y+10,C.gold,8)+line(x,y-14,x,y+18);
+ if(type==='acorn')return `<path d="M${x-11} ${y-2}Q${x-13} ${y+14} ${x} ${y+17}Q${x+13} ${y+14} ${x+11} ${y-2}Z" fill="#B97C42" stroke="${C.ink}" stroke-width="2"/><path d="M${x-14} ${y-2}Q${x-12} ${y-14} ${x} ${y-13}Q${x+12} ${y-14} ${x+14} ${y-2}Z" fill="#68482F"/>`+line(x,y-12,x+3,y-19);
+ if(type==='guest')return dot(x,y-12,c,7)+box(x-9,y-3,18,23,c)+line(x-5,y+20,x-7,y+30)+line(x+5,y+20,x+7,y+30);
+ if(type==='balloon')return `<ellipse cx="${x}" cy="${y-5}" rx="12" ry="16" fill="${c}"/>`+line(x,y+10,x-5,y+27);
+ if(type==='triangle')return `<path d="M${x} ${y-15}l16 28h-32Z" fill="${c}" stroke="${C.ink}" stroke-width="2"/>`;
+ if(type==='star')return txt(x,y,'★',32,c);
+ if(type==='cube')return box(x-12,y-12,24,24,c);
+ if(type==='bird')return `<ellipse cx="${x}" cy="${y}" rx="16" ry="11" fill="${c}"/><circle cx="${x+11}" cy="${y-9}" r="8" fill="${c}"/><path d="M${x+17} ${y-11}l9 5-9 2" fill="#E8622A"/>`;
+ if(type==='worm')return `<path d="M${x-13} ${y}q7-12 14 0t14 0" fill="none" stroke="${c}" stroke-width="7"/>`;
+ if(type==='bear')return dot(x-10,y-12,c,7)+dot(x+10,y-12,c,7)+dot(x,y,c,15);
+ if(type==='frog')return dot(x-8,y-8,c,7)+dot(x+8,y-8,c,7)+`<ellipse cx="${x}" cy="${y+3}" rx="16" ry="10" fill="${c}"/>`;
+ if(type==='ant')return dot(x-9,y,c,5)+dot(x,y,c,6)+dot(x+9,y,c,5)+line(x-7,y-4,x-12,y-10)+line(x,y+4,x+4,y+12)+line(x+6,y-4,x+12,y-10);
+ if(type==='flag')return line(x-10,y-16,x-10,y+18)+`<path d="M${x-10} ${y-16}h25v17h-25" fill="${c}" stroke="${C.ink}"/>`;
+ if(type==='penny')return dot(x,y,'#B96C42',14)+txt(x,y,'1',16,'white');
+ return dot(x,y,c);
+}
+// Every motion preserves object identity. All answer waits are teacher controlled.
+const move=(body,from,to,delay=0,duration=.6)=>`<g transform="translate(${from[0]} ${from[1]})"><animateTransform attributeName="transform" type="translate" from="${from.join(' ')}" to="${to.join(' ')}" begin="${delay}s" dur="${duration}s" fill="freeze"/>${body}</g>`;
+const fade=(body,from=1,to=0,delay=0)=>`<g opacity="${from}"><animate attributeName="opacity" from="${from}" to="${to}" begin="${delay}s" dur=".6s" fill="freeze"/>${body}</g>`;
+const item=(kind,c,index,body)=>`<g data-object="${kind}" data-index="${index}" data-color="${c}">${body}</g>`;
+const pick=(cap,r)=>[Math.min(cap,3),cap,0,Math.floor(cap/2),Math.min(cap,1),Math.max(0,cap-1)][r%6];
+const split=(whole,r)=>{const a=[Math.floor(whole/2),0,whole,Math.max(0,whole-1),Math.min(1,whole),Math.ceil(whole/2)][r%6];return [whole,a,whole-a]};
+const normal=(max,r)=>split(pick(max,r),r);
+const feb=(max,r,capOnly=false)=>split(max===10?(capOnly?[5,8,0,7,6,3][r%6]:[6,7,8,6,7,8][r%6]):pick(max,r),r);
+const grid=(n,x,y,{cols=5,gap=38,scatter=false}={})=>Array.from({length:n},(_,i)=>[x+i%cols*gap+(scatter?Math.sin(i*2.3)*11:0),y+Math.floor(i/cols)*gap+(scatter?Math.cos(i*3.1)*12:0)]);
+function counters(n,positions,{type='dot',color=C.blue,number=false,offset=0,delay=0,from=null,highlightFrom=Infinity,scale=1,moveStep=.07,moveDuration=.6}={}){
+ return each(n,i=>{const [x,y]=positions[i],c=i>=highlightFrom?C.gold:color;let b=`<g transform="scale(${scale})">${token(0,0,type,c)}</g>`;
+ if(number)b+=`<g opacity="0"><animate attributeName="opacity" from="0" to="1" begin="${delay+(i+offset)*.18}s" dur=".15s" fill="freeze"/>${circle(0,0,11,C.gold)}${txt(0,0,i+offset+1,16)}</g>`;
+ return item(type,c,i,from?move(b,from[i],positions[i],delay+i*moveStep,moveDuration):`<g transform="translate(${x} ${y})">${b}</g>`);});
+}
+function stick(n,x,y,{color=C.blue,size=29,splitAt=Infinity,other=C.purple,number=false,offset=0,delay=0}={}){
+ return each(n,i=>{let px=x+(i%10)*size,py=y+Math.floor(i/10)*(size+8),body=box(px,py,size,size,i<splitAt?color:other);if(number)body+=enter(txt(px+size/2,py+size/2,i+1+offset,Math.min(19,size*.65),'white'),i+offset+delay);return item('cube',i<splitAt?color:other,i,body)});
+}
+function frame(n,x,y,{capacity=10,fillColor=C.blue,newFrom=Infinity,countFrom=null,countOffset=0,delay=0,gap=39}={}){
+ return each(capacity,i=>{let px=x+i%5*gap,py=y+Math.floor(i/5)*gap;let body=box(px,py,gap,gap,'white');if(i<n){let d=dot(px+gap/2,py+gap/2,i>=newFrom?C.purple:fillColor,gap*.3);if(i>=newFrom)d=enter(d,delay+i-newFrom);body+=item('dot',i>=newFrom?C.purple:fillColor,i,d);if(countFrom!==null&&i>=countFrom)body+=enter(txt(px+gap/2,py+gap/2,i+1+countOffset,18,'white'),delay+i-countFrom);}return body});
+}
+const bondPos=turn=>turn%3===0?[[450,105],[240,300],[660,300]]:turn%3===1?[[220,220],[590,110],[590,330]]:[[450,340],[240,130],[660,130]];
+function bond(w,a,b,{turn=0,hidden=-1,picture=[],numeric=[0,1,2],chosen=-1,cover=false,empty=false}={}){
+ const ps=bondPos(turn),ns=[w,a,b];let s=line(...ps[0],...ps[1])+line(...ps[0],...ps[2]);
+ ns.forEach((n,k)=>{let [x,y]=ps[k];s+=circle(x,y,86,k===chosen?'#FFF2B5':'white');if(k===hidden){if(cover)s+=box(x-64,y-60,128,120,C.gray);if(!empty)s+=txt(x,y,'?',42);return;}
+ if(picture.includes(k))s+=counters(n,grid(n,x-42,y-35,{cols:5,gap:21}),{type:'cube',scale:.65});
+ if(numeric.includes(k))s+=txt(x,y+(picture.includes(k)?60:0),n,picture.includes(k)?25:42);
+ });return s;
+}
+const eq=(s,y=450)=>txt(450,y,s,36);
+function stage(id,max,r,before,after,answer,{symbol='?',data={},...extra}={}){return {data:{kind:id,max,round:r+1,...data},symbolic:true,symbol,prompt:metadata.find(x=>x.id===id)?.summary||id,visual:svg(before),revealedVisual:svg(after),answer:String(answer),...extra};}
+const series=stages=>({...stages[0],stages});
+function compare(id,max,r){
+ let a=pick(max,r),b=pick(max,r+2);if(r%6===4)b=a;
+ const tower=['which-week-has-more','taller-bean','count-the-vote'].includes(id),relation=id==='more-fewer-equal',sticks=id==='longer-stick-more-cubes',tap=id==='count-the-taps',graph=id==='which-row-has-more';
+ const all=id==='count-the-vote'&&r%2===1;
+ if(graph){const vals=max>5?(r%6===4?[a,a,a]:[a,b,pick(max,r+1)]):[a,b],big=Math.max(...vals),small=Math.min(...vals),winners=vals.flatMap((n,i)=>n===big?[i]:[]),colors=[C.blue,C.purple,C.green];
+ const draw=reveal=>line(115,75,115,395,C.gray)+vals.map((n,j)=>{const y=115+j*115,sz=Math.min(30,690/max);return dot(65,y+sz/2,colors[j],19)+each(n,i=>{let body=box(125+i*sz,y,sz,sz,reveal&&i>=small&&n===big?C.gold:colors[j]);if(reveal&&n===big&&i>=small)body=box(125+i*sz,y,sz,sz,colors[j])+enter(body,(i-small)*3);if(reveal&&n===big&&i>=small)body+=enter(txt(125+(i+.5)*sz,y+sz/2,i-small+1,18),i-small);return body;})+(reveal?line(125+small*sz,y-12,125+small*sz,y+sz+12,C.red):'')}).join('');
+ return stage(id,max,r,draw(false),draw(true)+(big===small?eq('='):eq(big-small)),big===small?'=':big-small,{symbol:'↑',data:{counts:vals,winners,difference:big-small}});
+ }
+ const diff=Math.abs(a-b),larger=Math.max(a,b),answer=all?a+b:relation?(a===b?'=':a>b?'←':'→'):tower?diff:larger;
+ let start='',end='',positions=[];
+ if(tower){const floor=365,sz=Math.min(37,295/max),xs=[275,575];
+ const draw=reveal=>line(140,floor,785,floor,C.gray)+[a,b].map((n,j)=>{let x=xs[j],color=j?C.purple:C.blue;let s=each(n,i=>{let y=floor-(i+1)*sz;let tokenBody=id==='count-the-vote'?`<g transform="translate(${x+sz/2} ${y+sz/2}) scale(${sz/40})">${token(0,0,'flag',reveal&&!all&&i>=Math.min(a,b)?C.gold:color)}</g>`:box(x,y,sz,sz,reveal&&i>=Math.min(a,b)?C.gold:color);
+ if(reveal&&!all&&i>=Math.min(a,b)){const plain=id==='count-the-vote'?`<g transform="translate(${x+sz/2} ${y+sz/2}) scale(${sz/40})">${token(0,0,'flag',color)}</g>`:box(x,y,sz,sz,color);tokenBody=plain+enter(tokenBody,(i-Math.min(a,b))*3);}
+ if(reveal&&(all||i>=Math.min(a,b)))tokenBody+=enter(txt(x+sz/2,y+sz/2,all?i+1+(j?a:0):i-Math.min(a,b)+1,Math.min(18,sz*.7)),all?i+(j?a:0):i-Math.min(a,b));return tokenBody;});
+ if(id==='taller-bean'){let px=x+85,top=floor-n*sz;s+=box(px-25,floor,50,48,'#DDF1F4')+line(px,floor,px,top,C.green)+each(n,i=>`<ellipse cx="${px+(i%2?10:-10)}" cy="${floor-(i+1)*sz}" rx="12" ry="5" fill="${C.green}"/>`);}
+ return s;}).join('')+(reveal&&!all?each(Math.min(a,b),i=>line(xs[0]+sz,floor-(i+.5)*sz,xs[1],floor-(i+.5)*sz,C.gray)):'');
+ const cue=all?`<ellipse cx="450" cy="220" rx="300" ry="180" fill="none" stroke="${C.purple}" stroke-width="4"/>`:txt(a>=b?xs[0]+sz/2:xs[1]+sz/2,35,'↑',42);
+ start=draw(false)+cue;end=draw(true)+(id==='count-the-vote'?eq(all?`${a} + ${b} = ${a+b}`:`${Math.max(a,b)} − ${Math.min(a,b)} = ${diff}`):all?eq(`${a} + ${b} = ${a+b}`):a===b?eq('='):eq(diff));
+ }else if(sticks){start=stick(a,110,130)+stick(b,110,285,{color:C.purple});end=stick(a,110,130,{number:true,splitAt:a>b?b:Infinity,other:C.gold})+stick(b,110,285,{color:C.purple,number:true,splitAt:b>a?a:Infinity,other:C.gold})+eq(a===b?`${a} = ${b}`:larger);}
+ else{
+ const column=id==='pair-them-up'&&r%2===1;
+ let originA,originB,targetA,targetB;
+ if(relation){originA=grid(a,100,120,{cols:4,gap:55,scatter:true});originB=grid(b,585,120,{cols:4,gap:55,scatter:true});targetA=grid(a,135,100,{cols:4,gap:48});targetB=grid(b,600,100,{cols:4,gap:48});}
+ else if(column){originA=grid(a,100,100,{cols:5,gap:a<b?65:38,scatter:true});originB=grid(b,520,100,{cols:5,gap:b<a?65:38,scatter:true});targetA=grid(a,220,90,{cols:2,gap:35});targetB=grid(b,520,90,{cols:2,gap:35});}
+ else{originA=grid(a,85,100,{cols:10,gap:a<b?68:40,scatter:true});originB=grid(b,85,285,{cols:10,gap:b<a?68:40,scatter:true});targetA=grid(a,85,100,{cols:10,gap:65});targetB=grid(b,85,285,{cols:10,gap:65});}
+ const typeA='dot',typeB=id==='pair-them-up'?'triangle':'dot';
+ start=counters(a,originA,{type:typeA})+counters(b,originB,{type:typeB,color:C.purple});
+ end=counters(a,targetA,{from:originA,type:typeA,highlightFrom:b})+counters(b,targetB,{from:originB,type:typeB,color:C.purple,highlightFrom:a})+each(Math.min(a,b),i=>enter(line(...targetA[i],...targetB[i],C.gray),i))+eq(relation?(a===b?'=':a>b?'←':'→'):a===b?`${a} = ${b}`:larger);
+ if(tap){const ta=grid(a,85,130,{cols:10,gap:65}),tb=grid(b,85,290,{cols:10,gap:65});const timed=each(a,i=>`<g class="tap-dot" style="--tap-delay:${.1+i*.65}s">${token(...ta[i],'dot',C.blue)}</g>`)+each(b,i=>`<g class="tap-dot" style="--tap-delay:${.1+a*.65+1+i*.65}s">${token(...tb[i],'dot',C.purple)}</g>`);
+ return stage(id,max,r,line(60,210,840,210),counters(a,ta,{highlightFrom:b})+counters(b,tb,{color:C.purple,highlightFrom:a})+each(Math.min(a,b),i=>line(...ta[i],...tb[i],C.gray))+eq(a===b?'=':larger),a===b?'=':larger,{symbol:'♫',audio:[a,b],prepareLabel:'Play or replay the taps',preparedVisual:svg(timed),data:{a,b,answer:larger}});}
+ }
+ return stage(id,max,r,start,end,answer,{symbol:all?'○':relation?'↔':'↑',data:{a,b,difference:diff,operation:all?'sum':'compare'}});
+}
+function matching(id,max,r){
+ const more=id==='same-then-one-more',n=more?pick(max-1,r):1+pick(max-1,r),type=more?['dot','cube','triangle'][r%3]:'bird';
+ const pos=grid(n,80,120,{cols:10,gap:75}),base=counters(n,pos,{type})+(more?'':line(50,143,850,143));
+ const phase=k=>{const total=more?n+k:n-1,under=grid(total,80,290,{cols:10,gap:75});return stage(id,max,r,base,base+counters(total,under,{type:more?type:'worm',color:C.green,highlightFrom:n})+each(Math.min(n,total),i=>enter(line(...pos[i],...under[i],C.gray),i))+(more?total>n?circle(...under[n],25,'none'):'':circle(...pos[n-1],25,'none'))+eq(total),total,{symbol:more?k?'+1':'=':'−1',data:{n,phase:k,total}})};
+ return more?series([phase(0),phase(1)]):phase(0);
+}
+function mixed(max,r){
+ const modes=['more','oneMore','fewer','enough','same','oneLess','numerals'],mode=modes[(r*3)%7];let a=pick(max,r),b=pick(max,r+2);
+ if(mode==='same')b=a;if(mode==='oneMore')a=Math.min(a,max-1);if(mode==='oneLess')a=Math.max(a,1);
+ const unary=mode==='oneMore'||mode==='oneLess',enough=mode==='enough',numeric=mode==='numerals';
+ const sym=mode==='oneMore'?'+1':mode==='oneLess'?'−1':mode==='fewer'?'↓':mode==='same'?'=':enough?'☕':'↑';
+ const ans=unary?a+(mode==='oneMore'?1:-1):enough?(b>=a?'✓':'✕'):mode==='fewer'?Math.min(a,b):Math.max(a,b);
+ const pa=grid(a,130,100,{cols:5,gap:50}),pb=grid(b,570,100,{cols:5,gap:50}),ta=grid(a,100,100,{cols:10,gap:65}),tb=grid(b,100,285,{cols:10,gap:65});
+ const shape=type=>enough?(type==='cup'?`<path d="M-13-10h23v22h-23Z M10-6q18 5 0 13" fill="#E5EFFA" stroke="${C.ink}" stroke-width="3"/>`:`<ellipse rx="20" ry="7" fill="#E5EFFA" stroke="${C.ink}" stroke-width="3"/>`):dot(0,0,type==='cup'?C.purple:C.blue);
+ const draw=(n,pos,type,from)=>each(n,i=>item(enough?type:'dot',type==='cup'?C.purple:C.blue,i,from?move(shape(type),from[i],pos[i]):`<g transform="translate(${pos[i].join(' ')})">${shape(type)}</g>`));
+ const halo=(p,i)=>enter(`<circle cx="${p[0]}" cy="${p[1]}" r="24" fill="none" stroke="${C.gold}" stroke-width="7"/>`,5+i*2);
+ const before=numeric?txt(260,210,a,70)+txt(640,210,b,70):draw(a,pa,'saucer')+(unary?'':draw(b,pb,'cup'));
+ let after;
+ if(numeric)after=before+(a>=b?halo([260,210],0):'')+(b>=a?halo([640,210],0):'');
+ else if(unary){const target=grid(ans,100,285,{cols:10,gap:65});after=draw(a,pa,'saucer')+counters(ans,target,{color:C.green,number:true})+each(Math.min(a,ans),i=>enter(line(...pa[i],...target[i],C.gray),i));if(mode==='oneMore')after+=halo(target[ans-1],0);else after+=halo(pa[a-1],0);}
+ else{after=draw(a,ta,'saucer',pa)+draw(b,tb,'cup',pb)+each(Math.min(a,b),i=>enter(line(...ta[i],...tb[i],C.gray),5+i));
+ const smaller=Math.min(a,b);after+=each(a-smaller,i=>halo(ta[smaller+i],i))+each(b-smaller,i=>halo(tb[smaller+i],i));
+ if(!enough){const selected=mode==='fewer'?Math.min(a,b):Math.max(a,b);if(a===selected)after+=each(a,i=>halo(ta[i],i));if(b===selected)after+=each(b,i=>halo(tb[i],i));}}
+ return stage('more-less-same',max,r,before,after+enter(eq(ans),5),ans,{symbol:sym,data:{a,b,mode}});
+}
+function hidden(id,max,r){
+ let w,a,b;
+ if(['whats-behind-my-back','find-the-hidden-part'].includes(id))[w,a,b]=feb(max,r,id==='find-the-hidden-part');
+ else if(id==='nine-bears-two-places'){w=max===10?9:max;let order=Array.from({length:w+1},(_,i)=>w-i);if(w>=5){[order[3],order[4]]=[order[4],order[3]];}a=order[r%(w+1)];b=w-a;}
+ else if(id==='every-way-to-seven'){w=max===10?7:max;a=r%(w+1);b=w-a;}
+ else if(id==='missing-part')[w,a,b]=split(max===10?9+r%2:max,r);
+ else [w,a,b]=normal(max,r);
+ if(id==='whats-behind-my-back'&&max===3&&w===0)[w,a,b]=split(1,r);
+ const data={whole:w,a,b};
+ if(id==='numbers-for-pictures')return series([0,1,2].map(k=>{const ps=bondPos(0),[x,y]=ps[k],n=[w,a,b][k];const before=bond(w,a,b,{picture:[0,1,2].filter(i=>i>=k),numeric:[0,1,2].filter(i=>i<k),chosen:k});const after=bond(w,a,b,{picture:[0,1,2].filter(i=>i>k),numeric:[0,1,2].filter(i=>i<k),chosen:k})+fade(counters(n,grid(n,x-42,y-35,{cols:5,gap:21}),{type:'cube',scale:.65}))+`<g opacity="0"><animate attributeName="opacity" from="0" to="1" begin=".6s" dur=".2s" fill="freeze"/>${txt(x,y,n,42)}</g>`;return stage(id,max,r,before,after,n,{data:{...data,circle:k}})}));
+ if(id==='two-paths-home'){
+ const turn=r%3,ps=bondPos(turn),local=i=>[i%10*14-Math.min(10,w)*7+7,Math.floor(i/10)*14-7],at=(k,i)=>[ps[k][0]+local(i)[0],ps[k][1]+local(i)[1]];
+ const shell=bond(w,a,b,{turn,numeric:[]}),whole=counters(w,Array.from({length:w},(_,i)=>at(0,i)),{type:'cube',scale:14/24});
+ const shown=counters(a,Array.from({length:a},(_,i)=>at(1,i)),{type:'cube',scale:14/24,from:Array.from({length:a},(_,i)=>at(0,i))});
+ const screen=box(ps[2][0]-68,ps[2][1]-62,136,124,C.gray);
+ const reveal=shell+counters(a,Array.from({length:a},(_,i)=>at(1,i)),{type:'cube',scale:14/24})+counters(b,Array.from({length:b},(_,i)=>at(2,i)),{type:'cube',scale:14/24,color:C.purple,from:Array.from({length:b},(_,i)=>at(0,a+i))})+fade(screen)+eq(`${a} + ${b} = ${w}`);
+ const reunited=shell+counters(w,Array.from({length:w},(_,i)=>at(0,i)),{type:'cube',scale:14/24,from:Array.from({length:w},(_,i)=>i<a?at(1,i):at(2,i-a))})+eq(w);
+ return series([stage(id,max,r,shell+whole,reveal,b,{data,prepareLabel:'Split the stick along the paths',preparedVisual:svg(shell+shown+screen+txt(...ps[2],'?',42))}),stage(id,max,r,reunited,reunited,w,{symbol:'↥',data})]);
+ }
+ if(id==='nine-bears-two-places'){
+ const outside=grid(a,90,150,{cols:5,gap:40}),inside=grid(b,575,150,{cols:5,gap:40});
+ const forest=`<path d="M70 340V70l-45 70h90L70 70M150 340V90l-45 70h90" fill="#DDE9CF" stroke="${C.green}" stroke-width="3"/>`;
+ const cave=`<path d="M520 350Q500 90 690 90Q870 90 850 350Z" fill="${C.gray}" stroke="${C.ink}" stroke-width="4"/>`;
+ const base=forest+counters(a,outside,{type:'bear'}),revealed=base+counters(b,inside,{type:'bear',color:C.purple,number:true})+move(cave,[0,0],[0,-450]) +`<g transform="translate(175 350) scale(.6)">${miniBond(w,a,b,0,0)}</g>`;
+ return stage(id,max,r,base+cave+eq(w,45),revealed,b,{data});
+ }
+ if(['snap-find-the-other-part','whats-behind-my-back','every-way-to-seven'].includes(id)){
+ const x=100,y=170,sz=30;const whole=stick(w,x,y,{size:sz});const shown=stick(a,x,y,{size:sz});const other=stick(b,510,y,{size:sz,color:C.purple});
+ const screen=box(490,140,330,115,C.gray),circleWhole=circle(450,65,43)+txt(450,65,w,38);
+ let list='';if(id==='every-way-to-seven'){const k=r%(w+1);list=each(k,i=>`<g transform="translate(${735+(i>=11?80:0)} ${35+i%11*34}) scale(.22)">${miniBond(w,i,w-i,0,0)}</g>`);}
+ const blankBond=id==='every-way-to-seven'?line(450,65,260,340)+line(450,65,550,340)+circle(260,340,35)+circle(550,340,35):'';
+ const start=id==='whats-behind-my-back'?circleWhole+shown+screen+txt(655,195,'?',40):blankBond+circleWhole+whole+list;
+ const departing=each(b,i=>move(box(0,0,sz,sz,C.purple),[x+(a+i)%10*sz,y+Math.floor((a+i)/10)*(sz+8)],[510+i%10*sz,y+Math.floor(i/10)*(sz+8)],0,.6));
+ const prepared=circleWhole+shown+departing+(id==='every-way-to-seven'?'':move(screen,[400,0],[0,0],.15,.6)+`<g opacity="0"><animate attributeName="opacity" to="1" begin=".75s" dur=".01s" fill="freeze"/>${txt(655,195,'?',40)}</g>`)+list;
+ let after=circleWhole+shown+other+(id==='every-way-to-seven'?'':move(screen,[0,0],[0,-400]))+`<g transform="translate(230 295) scale(.55)">${miniBond(w,a,b,0,0)}</g>`+list;
+ if(id==='every-way-to-seven'){const k=r%(w+1);after+=`<g transform="translate(${735+(k>=11?80:0)} ${35+k%11*34}) scale(.22)">${miniBond(w,a,b,0,0)}</g>`;}
+ const first=stage(id,max,r,start,after,b,{data,...(id==='whats-behind-my-back'?{}:{prepareLabel:'Snap the stick and show the parts',preparedVisual:svg(prepared)})});
+ if(id==='whats-behind-my-back'){const joined=circleWhole+each(w,i=>move(box(0,0,sz,sz,i<a?C.blue:C.purple),i<a?[x+i%10*sz,y+Math.floor(i/10)*(sz+8)]:[510+(i-a)%10*sz,y+Math.floor((i-a)/10)*(sz+8)],[x+i%10*sz,y+Math.floor(i/10)*(sz+8)]));return series([first,stage(id,max,r,joined,circleWhole+stick(w,x,y,{size:sz,splitAt:a,number:true})+eq(`${a} + ${b} = ${w}`),w,{symbol:'↔',data})]);}
+ return first;
+ }
+ return stage(id,max,r,bond(w,a,b,{hidden:2,picture:id==='missing-part'?[0,1]:[1],numeric:id==='missing-part'?[0,1]:[0],cover:id!=='missing-part',empty:id==='missing-part'}),bond(w,a,b,{picture:[0,1,2],numeric:[0,1,2]})+(id==='find-the-hidden-part'?move(box(596,240,128,120,C.gray),[0,0],[0,-480]):'')+eq(`${a} + ${b} = ${w}`),b,{data});
+}
+function miniBond(w,a,b,x,y){return line(x,y,x-85,y+80)+line(x,y,x+85,y+80)+circle(x,y,38)+circle(x-85,y+80,38)+circle(x+85,y+80,38)+txt(x,y,w,30)+txt(x-85,y+80,a,30)+txt(x+85,y+80,b,30);}
+function subtraction(id,max,r){
+ let w,a,b;if(id==='break-the-stick')[w,a,b]=feb(max,r);else if(['ants-leave-the-picnic','fits-the-budget'].includes(id))[w,a,b]=split(max,r);else [w,a,b]=normal(max,r);
+ const ant=id==='ants-leave-the-picnic',sleep=id==='sleepy-bears',peach=id==='ripe-peaches',budget=id==='fits-the-budget',broken=id==='break-the-stick';
+ const type=ant?'ant':sleep?'bear':broken||budget?'cube':peach?'dot':['star','frog','balloon'][r%3];
+ const pos=grid(w,135,140,{cols:5,gap:48}),left=pos.slice(0,a),depart=pos.slice(a),dest=grid(b,610,budget?285:150,{cols:5,gap:budget?35:43});
+ let base='';if(ant)base=box(70,80,320,285,'#F5D9BF');if(sleep)base=line(55,355,850,355,C.gray);if(peach)base=box(225,290,36,105,'#AE855C')+`<ellipse cx="245" cy="190" rx="190" ry="150" fill="#E7EFDA"/>`;
+ if(budget)base=`<path d="M75 80L100 375H385L410 80" fill="#EDF6FA" stroke="${C.ink}" stroke-width="4"/>`+`<path d="M560 90h230l45 75-45 75H560Z" fill="#FFF3CE" stroke="${C.ink}" stroke-width="3"/>`+counters(b,grid(b,590,120,{cols:5,gap:35}),{scale:.8});
+ const cave=`<path d="M540 360Q510 90 700 90Q870 90 855 360Z" fill="${C.gray}" stroke="${C.ink}" stroke-width="4"/>`;
+ let before=base+counters(a,left,{type,color:peach?'#E79C42':C.blue})+counters(b,depart,{type,color:peach?'#BDD0A1':broken?C.purple:C.blue})+(sleep?cave:'');
+ if(broken)before=stick(w,90,155,{splitAt:a})+eq(w,65);
+ let changed,after;
+ if(peach){changed=before;after=before+each(b,i=>enter(circle(...depart[i],22,'none')+line(depart[i][0]-16,depart[i][1]-16,depart[i][0]+16,depart[i][1]+16,C.red),i))+counters(a,left,{type,number:true,color:'#E79C42'})+eq(`${w} − ${b} = ${a}`);}
+ else if(broken){const at=i=>[90+i%10*29,155+Math.floor(i/10)*37],remain=stick(a,90,155),part=each(b,i=>move(box(0,0,29,29,C.purple),at(a+i),[600+i%5*29,155+Math.floor(i/5)*37]));changed=remain+fade(part,1,0,.8)+eq(w,65);after=remain+each(b,i=>move(box(0,0,29,29,C.purple),[600+i%5*29,155+Math.floor(i/5)*37],at(a+i)))+`<g transform="translate(450 325) scale(.55)">${miniBond(w,a,b,0,0)}</g>`+eq(`${w} − ${b} = ${a}`);}
+ else if(ant||sleep||budget){const moving=counters(b,dest,{type,color:C.purple,from:depart,moveStep:ant||budget?.65:.07,moveDuration:.55});changed=base+counters(a,left,{type})+moving+(sleep?cave:'');after=base+counters(a,left,{type,number:true})+counters(b,dest,{type,color:C.purple})+(sleep?move(cave,[0,0],[0,-450]):'')+(ant?`<g transform="translate(465 350) scale(.55)">${miniBond(w,a,b,0,0)}</g>`:'')+eq(`${w} − ${b} = ${a}`);}
+ else{const crossed=each(b,i=>enter(line(depart[i][0]-15,depart[i][1]-15,depart[i][0]+15,depart[i][1]+15,C.red)+line(depart[i][0]-15,depart[i][1]+15,depart[i][0]+15,depart[i][1]-15,C.red),i));changed=before+crossed;after=before+crossed+counters(a,left,{type,number:true})+eq(`${w} − ${b} = ${a}`);}
+ return stage(id,max,r,before,after,a,{symbol:'−',data:{whole:w,a,b,operation:'subtract',remaining:a,moved:b},...(peach?{}:{prepareLabel:'Show what leaves',preparedVisual:svg(changed)})});
+}
+function addition(id,max,r){
+ let w,a,b;if(id==='ducks-on-the-shore')[w,a,b]=feb(max,r);else if(id==='mystery-box')[w,a,b]=feb(max,r,true);else if(id==='parts-first-whole-first')[w,a,b]=split(max===10?9+r%2:max,r);else [w,a,b]=normal(max,r);
+ if(id==='ducks-on-the-shore'&&max===3&&w===0)[w,a,b]=split(1,r);
+ const duck=id==='ducks-on-the-shore',both=id==='parts-first-whole-first',frog=id==='frogs-hop-back',income=id==='earn-it-or-gift-it',mystery=id==='mystery-box';
+ const type=duck?'bird':frog?'frog':income?'penny':both?'dot':'bear',posA=grid(a,100,frog?165:150,{cols:5,gap:42}),posB=grid(b,550,frog?165:150,{cols:5,gap:42});
+ const land=duck?box(50,75,400,285,'#F2E3BC')+box(450,75,400,285,'#D9EFF8'):frog?each(Math.max(1,Math.ceil(Math.max(a,b)/5)),i=>box(55,182+i*42,790,16,'#AD855A')):income?txt(140,65,'🧹',55)+txt(610,65,'🎁',55):line(55,335,850,335,C.gray);
+ const equation=mystery&&r%2?`${w} = ${a} + ${b}`:`${a} + ${b} = ${w}`,unknown=mystery?(r%2?`□ = ${a} + ${b}`:`${a} + ${b} = □`):'';
+ let before=land+counters(a,posA,{type})+(income?counters(b,posB,{type,color:C.purple}):'');
+ const joined=land+counters(a,posA,{type})+counters(b,posB,{type,color:C.purple,from:posB.map(([x,y])=>[frog?x-900:x+400,y])})+(unknown?eq(unknown):'');
+ let after=land+counters(a,posA,{type,number:true})+counters(b,posB,{type,color:C.purple,number:true,offset:duck?0:a,delay:duck?a*.18:0})+eq(equation,410)+(duck?eq(`${w} = ${a} + ${b}`,455):'');
+ if(duck){before=land;}
+ if(both){const pos=grid(w,280,105,{cols:5,gap:50}),draw=counters(a,pos.slice(0,a))+counters(b,pos.slice(a),{color:'white'});before=draw;
+ const group=(start,count,color,delay)=>{let outlines='';for(let row=0;row<Math.ceil(w/5);row++){const first=Math.max(start,row*5),last=Math.min(start+count-1,row*5+4);if(first<=last)outlines+=enter(`<rect x="${pos[first][0]-22}" y="${pos[first][1]-22}" width="${pos[last][0]-pos[first][0]+44}" height="44" rx="20" fill="none" stroke="${color}" stroke-width="4"/>`,delay);}
+ return outlines+each(count,i=>enter(txt(pos[start+i][0],pos[start+i][1],i+1,16,color===C.green?'white':C.ink),delay+i*2));};
+ after=draw+group(0,a,C.green,0)+group(a,b,C.purple,a*2+2)+enter(txt(180,170,a,40),a*2)+enter(txt(680,170,b,40),(a+b)*2+2)+eq(`${w} = ${a} + ${b}`,410)+eq(`${a} + ${b} = ${w}`,455);}
+
+ if(income)after=before+`<g transform="translate(450 310) scale(.65)">${miniBond(w,a,b,0,0)}</g>`+eq(equation);
+ const first=stage(id,max,r,before,after,duck||both?`${a} + ${b} = ${w}`:w,{symbol:'+',data:{whole:w,a,b,operation:'add'},...(!income&&!both?{prepareLabel:'Show the arriving group',preparedVisual:svg(duck?land+counters(a,posA,{type,from:posA.map(([x,y])=>[x,y-300])})+counters(b,posB,{type,color:C.purple,from:posB.map(([x,y])=>[x,y-300])}):joined)}:{})});
+ if(frog){const departed=land+counters(a,posA,{type})+fade(counters(b,posB.map(([x,y])=>[x+400,y+150]),{type,color:C.purple,from:posB}));const second=stage(id,max,r,departed,land+counters(a,posA,{type,number:true})+eq(`${a} + ${b} = ${w}`,410)+eq(`${w} − ${b} = ${a}`,455),a,{symbol:'−',data:{whole:w,a,b,remaining:a,phase:'return'}});return series([first,second]);}
+ return first;
+}
+function tens(id,max,r){
+ const teen=['ten-and-some-more','say-it-the-ten-way','slide-over-the-zero','fill-one-frame-first'].includes(id);
+ if(id==='full-five-then-more'){
+ const base=max<=5?0:max===10?5:10,total=max<=5?pick(max,r):base+pick(max===10?3:10,r),ones=total-base;
+ const f=frame(Math.min(10,total),170,120,{capacity:max<=5?5:10})+(max===20?frame(Math.max(0,total-10),520,120):'');
+ const reveal=(base?enter(txt(267,95,base,30),0):'')+frame(Math.min(10,total),170,120,{capacity:max<=5?5:10,countFrom:base===5?5:max===20?10:0})+(max===20?frame(Math.max(0,total-10),520,120,{countFrom:0,countOffset:10,delay:0}):'')+eq(`${base} + ${ones} = ${total}`,300)+`<g transform="translate(450 360) scale(.5)">${miniBond(total,base,ones,0,0)}</g>`;
+ return stage(id,max,r,f,reveal,total,{data:{whole:total,a:base,b:ones,base}});
+ }
+ if(id==='ten-needs-a-partner'){
+ // Number-size here limits the missing partner; the named whole remains ten.
+ const missing=pick(Math.min(max,10),r),given=10-missing;
+ const before=frame(given,260,130),after=frame(10,260,130,{newFrom:given})+each(missing,i=>enter(txt(260+(given+i)%5*39+19.5,130+Math.floor((given+i)/5)*39+19.5,i+1,18,'white'),i))+eq(`${given} + ${missing} = 10`,340);
+ return stage(id,max,r,before,after,missing,{symbol:'+',data:{whole:10,a:given,b:missing,target:10}});
+ }
+ const onesCap=max<=5?max:id==='slide-over-the-zero'?9:10,twenty=id==='slide-over-the-zero'&&max===20&&r%6===1,base=twenty?20:10,ones=twenty?0:pick(onesCap,r),total=base+ones;
+ const f=frame(10,120,125),loose=grid(ones,570,130,{cols:5,gap:45,scatter:r%2===0});let before,after,ans;
+ if(id==='ten-and-some-more'){before=f+counters(ones,loose,{color:C.purple});after=f+counters(ones,loose,{color:C.purple,number:true})+eq(`10 · ${ones} · ${total}`,345);ans=ones;}
+ if(id==='say-it-the-ten-way'){before=stick(10,90,140,{size:31})+counters(ones,loose,{type:'cube',color:C.purple});after=before+`<rect x="80" y="128" width="330" height="55" rx="20" fill="none" stroke="${C.green}" stroke-width="5"/>`+counters(ones,loose,{type:'cube',color:C.purple,number:true})+eq(`10 + ${ones} = ${total}`,345);ans=`10 + ${ones} = ${total}`;}
+ if(id==='slide-over-the-zero'){
+ const cubes=stick(base,85,100,{size:30})+stick(ones,550,100,{size:30,color:C.purple});before=cubes+box(220,255,130,90)+txt(285,300,base,50)+box(580,255,65,90)+txt(612,300,ones,50);
+ after=stick(base,85,100,{size:30})+stick(ones,550,100,{size:30,color:C.purple,number:true})+box(220,255,130,90)+txt(252,300,base/10,50)+move(box(285,255,65,90,'#FFF3CE')+txt(317,300,ones,50),[295,0],[0,0])+eq(total,410);ans=total;
+ }
+ if(id==='fill-one-frame-first'){
+ const source=grid(total,65,110,{cols:5,gap:43,scatter:true}),target=Array.from({length:total},(_,i)=>[455+(i>=10?220:0)+(i%5)*39+19.5,125+Math.floor(i%10/5)*39+19.5]);
+ before=counters(total,source)+frame(0,455,125)+frame(0,675,125);
+ after=frame(0,455,125)+frame(0,675,125)+each(total,i=>item('dot',C.blue,i,move(dot(0,0),source[i],target[i],i*.18,.25)))+eq(total,350);ans=total;
+ }
+ return stage(id,max,r,before,after,ans,{data:{whole:total,a:base,b:ones,base}});
+}
+function changing(id,max,r){
+ if(id==='same-count-new-shape'){
+ const n=r%6===0?Math.min(5,max):pick(max,r),colors=i=>i<5?C.blue:C.purple;const ps=[Array.from({length:n},(_,i)=>[75+i*750/Math.max(1,n-1),220]),grid(n,270,95,{cols:5,gap:65}),Array.from({length:n},(_,i)=>[450+155*Math.cos(i*2*Math.PI/Math.max(1,n)),235+155*Math.sin(i*2*Math.PI/Math.max(1,n))])];
+ const draw=(k,rev)=>each(n,i=>item('dot',colors(i),i,rev?`<g transform="translate(${ps[k][i].join(' ')})">${dot(0,0,colors(i))}${enter(txt(0,0,i+1,16,'white'),i)}</g>`:k?move(dot(0,0,colors(i)),ps[k-1][i],ps[k][i]):`<g transform="translate(${ps[k][i].join(' ')})">${dot(0,0,colors(i))}</g>`));
+ return series([0,1,2].map(k=>stage(id,max,r,draw(k,false),draw(k,true)+eq(n),n,{symbol:'↷',data:{n,phase:k}})));
+ }
+ const over=id==='over-the-ten',cap=over?(max===3?13:max===5?15:max===10?50:100):max;
+ let from=over?[9,10,19,20,cap-1,cap,0,29,30,39,40][r%11]:[Math.min(2,max),max,0,Math.max(0,max-1),1,1][r%6];from=Math.min(cap,from);let delta=from===0?1:from===cap?-1:r%2?-1:1,to=from+delta;
+ const full=Math.floor(to/10),crossed=over&&Math.floor(from/10)!==full;
+ const point=i=>over?[60+Math.floor(i/10)%5*170+(i%5)*27+13.5,130+Math.floor(Math.floor(i/10)/5)*150+Math.floor(i%10/5)*27+13.5]:[450,380-i*Math.min(28,320/max)-Math.min(28,320/max)/2];
+ const object=i=>over?dot(0,0,C.blue,9):box(-22,-Math.min(28,320/max)/2,44,Math.min(28,320/max),i%10<5?C.blue:C.purple);
+ const scaff=over?each(Math.max(1,Math.ceil(Math.max(from,to)/10)),j=>frame(0,60+(j%5)*170,130+Math.floor(j/5)*150,{gap:27})):'';
+ const draw=n=>scaff+each(n,i=>`<g transform="translate(${point(i).join(' ')})">${object(i)}</g>`);
+ let moved=scaff+each(Math.min(from,to),i=>`<g transform="translate(${point(i).join(' ')})">${object(i)}</g>`);
+ const index=delta>0?from:to,pt=point(index);moved+=delta>0?move(object(index),[pt[0],-40],pt):fade(move(object(index),pt,[pt[0],-40]));
+ if(crossed&&delta>0){const j=full-1;moved+=`<rect x="${55+j%5*170}" y="${125+Math.floor(j/5)*150}" width="145" height="64" rx="8" fill="none" stroke="${C.green}" stroke-width="5"/>`;}
+ const counted=over?'':each(to,i=>enter(`<g transform="translate(${point(i).join(' ')})">${dot(0,0,C.gold,Math.min(11,135/max))}${txt(0,0,i+1,Math.min(18,245/max))}</g>`,i));
+ return stage(id,max,r,draw(from)+eq(from),moved+counted+eq(`${from} → ${to}`),to,{symbol:delta>0?'+1':'−1',prepareLabel:'Move one',preparedVisual:svg(moved),data:{from,to,delta,cap,crossed}});
+}
+function stairs(max,r){
+ const cap=Math.min(max,10),from=[Math.min(2,cap),cap,0,Math.max(0,cap-1),1,1][r%6],delta=from===0?1:from===cap?-1:r%2?-1:1,to=from+delta;
+ const at=i=>[55+i*80,325-i*22],smallFrame=()=>`<g transform="scale(.34)">${frame(10,0,0)}</g>`;
+ const scaffold=each(cap,i=>{const [x,y]=at(i);return line(x-4,y+30,x+76,y+30)+line(x+76,y+30,x+76,y+8,C.gray)});
+ const picture=n=>scaffold+each(n,i=>`<g transform="translate(${at(i).join(' ')})">${smallFrame()}</g>`);
+ const moving=picture(Math.min(from,to))+(delta>0?move(smallFrame(),[at(to-1)[0],-70],at(to-1)):fade(move(smallFrame(),at(from-1),[at(from-1)[0],-70])));
+ return stage('tens-up-the-stairs',max,r,picture(from)+eq(from*10),moving+each(to,i=>enter(txt(at(i)[0]+32,at(i)[1]-20,(i+1)*10,24),i))+eq(to*10),to*10,{symbol:delta>0?'↑':'↓',prepareLabel:'Move one full ten-frame',preparedVisual:svg(moving),data:{frames:to,fromFrames:from,delta,total:to*10}});
+}
+
+metadata.push(...[{"unit": 6, "id": "pieces-on-the-wall", "iso": "2027-03-09", "date": "Tue 9 Mar 2027", "source": "Bluebonnet Kindergarten Math Module 4, Lessons 13\u201326 (review)", "preferred": 10, "focus": "add to and take from, to 9", "name": "Pieces on the Wall", "summary": "Some pieces go up or fall down. How many are on the wall now?", "grows": "This grows out of Pieces Go Up and Pieces Fall Down, where the room built the exhibition wall's medallions and flags as cube trains and wrote the number sentence for each story.", "steps": ["Count the pieces on the wall.", "Watch pieces go up or fall down, then show how many are on the wall now with cubes, fingers or a number card.", "Tap Reveal to count the wall and see the number sentence."], "materials": "Nine linking cubes in two colours, fingers, number cards 0 to 10, or a device"}, {"unit": 6, "id": "tally-the-visitors", "iso": "2027-03-11", "date": "Thu 11 Mar 2027", "source": "Teacher-created (Module 4 strands; Lesson 26, five and some more)", "preferred": 10, "focus": "tally marks in fives", "name": "Tally the Visitors", "summary": "Visitors walk by. One mark each. How many came?", "grows": "This grows out of One Mark for One Visitor and Our Tally Sheet, where the room made one tally mark for each visitor, drew the fifth across, and counted the bundle first, then on.", "steps": ["Watch the visitors walk past and the tally marks appear.", "Show how many visitors came with cubes, fingers or a number card.", "Tap Reveal to count the bundle of five and count on."], "materials": "Ten linking cubes, fingers, number cards 0 to 10, or a device"}, {"unit": 8, "id": "tally-at-the-door", "iso": "2027-05-25", "date": "Tue 25 May 2027", "source": "Review of Bluebonnet Kindergarten Math Module 5 (Lessons 7, 13\u201314, 17 and 20) and teacher-created tally marks for School Exhibition #4", "preferred": 20, "focus": "bundles of five, then ten and some ones", "name": "Tally at the Door", "summary": "Visitors come in. How many came?", "grows": "This grows out of Tally Marks, where one line went up for each cube dropped in the cup and the fifth line went across to make a bundle of five.", "steps": ["Watch the visitors come through the door and the tally grow.", "Show how many visitors came with cubes, fingers or a number card.", "Tap Reveal and count the bundles by fives, then the ones."], "materials": "Linking cubes in a cup, fingers, number cards 0 to 20, or a device"}]);
+function gallery(floor=370){return box(25,30,850,floor-30,'#F6F2E8')+line(25,floor,875,floor,C.gray)}
+function art(x,y,i,color=(i%2?C.blue:C.red)){return i%2?box(x-16,y-12,32,24,color):dot(x,y,color,16)}
+function wallPieces(max,r){
+ const cap=max===10?9:max,add=r%2===0,total=[cap,cap,Math.min(3,cap),cap,0,cap][r%6],change=[Math.min(2,cap),cap,0,1,0,0][r%6],from=add?total-change:total,to=add?total:total-change;
+ const pos=i=>[80+i%10*80,120+Math.floor(i/10)*110];
+ const initial=gallery(335)+each(from,i=>art(...pos(i),i));
+ const changed=gallery(335)+each(add?from:to,i=>art(...pos(i),i))+each(change,j=>{const i=(add?from:to)+j,p=pos(i);return move(art(0,0,i,add?(i%2?C.blue:C.red):C.gray),add?[910,p[1]]:p,add?p:[p[0],365+Math.floor(i/10)*35],j*.15)});
+ const equation=txt(410,465,`${from} ${add?'+':'−'} ${change} =`,32)+box(570,433,65,40,'white')+txt(602,465,to,32);
+ return stage('pieces-on-the-wall',max,r,initial,gallery(335)+each(to,i=>art(...pos(i),i))+(!add?each(change,j=>art(pos(to+j)[0],365+Math.floor((to+j)/10)*35,to+j,C.gray)):'')+each(to,i=>enter(txt(pos(i)[0],pos(i)[1]+40,i+1,22),i))+equation,to,{symbol:add?'+':'−',prepareLabel:'Watch the pieces',preparedVisual:svg(changed),data:{from,to,delta:add?change:-change,change,cap,operation:add?'add':'subtract-pieces'}});
+}
+function person(x,y,i){const h=i%2?50:70,c=[C.blue,C.purple,C.green,C.red][i%4];return dot(x,y-h,C.ink,9)+box(x-11,y-h+13,22,h-23,c)+line(x-6,y-10,x-8,y,C.ink)+line(x+6,y-10,x+8,y,C.ink)}
+function tallyMark(i){const b=Math.floor(i/5),k=i%5,x=350+b*120;return k===4?line(x-8,85,x+75,40,C.ink):line(x+k*19,40,x+k*19,88,C.ink)}
+function visitors(id,max,r){
+ const n=[0,1,Math.min(5,max),max,Math.max(0,max-1),Math.min(11,max)][r%6];
+ const scene=gallery()+box(50,150,90,220,'#DDECF8')+dot(126,265,C.ink,4)+box(180,150,60,40,C.gold)+box(260,150,60,40,C.blue)+box(340,150,60,40,C.purple)+(id==='tally-at-the-door'?box(320,22,500,115,'white'):'');
+ const pass=id==='tally-the-visitors';
+ const stream=each(n,i=>`<g opacity="0"><animate attributeName="opacity" from="0" to="1" begin="${i*.65}s" dur=".01s" fill="freeze"/>${pass?move(person(0,0,i),[-30,330],[950,330],i*.65,2):move(person(0,0,i),[95,350],[190+i%10*65,260+Math.floor(i/10)*95],i*.65,.6)}</g>`);
+ const marks=each(n,i=>`<g opacity="0"><animate attributeName="opacity" from="0" to="1" begin="${i*.65+(pass?.25:0)}s" dur=".01s" fill="freeze"/>${tallyMark(i)}</g>`);
+ const rings=each(Math.floor(n/5),i=>enter(`<ellipse cx="${383+i*120}" cy="65" rx="51" ry="39" fill="none" stroke="${C.green}" stroke-width="3"/>`+txt(383+i*120,125,(i+1)*5,26),i));
+ const ones=each(n%5,i=>enter(txt(350+Math.floor(n/5)*120+i*19,125,Math.floor(n/5)*5+i+1,18),Math.floor(n/5)+i));
+ return stage(id,max,r,scene,scene+(pass?'':each(n,i=>person(190+i%10*65,260+Math.floor(i/10)*95,i)))+each(n,tallyMark)+rings+ones+eq(id==='tally-at-the-door'&&n>10?`10 + ${n-10} = ${n}`:n),n,{symbol:'?',prepareLabel:'Welcome the visitors',preparedVisual:svg(scene+stream+marks),data:{n,total:n,bundles:Math.floor(n/5),ones:n%5}});
+}
+function wallCount(max,r){
+ const n=pick(max,r),right=r%12===9?n:pick(max,r+2),claim=r%2||r%12===6?n:Math.min(max,n+1),compare=r%2===1;
+ const framed=(amount,left,color)=>each(amount,i=>{const x=left+i%5*65,y=75+Math.floor(i/5)*65;return box(x,y,42,32,color)+box(x+10,y+37,22,9,'white')});
+ const scene=gallery()+line(450,50,450,345,C.gray)+framed(n,65,C.blue)+(compare?framed(right,510,C.gold):box(530,150,120,90,'white')+txt(590,210,claim,48));
+ const answer=compare?(n===right?'=':n>right?'←':'→'):n;
+ return {symbolic:true,symbol:compare?'↔':'?',prompt:compare?'Compare the two parts of the exhibition wall.':'Check the number on the docent label.',visual:svg(scene),revealedVisual:svg(scene+eq(compare?`${n} ${n===right?'=':n>right?'>':'<'} ${right}`:n)),answer:String(answer),data:{n,right,claim}};
+}
+
+const compares=['longer-stick-more-cubes','pair-them-up','count-the-taps','which-row-has-more','count-the-vote','which-week-has-more','more-fewer-equal','taller-bean'];
+const hiddenIds=['two-paths-home','numbers-for-pictures','snap-find-the-other-part','every-way-to-seven','whats-behind-my-back','find-the-hidden-part','nine-bears-two-places','missing-part'];
+const subtracts=['how-many-are-left','break-the-stick','ants-leave-the-picnic','sleepy-bears','ripe-peaches','fits-the-budget'];
+const adds=['ducks-on-the-shore','mystery-box','parts-first-whole-first','bears-in-the-forest','frogs-hop-back','earn-it-or-gift-it'];
+const tenIds=['full-five-then-more','ten-needs-a-partner','ten-and-some-more','say-it-the-ten-way','slide-over-the-zero','fill-one-frame-first'];
+function build(id,max,round){if(!metadata.some(m=>m.id===id))return null;if(![3,5,10,20].includes(max))throw Error('Invalid number size');const r=round-1;
+ if(id==='pieces-on-the-wall')return wallPieces(max,r);
+ if(['tally-the-visitors','tally-at-the-door'].includes(id))return visitors(id,max,r);
+ if(compares.includes(id))return compare(id,max,r);
+ if(hiddenIds.includes(id))return hidden(id,max,r);
+ if(subtracts.includes(id))return subtraction(id,max,r);
+ if(adds.includes(id))return addition(id,max,r);
+ if(tenIds.includes(id))return tens(id,max,r);
+ if(['same-then-one-more','one-less-worm'].includes(id))return matching(id,max,r);
+ if(id==='more-less-same')return mixed(max,r);
+ if(id==='tens-up-the-stairs')return stairs(max,r);
+ return changing(id,max,r);
+}
+function legacyBuild(id,max,round){const r=round-1,n=pick(max,r),[w,a,b]=normal(max,r),row=grid(n,100,160,{cols:10,gap:70});
+ const result=(before,after,answer,extra={})=>stage(id,max,r,before,after,answer,extra);
+
+ if(['exactsame','alike','secretrule','inout'].includes(id)){
+ const shape=(x,y,kind,color,size=1,turn=false)=>`<g transform="translate(${x} ${y}) rotate(${turn?35:0}) scale(${size})">${kind==='solid'?`<path d="M-40-20L0-45L40-20V25L0 45L-40 25Z" fill="${color}" stroke="${C.ink}" stroke-width="3"/><path d="M-40-20L0 0L40-20M0 0V45" fill="none" stroke="${C.ink}" stroke-width="3"/><path d="M0 0L40-20V25L0 45Z" fill="${C.ink}" opacity=".2"/>`:kind==='cube'?box(-42,-42,84,84,color):kind==='triangle'?`<path d="M0 -48L48 42H-48Z" fill="${color}" stroke="${C.ink}" stroke-width="3"/>`:dot(0,0,color,44)}</g>`;
+ if(id==='exactsame'){const same=r%3<2,kind=!same&&r%2?'dot':'cube',color=!same&&!(r%2)?C.purple:C.gold;const pic=shape(250,210,'cube',C.gold)+shape(650,210,kind,color,1,r%3===1);return result(pic,pic+eq(same?'=':'≠'),same?'=':'≠')}
+ if(id==='alike'){const k=r%3,pic=shape(250,210,'dot',C.gold)+shape(650,210,k===1?'dot':k===0?'solid':'cube',k===0?C.gold:C.purple,k===2?1:.65);const clue=k===0?dot(450,400,C.gold,25):k===1?circle(450,400,30,'none'):line(400,400,500,400)+line(400,385,400,415)+line(500,385,500,415);return result(pic,pic+clue,'↔')}
+ const yes=r%3!==2;
+ if(id==='inout'){const wings=r%2===0,examples=wings?'🦋 🐦':'🌱 🌳',mystery=wings?(yes?'🐝':'🌼'):(yes?'🌿':'🐝'),pic=box(80,85,430,270,'#EDF3F8')+txt(295,210,examples,85)+txt(690,210,mystery,95);return result(pic,pic+eq(yes?'←':'→'),yes?'←':'→')}
+ const color=r%2===0,pic=box(50,80,440,280,'#EDF3F8')+shape(170,200,'dot',C.gold,.7)+shape(360,200,color?'cube':'dot',color?C.gold:C.purple,.7)+shape(690,200,color?'triangle':yes?'dot':'cube',color?(yes?C.gold:C.purple):C.green,.8);return result(pic,pic+eq(yes?'✓':'✕')+(color?dot(450,385,C.gold,22):circle(450,385,24,'none')),yes?'✓':'✕',{data:{rule:color?'color':'shape',follows:yes}});
+ }
+ if(id==='countmatch')return result(counters(n,row,{type:['frog','fruit','star','shell'][r%4]}),counters(n,row,{type:['frog','fruit','star','shell'][r%4],number:true})+eq(n),n,{data:{n}});
+ if(id==='threehomes'){const choices=[n,(n+1)%(max+1),(n+2)%(max+1)],rotation=r%3;choices.push(...choices.splice(0,rotation));const chosen=choices.indexOf(n),homes=choices.map((q,i)=>box(130+i*250,280,140,110)+txt(200+i*250,335,q,45)).join(''),picture=counters(n,row,{type:'acorn'});return result(picture+homes,counters(n,row,{type:'acorn',number:true})+homes+circle(200+chosen*250,335,65,'none'),n,{data:{n,choices,chosen}})}
+ if(id==='empty'){const left=[0,Math.min(2,max),0,Math.min(1,max)][r%4],start=Math.max(left,Math.min(max,3)),pos=grid(start,300,210);const hand='<path d="M230 300Q190 80 280 150L350 155Q500 80 510 300Z" fill="#F8DAB6" stroke="#102A56" stroke-width="4"/>';const changed=hand+counters(left,pos.slice(0,left),{type:'cube'})+fade(counters(start-left,pos.slice(left),{type:'cube',from:pos.slice(left).map(([x,y])=>[x,y])}).replaceAll('to="0"','to="0"'));const gone=hand+counters(left,pos.slice(0,left),{type:'cube'}),taking=gone+each(start-left,i=>fade(move(token(0,0,'cube'),pos[left+i],[pos[left+i][0],-50],i*.5),1,0,i*.5+.6));return result(hand+counters(start,pos,{type:'cube'}),gone+eq(left),left,{preparedVisual:svg(taking),prepareLabel:'Take away the cubes',data:{whole:start,removed:start-left,remaining:left}})}
+ if(id==='rowsame'){const other=r%3?n:(n+1)%(max+1),left=grid(n,70,160,{cols:10,gap:32}),right=grid(other,650,35,{cols:1,gap:20}),draw=number=>counters(n,left,{type:'star',number,scale:.65})+counters(other,right,{type:'star',color:C.purple,number,scale:.5});return result(draw(false),draw(true)+txt(225,450,n,40)+txt(650,450,other,40)+eq(n===other?'=':'≠'),n===other?'=':'≠',{data:{a:n,b:other}})}
+ if(id==='move'){const other=r%3===2?(r%6===5?Math.max(0,n-1):Math.min(max,n+1)):n,left=grid(n,85,110,{cols:5,gap:55}),right=grid(other,550,110,{cols:5,gap:55,scatter:true}),relation=n===other?'=':n>other?'>':'<',draw=number=>counters(n,left,{number})+counters(other,right,{color:C.purple,number});return result(draw(false),draw(true)+txt(200,420,n,40)+txt(670,420,other,40)+eq(relation),relation,{data:{a:n,b:other,comparison:relation}})}
+ if(id==='ringrows'){const arrangement=r%3,positions=arrangement===0?Array.from({length:n},(_,i)=>[450+260*Math.cos(i*2*Math.PI/Math.max(n,1)),230+150*Math.sin(i*2*Math.PI/Math.max(n,1))]):grid(n,180,110,{cols:5,gap:90,scatter:arrangement===2});return result(counters(n,positions),counters(n,positions,{number:true})+eq(n),n,{data:{n,arrangement:['ring','rows','scatter'][arrangement]}})}
+ if(['necklace','ringrows','move','order'].includes(id)){
+ const start=grid(n,100,120,{cols:10,gap:70}),ring=Array.from({length:n},(_,i)=>[450+260*Math.cos(i*2*Math.PI/Math.max(n,1)),230+150*Math.sin(i*2*Math.PI/Math.max(n,1))]),target=id==='move'?grid(n,270,90,{cols:5,gap:65}):ring;
+ const mark=n?circle(...target[0],23,'none'):'';const change=result(counters(n,start),counters(n,target,{from:start,number:true})+mark+eq(n),n,{data:{n,conservation:true}});
+ if(id==='order'){const len=Math.min(5,max+1),base=Math.min(max-len+1,Math.floor(r/2)%(max+1)),values=Array.from({length:len},(_,i)=>base+i);if(r%2)values.reverse();const k=Math.floor(len/2),draw=show=>values.map((v,i)=>box(100+i*145,160,115,110)+txt(157+i*145,215,show||i!==k?v:'?',45)).join('');return series([result(draw(false),draw(true),values[k],{data:{missing:values[k]}}),change]);}
+ if(id==='necklace')return result(counters(n,ring)+mark,counters(n,ring,{number:true})+mark+eq(n),n,{data:{n}});
+ return change;
+ }
+ if(id==='ten'){const before=frame(Math.min(n,10),130,160)+(max>10?frame(Math.max(0,n-10),530,160):'');return result(before,before+eq(n),n,{data:{n}})}
+ if(['storychange','party'].includes(id)){const subtract=id==='party'||r%2===1,type=id==='party'?'guest':['frog','fruit','flower','shell','butterfly'][r%5],positions=grid(w,130,130,{cols:5,gap:60}),left=positions.slice(0,a),extra=positions.slice(a),base=line(65,385,850,385,C.gray),initial=base+counters(subtract?w:a,subtract?positions:left,{type}),change=subtract?base+counters(a,left,{type})+fade(counters(b,extra.map(([x,y])=>[x+480,y]),{type,from:extra}),1,0,.9):base+counters(a,left,{type})+counters(b,extra,{type,color:C.purple,from:extra.map(([x,y])=>[x+700,y])}),answerN=subtract?a:w,after=base+counters(answerN,subtract?left:positions,{type,number:true})+eq(subtract?`${w} − ${b} = ${a}`:`${a} + ${b} = ${w}`);return result(initial,after,answerN,{symbol:subtract?'−':'+',preparedVisual:svg(change),prepareLabel:subtract?'Watch the group leave':'Watch the group arrive',data:{whole:w,a,b,operation:subtract?'subtract':'add',remaining:answerN,moved:b}})}
+ if(id==='fieldwater'){const field=box(45,65,390,300,'#DAEED0')+box(465,65,390,300,'#D7EFF8'),p1=grid(a,95,125),p2=grid(b,520,125);return result(field+counters(a,p1,{type:'bear'})+counters(b,p2,{type:'bear'}),field+counters(w,grid(w,120,130,{cols:10,gap:65}),{type:'bear',from:[...p1,...p2],number:true})+eq(w),w,{data:{whole:w,a,b}})}
+ if(id==='parts'){const whole=r%6===2?0:max,part=[Math.max(0,whole-1),Math.max(0,whole-2),0,whole,Math.floor(whole/2),0][r%6],other=whole-part;return result(bond(whole,part,other,{hidden:0,picture:[1,2],numeric:[]}),bond(whole,part,other,{picture:[1,2]})+eq(whole),whole,{data:{whole,a:part,b:other}});}
+ if(id==='wallcount')return wallCount(max,r);
+ return null;
+}
+let sound,volume=.6;
+function stopTaps(){if(sound){sound.close();sound=null}}
+function setVolume(value){volume=Math.max(0,Math.min(1,Number(value)));stopTaps()}
+function playTaps(counts){stopTaps();const Audio=root.AudioContext||root.webkitAudioContext;if(!Audio||!volume)return;sound=new Audio();let t=sound.currentTime+.1;
+ counts.forEach(n=>{for(let i=0;i<n;i++){const osc=sound.createOscillator(),gain=sound.createGain();osc.type='sine';osc.frequency.setValueAtTime(140,t);osc.frequency.exponentialRampToValueAtTime(65,t+.1);gain.gain.setValueAtTime(.24*volume,t);gain.gain.exponentialRampToValueAtTime(.001,t+.14);osc.connect(gain);gain.connect(sound.destination);osc.start(t);osc.stop(t+.15);t+=.65;}t+=1;});}
+root.RiseSpring={metadata,build,legacyBuild,playTaps,stopTaps,setVolume};
+
+})(window);
+
+</script>
+  <script>
+    (()=>{
+      const games=[
+        {unit:1,id:'countmatch',iso:'2026-08-17',date:'Mon 17 Aug 2026',source:'Build and Count',preferred:5,focus:'one-to-one counting',name:'Picture Match',summary:'Count a pictured set—animals, fruit, shells, or stars—and show exactly the same amount.',grows:'This grows out of seeing sets of 1–5 linking cubes and making a set with the same amount.',steps:['Touch or point to each picture once.','Build or show the same amount.','Reveal the numeral and recount together.'],materials:'Cubes, fingers, number cards, or a device.'},
+        {unit:1,id:'exactsame',iso:'2026-08-19',date:'Wed 19 Aug 2026',source:'Exactly the Same',preferred:5,focus:'attributes and orientation',name:'Exactly the Same?',summary:'Decide whether two picture cards are exactly the same—even when one has turned.',grows:'This grows out of comparing two cubes by color, shape, size, and orientation, then naming exactly the same or not exactly the same.',steps:['Look closely at both cards.','Signal exactly the same or not exactly.','Reveal and name what changed—or what only turned.'],materials:'Same/not-same cards, pointing, speech, or a device.'},
+        {unit:1,id:'alike',iso:'2026-08-21',date:'Fri 21 Aug 2026',source:'Alike in One Way',preferred:5,focus:'describe a shared attribute',name:'Find One Way Alike',summary:'Study two picture cards and find one true way they are alike.',grows:'This grows out of comparing a linking cube with a drawn square, then comparing towers with different heights.',steps:['Look at both cards.','Point, say, or select one way they are alike.','Reveal one possible answer and discuss another.'],materials:'Attribute words, pointing, speech, or a device.'},
+        {unit:1,id:'secretrule',iso:'2026-08-25',date:'Tue 25 Aug 2026',source:'Choose a Sorting Rule',preferred:5,focus:'infer and test a rule',name:'Secret Sorting Rule',summary:'Study the example cards and decide whether the mystery card follows their rule.',grows:'This grows out of sorting six cubes by a secret color rule, inferring it, and testing a new cube.',steps:['Notice what all example cards share.','Signal yes or no for the mystery card.','Reveal the rule and test the card together.'],materials:'Yes/no cards, attribute words, pointing, or a device.'},
+        {unit:1,id:'inout',iso:'2026-08-27',date:'Thu 27 Aug 2026',source:'Two Categories',preferred:5,focus:'sort in or out',name:'In or Out?',summary:'Read the picture rule and decide whether the mystery object belongs inside.',grows:'This grows out of sorting single cubes and towers into connected and not connected categories.',steps:['Look at the category rule.','Signal in or out for the mystery object.','Reveal and explain which attribute decides.'],materials:'In/out cards, pointing, speech, or a device.'},
+        {unit:1,id:'threehomes',iso:'2026-08-31',date:'Mon 31 Aug 2026',source:'Three Categories',preferred:3,focus:'match group to numeral',name:'Three Counting Homes',summary:'Count a group of acorns and choose the numbered home where it belongs.',grows:'This grows out of placing groups of one, two, or three cubes into three labeled category circles, regardless of color.',steps:['Count each acorn once.','Choose the home with the matching numeral.','Reveal and check the match together.'],materials:'Number cards, fingers, pointing, or a device.'},
+        {unit:1,id:'rowsame',iso:'2026-09-02',date:'Wed 2 Sep 2026',source:'Rows and Columns',preferred:5,focus:'arrangement keeps quantity',name:'Row or Column',summary:'Compare stars in a row and a column and decide whether the amount stayed the same.',grows:'This grows out of a quick look at cubes in a row, then the same cubes in a column, before building the same amount.',steps:['Count or recognize each group.','Signal same amount or not the same.','Reveal both counts and explain what moved.'],materials:'Same/not-same cards, fingers, pointing, or a device.'},
+        {unit:1,id:'storychange',themeOffset:0,iso:'2026-09-04',date:'Fri 4 Sep 2026',source:'Unit Math Check',preferred:5,focus:'join and separate',name:'Story Scene Changes',summary:'Join pictured groups or watch animals and objects move away, then find the new amount.',grows:'This grows out of Build It, Push It, Slash It: build 3 and join 2, then build 5 and move 1 away.',steps:['Count the starting group or two parts.','Act out the join or move-away change.','Show the new amount; then reveal.'],materials:'Cubes, fingers, number cards, or a device.'},
+        {unit:1,id:'storychange',themeOffset:2,iso:'2026-09-08',date:'Tue 8 Sep 2026',source:'Unit 1 Close',preferred:5,focus:'join and separate',name:'Story Scene Finale',summary:'Replay the unit check with animals, fruit, flowers, shells, and butterflies.',grows:'This grows out of the Unit 1 closing rounds of Build It, Push It, Slash It.',steps:['Count the starting group or two parts.','Act out the join or move-away change.','Show the new amount; then reveal.'],materials:'Cubes, fingers, number cards, or a device.'},
+        {unit:2,id:'fieldwater',iso:'2026-09-10',date:'Thu 10 Sep 2026',source:'Lessons 11–12',preferred:5,focus:'parts keep the whole',name:'Field, Water, One Whole',summary:'Count bears in the field and water, then show the whole that stays the same.',grows:'This grows out of sliding bears between the field and water, pushing the parts together, and recounting the same whole.',steps:['Count the bears in each place.','Build or show both visible parts.','Show how many altogether; then reveal the whole.'],materials:'Cubes, fingers, number cards, or a device.'},
+        {unit:2,id:'empty',iso:'2026-09-14',date:'Mon 14 Sep 2026',source:'Lessons 13–14',preferred:3,focus:'zero means none',name:'Empty Hand, Number Card',summary:'Count what remains—even when none remain—then reveal the numeral.',grows:'This grows out of taking cubes from a tower one at a time until the hand is empty, then writing the numeral for how many remain.',steps:['Look at how many cubes remain.','Show the number with fingers, a card, or a device.','Reveal the numeral and check together.'],materials:'Cubes, fingers, number cards, or a device.'},
+        {unit:2,id:'parts',iso:'2026-09-16',date:'Wed 16 Sep 2026',source:'Lessons 15–16',preferred:5,focus:'parts make a whole',name:'Parts Stay Whole',summary:'Join two visible parts and work out the hidden whole.',grows:'This grows out of breaking a stick of cubes into two parts and putting it back together.',steps:['Look at the two visible parts.','Build or show both parts.','Show how many altogether; then reveal the whole.'],materials:'Cubes, fingers, number cards, or a device.'},
+        {unit:2,id:'order',iso:'2026-09-18',date:'Fri 18 Sep 2026',source:'Lessons 17–18',preferred:10,focus:'order and quantity',name:'Order & Shape',summary:'Find the missing number, then see the same amount in a new shape.',grows:'This grows out of putting shuffled number cards back in order and arranging the same set in lines and boxes.',steps:['Follow the number-card order.','Show the missing number.','Reveal, then notice that a new shape keeps the count.'],materials:'Number cards, cubes, fingers, or a device.'},
+        {unit:2,id:'necklace',iso:'2026-09-22',date:'Tue 22 Sep 2026',source:'Lessons 19–20',preferred:10,focus:'count a ring once',name:'Necklace Count',summary:'Count a ring from its marked start without counting any piece twice.',grows:'This grows out of counting scattered beans, sliding them into a magic necklace, and counting the same set again.',steps:['Find the marked starting piece.','Point around the ring and stop before the mark.','Show how many; then reveal.'],materials:'Counters, fingers, number cards, or a device.'},
+        {unit:2,id:'move',iso:'2026-09-24',date:'Thu 24 Sep 2026',source:'Lessons 21–22',preferred:10,focus:'same, more, or fewer',name:'Move It, Keep the Count',summary:'Compare two arrangements after the counters move.',grows:'This grows out of moving one set through a tower, rows, columns, and the four edges while its count stays the same.',steps:['Look at both arrangements.','Show same, more, or fewer.','Reveal and check by counting.'],materials:'Counters, comparison cards, fingers, or a device.'},
+        {unit:2,id:'ringrows',iso:'2026-09-28',date:'Mon 28 Sep 2026',source:'Lessons 23–24',preferred:10,focus:'arrange and count',name:'Ring to Rows',summary:'Count an arranged set and reveal the numeral that names it.',grows:'This grows out of making a ring around a marked cup, then building nine as three rows of three.',steps:['Find a sensible place to start.','Point once to each counter.','Show the numeral; then reveal.'],materials:'Counters, number cards, fingers, or a device.'},
+        {unit:2,id:'ten',iso:'2026-09-30',date:'Wed 30 Sep 2026',source:'Lessons 25–26',preferred:10,focus:'ten as two fives',name:'See Ten Quickly',summary:'Use five-groups to see a total without losing your place.',grows:'This grows out of filling a five-group mat with two fives, then turning ten into five rows of two.',steps:['Look for full groups of five.','Show the total with a card, fingers, or a device.','Reveal and explain what made it easy to see.'],materials:'A five-group mat, counters, number cards, or a device.'},
+        {unit:2,id:'party',iso:'2026-10-02',date:'Fri 2 Oct 2026',source:'Lessons 27–29',preferred:10,focus:'a quantity changes',name:'The Party Changes',summary:'Watch a group change when some party guests leave.',grows:'This grows out of moving the same ten counters into new arrangements, then acting out a story as children leave a party.',steps:['Count how many are at the party.','Notice how many leave.','Show how many remain; then reveal.'],materials:'Counters, fingers, number cards, or a device.'},
+        {"unit": 2, "id": "wallcount", "iso": "2026-10-06", "date": "Tue 6 Oct 2026", "source": "Teacher-created", "preferred": 10, "focus": "compare and check", "name": "Count the Exhibition", "summary": "Count the artworks on two parts of our exhibition wall, compare them, and check a count the teacher gives.", "grows": "This grows out of Count the Exhibition, where the room guessed, then counted the artworks on our wall together, touching each one, wrote both numbers, said which side has more and how we know, and checked a count the teacher gave.", "steps": ["Count the artworks on each part of the wall, one touch for each.", "Show same, more or fewer \u2014 or keep or change the number on the label.", "Tap Reveal to count both parts and compare."], "materials": "Counters, comparison cards, fingers, number cards 0 to 10, or a device"},
+      ];
+      games.push(...RiseMissions.metadata, ...RiseSpring.metadata);
+      games.sort((a,b)=>a.iso.localeCompare(b.iso));
+      let max=5,selected=0,active=null,round=0,current=null,userPickedRange=false,history=[],historyIndex=-1;
+      const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)],rand=n=>Math.floor(Math.random()*n),clampCount=(n,min=0)=>Math.max(min,Math.min(max,n));
+      const today=new Date(),todayIso=`${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+      const gameDate=g=>new Date(`${g.iso}T12:00:00`),status=g=>g.iso===todayIso?'today':g.iso<todayIso?'past':'future';
+      const nearestIndex=()=>{const firstFuture=games.findIndex(g=>g.iso>=todayIso);return firstFuture>=0?firstFuture:games.length-1};
+      const dateTrack=$('#dateTrack'),dateSelect=$('#dateSelect');
+      const dots=n=>Array.from({length:n},()=>'<span class="token" aria-hidden="true"></span>').join('');
+      const artifacts=n=>Array.from({length:n},()=>'<span class="artifact" aria-hidden="true"></span>').join('');
+      const stars=(n,leaving=0)=>Array.from({length:n},(_,i)=>`<span class="party-token ${i>=n-leaving?'leaving':''}" aria-hidden="true"></span>`).join('');
+      const themes={butterflies:{name:'butterflies',one:'butterfly',image:true,away:'fly away',awayOne:'flies away'},apples:{name:'apples',one:'apple',emoji:'🍎',away:'roll away',awayOne:'rolls away'},shells:{name:'shells',one:'shell',emoji:'🐚',away:'slide away',awayOne:'slides away'},frogs:{name:'frogs',one:'frog',emoji:'🐸',away:'hop away',awayOne:'hops away'},stars:{name:'stars',one:'star',emoji:'⭐',away:'move away',awayOne:'moves away'},acorns:{name:'acorns',one:'acorn',emoji:'🌰',away:'roll away',awayOne:'rolls away'},birds:{name:'birds',one:'bird',emoji:'🐦',away:'fly away',awayOne:'flies away'},flowers:{name:'flowers',one:'flower',emoji:'🌼',away:'are carried away',awayOne:'is carried away'},bears:{name:'bears',one:'bear',emoji:'🐻',away:'walk away',awayOne:'walks away'}};
+      const objectIcons=(n,theme,leaving=0)=>Array.from({length:n},(_,i)=>theme.image?`<img class="butterfly ${i>=n-leaving?'leaving':''}" src="butterfly-counter.png" alt="" aria-hidden="true">`:`<span class="counter-object ${i>=n-leaving?'leaving':''}" aria-hidden="true">${theme.emoji}</span>`).join('');
+      const shapePiece=(shape,color,size='big',turn=false)=>`<span class="picture-shape ${shape} ${color} ${size==='small'?'small':''} ${turn?'turn':''}" aria-hidden="true"></span>`;
+      const shapeCard=(shape,color,size='big',turn=false)=>`<div class="picture-card">${shapePiece(shape,color,size,turn)}</div>`;
+      dateSelect.innerHTML=games.map((g,i)=>`<option value="${i}">${g.date} — ${g.name}</option>`).join('');
+      $('#todayLine').textContent=`Today is ${today.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric',year:'numeric'})}. Choose any earlier or upcoming game.`;
+      function resetRounds(){history=[];historyIndex=-1;round=0;current=null}
+      function setRange(value,manual=false){max=value;if(manual)userPickedRange=true;$$('.range-btn').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.max)===max)));if(active){resetRounds();nextRound()}}
+      $$('.range-btn').forEach(btn=>btn.addEventListener('click',()=>setRange(Number(btn.dataset.max),true)));
+      function statusCopy(g){const s=status(g);if(s==='today')return ['Today','Today’s mission is ready!'];const diff=Math.round((gameDate(g)-new Date(`${todayIso}T12:00:00`))/86400000);if(s==='past')return ['Past game',`${Math.abs(diff)} day${Math.abs(diff)===1?'':'s'} ago`];return ['Coming up',`${diff} day${diff===1?'':'s'} away`]}
+      function renderDates(scroll=true){
+        dateTrack.innerHTML=games.map((g,i)=>{const s=status(g);return `<button class="day-button ${s} ${i===selected?'selected':''}" data-date-index="${i}" aria-pressed="${i===selected}"><span class="day">${g.date.replace(' 2026','')}</span><strong>${g.name}</strong><small>${s==='today'?'Today':s==='past'?'Past':'Future'}</small></button>`}).join('');
+        const g=games[selected],[label,relative]=statusCopy(g);dateSelect.value=String(selected);$('#missionNumber').textContent=`Mission ${selected+1} of ${games.length}`;$('#statusPill').textContent=label;$('#fullDate').textContent=`${g.date} · ${relative}`;$('#spotlightName').textContent=g.name;$('#spotlightSummary').textContent=g.summary;$('#spotlightFocus').textContent=`0–${g.preferred} · ${g.focus}`;$('#spotlightSource').textContent=`Unit ${g.unit} · ${g.source}`;$('#studentMove').textContent=g.materials;$('#mascotSpeech').textContent=status(g)==='past'?'Replay a favorite!':status(g)==='today'?'Ready for today!':'Let’s peek ahead!';
+        $('#dayPrev').disabled=selected===0;$('#dayNext').disabled=selected===games.length-1;$('#trackPrev').disabled=selected===0;$('#trackNext').disabled=selected===games.length-1;
+        const past=games.map((g,i)=>status(g)==='past'?i:-1).filter(i=>i>=0),future=games.findIndex(g=>status(g)==='future');$('#pastJump').disabled=!past.length;$('#futureJump').disabled=future<0;
+        if(!userPickedRange)setRange(g.preferred);
+        if(scroll)requestAnimationFrame(()=>dateTrack.querySelector('.selected')?.scrollIntoView({behavior:'smooth',block:'nearest',inline:'center'}));
+      }
+      function chooseDate(i){selected=Math.max(0,Math.min(games.length-1,i));renderDates(true)}
+      dateTrack.addEventListener('click',e=>{const b=e.target.closest('[data-date-index]');if(b)chooseDate(Number(b.dataset.dateIndex))});dateSelect.addEventListener('change',()=>chooseDate(Number(dateSelect.value)));
+      $('#dayPrev').addEventListener('click',()=>chooseDate(selected-1));$('#trackPrev').addEventListener('click',()=>chooseDate(selected-1));$('#dayNext').addEventListener('click',()=>chooseDate(selected+1));$('#trackNext').addEventListener('click',()=>chooseDate(selected+1));$('#nearestJump').addEventListener('click',()=>chooseDate(nearestIndex()));
+      $('#pastJump').addEventListener('click',()=>{const list=games.map((g,i)=>status(g)==='past'?i:-1).filter(i=>i>=0);if(list.length)chooseDate(list.at(-1))});$('#futureJump').addEventListener('click',()=>{const i=games.findIndex(g=>status(g)==='future');if(i>=0)chooseDate(i)});
+      function ringSvg(n){const cx=360,cy=155,rx=265,ry=105,nodes=Array.from({length:n},(_,i)=>{const a=(i/n)*Math.PI*2-Math.PI/2,x=cx+Math.cos(a)*rx,y=cy+Math.sin(a)*ry;return `<g><circle cx="${x}" cy="${y}" r="24" fill="${i===0?'#E8622A':'#FFD66B'}" stroke="#102A56" stroke-width="5"/>${i===0?`<circle cx="${x}" cy="${y}" r="7" fill="#102A56"/>`:''}</g>`}).join('');return `<svg class="svg-board" viewBox="0 0 720 310" role="img" aria-label="A ring of counters to count, with the first counter marked">${nodes}<path d="M360 24 C480 18 610 80 635 145" fill="none" stroke="#2E7D45" stroke-width="8" stroke-linecap="round"/><path d="M617 129l20 20 12-25" fill="none" stroke="#2E7D45" stroke-width="8" stroke-linecap="round"/></svg>`}
+      function sequenceVisual(start,dir,missing,len){return `<div class="sequence">${Array.from({length:len},(_,i)=>{const v=start+i*dir,card=`<div class="seq-card ${i===missing?'missing':''}">${i===missing?'?':v}</div>`;return card+(i<len-1?`<div class="arrow">${dir>0?'→':'←'}</div>`:'')}).join('')}</div>`}
+      function tenFrame(n){const cells=Math.max(10,max>10?20:10);return `<div class="ten-frame" style="grid-template-rows:repeat(${cells/5},clamp(42px,5.8vw,70px))">${Array.from({length:cells},(_,i)=>`<div class="ten-cell">${i<n?'<span class="ten-dot"></span>':''}</div>`).join('')}</div>`}
+      function makeChallenge(id){
+        const extension=RiseSpring.legacyBuild(id,max,round)||RiseSpring.build(id,max,round)||RiseMissions.build(id,max,round);if(extension)return extension;
+        if(id==='countmatch'){const n=Math.max(1,rand(max)+1),theme=[themes.frogs,themes.apples,themes.shells,themes.butterflies][(round-1)%4];return {prompt:`Build or show the same number of ${theme.name}.`,answer:`The matching numeral is ${n}.`,visual:`<div class="object-field" role="img" aria-label="A group of ${theme.name} to count">${objectIcons(n,theme)}</div>`}}
+        if(id==='exactsame'){const mode=round%3,same=mode<2;let second={shape:'square',color:'orange',size:'big',turn:false},why='Both cards have the same shape, color, and size.';if(mode===1){second.turn=true;why='They are exactly the same. One card only turned.'}if(mode===2){const difference=['color','shape','size'][rand(3)];if(difference==='color'){second.color='purple';why='Not exactly: the color changed.'}if(difference==='shape'){second.shape='circle';why='Not exactly: the shape changed.'}if(difference==='size'){second.size='small';why='Not exactly: the size changed.'}}return {prompt:'Exactly the same, or not exactly the same?',answer:`${same?'Exactly the same.':'Not exactly the same.'} ${why}`,visual:`<div class="picture-pair" role="img" aria-label="Two picture cards to compare">${shapeCard('square','orange')}<div class="versus">?</div>${shapeCard(second.shape,second.color,second.size,second.turn)}</div>`}}
+        if(id==='alike'){const shared=round%3;let left,right,answer;if(shared===0){left=['circle','orange','big'];right=['square','orange','small'];answer='One way alike: both are orange.'}else if(shared===1){left=['circle','orange','big'];right=['circle','purple','small'];answer='One way alike: both are circles.'}else{left=['circle','orange','big'];right=['square','purple','big'];answer='One way alike: both are the same size.'}return {prompt:'What is one way these are alike?',answer,visual:`<div class="picture-pair" role="img" aria-label="Two picture cards to compare">${shapeCard(...left)}<div class="same-arrow">↔</div>${shapeCard(...right)}</div>`}}
+        if(id==='secretrule'){const rule=round%3,follows=round%2===0;let examples,mystery,label;if(rule===0){examples=shapePiece('circle','orange')+shapePiece('square','orange','small');mystery=shapePiece('triangle',follows?'orange':'purple');label='orange'}else if(rule===1){examples=shapePiece('circle','orange')+shapePiece('circle','purple','small');mystery=shapePiece(follows?'circle':'square','green');label='circles'}else{examples=shapePiece('square','orange','big')+shapePiece('circle','purple','big');mystery=shapePiece('triangle','green',follows?'big':'small');label='big'}return {prompt:'Does the mystery card follow the secret rule?',answer:`${follows?'Yes.':'No.'} The secret rule is ${label}.`,visual:`<div class="rule-scene" role="img" aria-label="Example cards and one mystery card"><div class="rule-examples"><span class="rule-title">Follows my rule</span>${examples}</div><div class="mystery-card"><span class="rule-title">Mystery</span>${mystery}</div></div>`}}
+        if(id==='inout'){const wings=round%2===1,belongs=round%3!==0;let object,name;if(wings){if(belongs){object='<img class="butterfly mystery-butterfly" src="butterfly-counter.png" alt="" aria-hidden="true">';name='butterfly'}else{object='<span class="object-icon" aria-hidden="true">🌼</span>';name='flower'}}else{if(belongs){object='<span class="object-icon" aria-hidden="true">🌿</span>';name='plant'}else{object='<span class="object-icon" aria-hidden="true">🐝</span>';name='bee'}}const rule=wings?'HAS WINGS':'GROWS FROM THE GROUND';return {prompt:'Does the mystery picture go in or out?',answer:`${belongs?'In.':'Out.'} The ${name} ${belongs?'follows':'does not follow'} the rule.`,visual:`<div class="mystery-card" style="width:min(520px,100%)" role="img" aria-label="A mystery picture to sort"><span class="rule-card">RULE: ${rule}</span>${object}</div>`}}
+        if(id==='threehomes'){const target=Math.max(1,rand(max)+1);let choices;if(max===3)choices=[1,2,3];else{choices=[target];while(choices.length<3){const n=rand(max+1);if(!choices.includes(n))choices.push(n)}choices.sort(()=>Math.random()-.5)}return {prompt:'Which numbered home matches the acorn group?',answer:`The acorns belong in home ${target}.`,visual:`<div class="number-homes"><div class="object-field" role="img" aria-label="A group of acorns to count">${objectIcons(target,themes.acorns)}</div><div class="homes" aria-label="Numbered homes">${choices.map(n=>`<div class="home">${n}</div>`).join('')}</div></div>`}}
+        if(id==='rowsame'){const limit=Math.min(max,6),a=Math.max(1,rand(limit)+1),same=round%2===0,b=same?a:(a===limit?a-1:a+1);return {prompt:'Do the star row and column show the same amount?',answer:`${same?'Yes, the amount stayed the same.':'No, the amounts are different.'} The row has ${a}; the column has ${b}.`,visual:`<div class="arrangements"><div class="arrangement" role="img" aria-label="A row of stars"><span class="case-label">Row</span><div style="display:flex;flex-wrap:wrap;justify-content:center;gap:.25rem">${objectIcons(a,themes.stars)}</div></div><div class="versus">?</div><div class="arrangement" role="img" aria-label="A column of stars"><span class="case-label">Column</span><div class="object-column">${objectIcons(b,themes.stars)}</div></div></div>`}}
+        if(id==='storychange'){const sceneThemes=[themes.butterflies,themes.frogs,themes.apples,themes.birds,themes.flowers,themes.shells],theme=sceneThemes[(round-1+(active.themeOffset||0))%sceneThemes.length];if(round%2===1){const whole=Math.max(1,rand(max)+1),a=rand(whole+1),b=whole-a;return {prompt:`The two groups join. How many ${theme.name} altogether?`,answer:`${a} and ${b} make ${whole} ${whole===1?theme.one:theme.name} altogether.`,visual:`<div class="two-gardens"><div class="garden" role="img" aria-label="The first group of ${theme.name}"><span class="garden-label">First group</span>${objectIcons(a,theme)}</div><div class="versus">+</div><div class="garden" role="img" aria-label="The second group of ${theme.name}"><span class="garden-label">Joining in</span>${objectIcons(b,theme)}</div></div>`}}const start=Math.max(1,rand(max)+1),leave=1+rand(start),stay=start-leave,away=leave===1?theme.awayOne:theme.away;return {prompt:`The faded ${theme.name} ${theme.away}. How many stay?`,answer:`${start} ${start===1?theme.one:theme.name}; ${leave} ${leave===1?theme.one:theme.name} ${away}; ${stay} stay.`,visual:`<div class="object-field" role="img" aria-label="${theme.name} staying and moving away">${objectIcons(start,theme,leave)}</div>`}}
+        if(id==='fieldwater'){const whole=Math.max(1,rand(max)+1),a=rand(whole+1),b=whole-a;return {prompt:'How many bears are in the whole group?',answer:`${a} in the field and ${b} in the water are two parts of the same whole: ${whole}.`,visual:`<div class="two-gardens"><div class="garden" role="img" aria-label="Bears in the field"><span class="garden-label">Field</span>${objectIcons(a,themes.bears)}</div><div class="versus">+</div><div class="garden water" role="img" aria-label="Bears in the water"><span class="garden-label">Water</span>${objectIcons(b,themes.bears)}</div></div>`}}
+        if(id==='empty'){const cycle=[0,1,2,3],n=max===3?cycle[round%4]:rand(max+1);return {prompt:n===0?'How many cubes are left?':'How many cubes do you see?',answer:n===0?'0 means none. The hand is empty.':`The numeral is ${n}.`,visual:n===0?'<div class="empty-hand" role="img" aria-label="An open hand ready for counting"><svg viewBox="0 0 360 230" aria-hidden="true"><path class="hand-shape" d="M82 200c-18-22-28-48-24-73l8-51c2-13 20-12 22 1l-2 39 11-77c2-15 23-14 24 1l-5 71 15-87c3-16 25-13 24 3l-9 86 18-76c4-16 25-11 22 5l-13 82 22-45c7-14 27-5 22 10l-22 66c-7 22-19 39-36 52-29 21-80 16-97-7z"/><path class="hand-line" d="M92 145c35-16 72-13 101 7"/></svg></div>':`<div class="cube-row" role="img" aria-label="Cubes to count">${Array.from({length:n},()=>'<span class="cube"></span>').join('')}</div>`}}
+        if(id==='parts'){const whole=Math.max(1,rand(max)+1),a=rand(whole+1),b=whole-a;return {prompt:'How many altogether?',answer:`${a} and ${b} make ${whole} altogether.`,visual:`<div class="part-whole"><div class="number-box whole unknown-whole" aria-label="The whole is covered">?</div><div class="number-box part">${a}</div><div class="plus">+</div><div class="number-box part">${b}</div></div>`}}
+        if(id==='order'){const len=Math.min(5,max+1),back=round%2===0,high=Math.max(len-1,Math.min(max,rand(Math.max(1,max-len+2))+len-1)),start=back?high:Math.max(0,high-len+1),dir=back?-1:1,missing=1+rand(Math.max(1,len-2)),val=start+missing*dir;return {prompt:`What number is missing ${back?'as we count back':'as we count on'}?`,answer:`${val} belongs in the empty card.`,visual:sequenceVisual(start,dir,missing,len)}}
+        if(id==='necklace'){const n=Math.max(1,rand(max)+1);return {prompt:'Start at the mark. How many are on the necklace?',answer:`There are ${n}. Stop before counting the marked piece twice.`,visual:ringSvg(n)}}
+        if(id==='move'){const a=Math.max(1,rand(max)+1),delta=round%3===0?0:(round%3===1?1:-1),b=clampCount(a+delta,1),relation=a===b?'the same':a>b?'more':'fewer';return {prompt:'Does the left set have the same, more, or fewer?',answer:`Left has ${relation}: ${a} and ${b}.`,visual:`<div class="arrangements"><div class="arrangement"><div class="token-grid">${dots(a)}</div></div><div class="versus" aria-hidden="true">vs</div><div class="arrangement"><div class="token-grid">${dots(b)}</div></div></div>`}}
+        if(id==='ringrows'){const n=Math.max(1,rand(max)+1),useRing=round%2===1,visual=useRing?ringSvg(n):`<div class="arrangement" style="width:min(650px,100%)"><div class="token-grid">${dots(n)}</div></div>`;return {prompt:`How many are in this ${useRing?'ring':'arrangement'}?`,answer:`The numeral is ${n}. Moving them would not change the count.`,visual}}
+        if(id==='ten'){const n=max<=5?Math.max(1,rand(max)+1):Math.max(5,rand(max-4)+5);return {prompt:'How many can you see in the five-groups?',answer:n===10?'10 is two full groups of 5.':`${n} is ${Math.floor(n/5)} group${Math.floor(n/5)===1?'':'s'} of 5 and ${n%5} more.`,visual:tenFrame(n)}}
+        if(id==='party'){const start=Math.max(1,rand(max)+1),leave=rand(start+1),left=start-leave;return {prompt:'Some guests leave. How many stay at the party?',answer:`${start} guests, ${leave} leave, ${left} stay.`,visual:`<div class="change-story"><div class="story-line">${leave===0?'Nobody leaves this time.':`${leave} ${leave===1?'guest leaves':'guests leave'}.`}</div><div class="party-row" role="img" aria-label="${start} guests, with ${leave} leaving">${stars(start,leave)}</div></div>`}}
+        const left=Math.max(1,rand(max)+1),right=Math.max(1,rand(max)+1),check=round%2===0,claim=clampCount(left+(round%4===0?1:0));if(check)return {prompt:`The card says ${claim}. Keep the count or change it?`,answer:left===claim?`Keep it: Left side has ${left}.`:`Change it: Left side has ${left}, not ${claim}.`,visual:`<div class="compare"><div class="case"><span class="case-label">Left side</span>${artifacts(left)}<span class="claimed"> ${claim}</span></div><div class="versus">?</div><div class="case"><span class="case-label">Right side</span>${artifacts(right)}</div></div>`};const relation=left===right?'the same number as':left>right?'more than':'fewer than';return {prompt:'Does Left side have the same, more, or fewer?',answer:`Left side has ${left}: ${relation} Right side’s ${right}.`,visual:`<div class="compare"><div class="case"><span class="case-label">Left side</span>${artifacts(left)}</div><div class="versus">vs</div><div class="case"><span class="case-label">Right side</span>${artifacts(right)}</div></div>`}
+      }
+      function renderTrail(){const length=active?.unit>=3?6:5,step=(round-1)%length;$('#roundTrail').innerHTML=Array.from({length},(_,i)=>`<span class="trail-dot ${i<step?'done':i===step?'current':''}" aria-hidden="true"></span>`).join('')+`<span class="round-label">Round ${round}${current?.stageCount>1?' · '+current.stageNumber+'/'+current.stageCount:''}</span>`}
+      function fillGuide(){const g=active;$('#grows').textContent=g.grows;$('#guideSteps').innerHTML=g.steps.map((s,i)=>`<div class="guide-step"><b>${i+1}</b>${s}</div>`).join('');$('#materials').textContent=g.materials;$('#planNote').textContent=`Game move: ${g.name} — number-size setting ${max}, ${g.focus}. Teacher reveals; the class checks and changes together.`}
+      function openGame(){active=games[selected];resetRounds();$('#gameDate').textContent=active.date;$('#gameName').textContent=active.name;$('#promptBadge').textContent=`0–${max}`;fillGuide();$('#library').hidden=true;$('#game').classList.add('active');nextRound();$('#back').focus();window.scrollTo(0,0)}
+      function renderCurrent(){if(!current)return;renderTrail();$('#playBoard').classList.toggle('symbolic',!!current.symbolic);$('#prompt').textContent=current.symbolic?current.symbol:current.prompt;$('#prompt').setAttribute('aria-label',current.prompt);$('#promptBadge').textContent=`0–${max}`;$('#visual').innerHTML=current.revealed&&current.revealedVisual?current.revealedVisual:current.prepared&&current.preparedVisual?current.preparedVisual:current.visual;if(current.prepareLabel&&!current.revealed&&(!current.prepared||current.audio))$('#visual').insertAdjacentHTML('beforeend',`<button class="pour-button" data-prepare aria-label="${current.prepareLabel}">↷</button>`);$('#answer .answer-cover').textContent=current.symbolic?'?':'Everyone answers—then reveal';$('#answerText').textContent=current.revealed?current.answer:'';$('#answer').classList.toggle('masked',!current.revealed);$('#playBoard').classList.remove('celebrate');$('#reveal').textContent=current.revealed?'Answer revealed':'Reveal together';$('#previousRound').disabled=historyIndex<=0;$('#next').textContent=current.stageNumber<current.stageCount?'Next step →':'Next round →';$('#previousRound').textContent='← Previous step';$('#audioControls').hidden=!current.audio;fillGuide()}
+      $('#visual').addEventListener('click',e=>{if(e.target.closest('[data-prepare]')&&current&&!current.revealed){current.prepared=true;renderCurrent();if(current.audio)RiseSpring.playTaps(current.audio)}});
+      function nextRound(){if(!active)return;RiseSpring.stopTaps();if(historyIndex<history.length-1){historyIndex++}else{round=history.length?history.at(-1).roundNumber+1:1;const made=makeChallenge(active.id),stages=made.stages||[made];const start=history.length;stages.forEach((part,i)=>history.push({...part,roundNumber:round,stageNumber:i+1,stageCount:stages.length,revealed:false}));historyIndex=start}current=history[historyIndex];round=current.roundNumber;renderCurrent()}
+      function previousRound(){if(!active||historyIndex<=0)return;RiseSpring.stopTaps();historyIndex--;current=history[historyIndex];round=current.roundNumber;renderCurrent()}
+      function reveal(){if(!active||!current||current.revealed)return;RiseSpring.stopTaps();current.revealed=true;if(current.revealedVisual)$('#visual').innerHTML=current.revealedVisual;$('#answerText').textContent=current.answer;$('#answer').classList.remove('masked');$('#playBoard').classList.remove('celebrate');void $('#playBoard').offsetWidth;$('#playBoard').classList.add('celebrate');$('#reveal').textContent='Answer revealed'}
+      function closeGame(){RiseSpring.stopTaps();if($('#guideDialog').open){$('#guideDialog').close();return}active=null;$('#game').classList.remove('active');$('#library').hidden=false;renderDates(false);window.scrollTo(0,0);$('#playSelected').focus()}
+      $('#tapVolume').addEventListener('input',e=>RiseSpring.setVolume(e.target.value));$('#muteTaps').addEventListener('click',()=>{$('#tapVolume').value=0;RiseSpring.setVolume(0)});
+      const confettiColors=['#E8622A','#6B3FA0','#FFD66B','#2E7D45','#A32424'];$('#confetti').innerHTML=Array.from({length:22},(_,i)=>`<i style="--x:${(i*47)%96}%;--c:${confettiColors[i%confettiColors.length]};--r:${i*29}deg;animation-delay:${(i%7)*.04}s"></i>`).join('');
+      $('#playSelected').addEventListener('click',openGame);$('#next').addEventListener('click',nextRound);$('#previousRound').addEventListener('click',previousRound);$('#reveal').addEventListener('click',reveal);$('#back').addEventListener('click',closeGame);$('#guideButton').addEventListener('click',()=>{$('#guideDialog').showModal();$('#closeGuide').focus()});$('#closeGuide').addEventListener('click',()=>$('#guideDialog').close());
+      $('#copyPlan').addEventListener('click',async()=>{try{await navigator.clipboard.writeText($('#planNote').textContent);$('#copyPlan').textContent='Copied for Claude!'}catch{$('#copyPlan').textContent='Select the line above to copy'}setTimeout(()=>$('#copyPlan').textContent='Copy lesson-plan line',1800)});
+      document.addEventListener('keydown',e=>{if($('#guideDialog').open)return;if(!active)return;if(e.code==='Space'){e.preventDefault();nextRound()}if(e.key==='ArrowLeft'||e.key.toLowerCase()==='p'){e.preventDefault();previousRound()}if(e.key.toLowerCase()==='r'){e.preventDefault();reveal()}if(e.key.toLowerCase()==='g'){e.preventDefault();$('#guideDialog').showModal()}if(e.key==='Escape'){e.preventDefault();closeGame()}});
+      const requestedMission=new URLSearchParams(location.search).get('mission');const requestedIndex=games.findIndex(g=>g.iso===requestedMission);selected=requestedIndex>=0?requestedIndex:nearestIndex();renderDates(true);if(requestedIndex>=0)openGame();
+    })();
+  </script>
+</body>
+</html>

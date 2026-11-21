@@ -1,0 +1,11 @@
+{
+  "source": "RISE Maths Game Trail local source, 23 October 2026",
+  "files": {
+    "missions.js": "e870c3d6fd692daa19c534a9976c6b30eb9798d2a80d3883b03ce5a3ef01c6f1",
+    "spring.js": "2be45777dac6cd524bcce5bdc56c82068785a553365c681dca0351e29ddc20db",
+    "missions.css": "fde58794c6925c19d5ab672a56955edf6ec005519871679f0de729d729a008c4",
+    "rise-mascot.png": "5edb2f28f45c2ea99998d2ac959c6d0dd6f5fcf6de53230552eb85dc1bc69e8c",
+    "butterfly-counter.png": "edf58b59063d74485c3ecb7225c0724d706a529992445cdeccd3ad0564af4498"
+  },
+  "html_change": "Inlined the two unchanged original scripts for reliable sandboxed loading; added mission query parameter to open the requested existing dated board. Original boards and guides unchanged."
+}
